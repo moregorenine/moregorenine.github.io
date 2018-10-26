@@ -105,6 +105,7 @@ author:
   avatar           : "/assets/images/bio-photo.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "we wait for spring rain."
   location         : "Republic of Korea"
+  home             : "https://moregorenine.github.io" # null (default), "absolute or relative url to link to author home"
   email            :
   links:
     - label: "Email"
