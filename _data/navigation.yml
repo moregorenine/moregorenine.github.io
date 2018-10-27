@@ -1,3 +1,5 @@
 main:
-  - title: "posts"
+  - title: "category"
     url: /categories/
+  - title: "tag"
+    url: /tags/
