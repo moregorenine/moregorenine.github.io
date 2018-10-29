@@ -33,3 +33,7 @@ JPA를 이용하기에 그 당시 어려움이 있었다.
 5년이 지난 지금 얼만큼의 발전이 있었는지 모르겠으나.  
 JPA를 좀더 효율적으로 사용하게 지원해주는 Querydsl이 있다고 하니 한번 적용하면서 그 기록을 남기고자 한다.  
 native query를 사용하지 않고 얼만큼의 구현이 가능할지 조심스레 기대해본다.  
+
+## 레퍼런스 문서
+
+레퍼런스 문서 [link](http://www.querydsl.com/static/querydsl/3.4.3/reference/ko-KR/html_single/ "querydsl").
