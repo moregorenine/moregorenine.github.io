@@ -1,5 +1,6 @@
 ---
 title: "Querydsl"
+excerpt: "Querydsl 정적 타입을 이용해서 SQL과 같은 쿼리를 생성할 수 있도록 해 주는 프레임워크다."
 categories: 
   - JPA
 tags: 
