@@ -36,4 +36,4 @@ native query를 사용하지 않고 얼만큼의 구현이 가능할지 조심�
 
 ## 레퍼런스 문서
 
-레퍼런스 문서 [link](http://www.querydsl.com/static/querydsl/3.4.3/reference/ko-KR/html_single/ "querydsl").
+[Querydsl - 레퍼런스 문서](http://www.querydsl.com/static/querydsl/3.4.3/reference/ko-KR/html_single/ "querydsl").
