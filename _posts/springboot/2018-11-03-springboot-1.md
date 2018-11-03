@@ -17,6 +17,12 @@ Spring Boot에 대해 알아보자 설정에서 부터
 [연습예제 github](https://github.com/moregorenine/study/tree/master/spring-boot-quick-start "연습예제 github Link")
 
 ## Spring Boot의 시작은?
-처음 spring boot를 접했을 땐 tomcat 설정도 필요없이 혼자 알아서 작동되는 걸 보고 신기해했었다. spring에서 처음 설정해주던 .xml도 보이지 않았으니깐 그 비밀의 시작은 아래 한줄이였다.  
+처음 spring boot를 접했을 땐 tomcat 설정도 필요없이 혼자 알아서 작동되는 걸 보고 신기해했었다. spring에서 처음 설정해주던 .xml도 보이지 않았으니깐 그 비밀의 시작은 아래 한줄이였다.
+
 > SpringApplication.run(App.class, args);
 
+이 한줄이 하는 역활이 무엇일까?
+- 기본 configuration 설정
+- spring application 시작
+- classpath 스캔
+- 톰캣서버 시작
