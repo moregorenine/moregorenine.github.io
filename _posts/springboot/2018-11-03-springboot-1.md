@@ -2,10 +2,9 @@
 title: "Spring Boot Quick Start #1"
 excerpt: "Spring Boot에 대해 알아보자 설정에서 부터"
 categories: 
-  - Java
+  - springboot
 tags: 
-  - Java
-  - Lambda
+  - springboot
 last_modified_at: 2018-11-03T21:00:00+09:00
 toc: true
 toc_sticky: true
