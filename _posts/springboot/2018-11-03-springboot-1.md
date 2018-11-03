@@ -26,3 +26,9 @@ Spring Boot에 대해 알아보자 설정에서 부터
 - spring application 시작
 - classpath 스캔
 - 톰캣서버 시작
+
+## Embedded 톰캣 특징
+- 편리하다
+- Servlet Container의 설정 파일이 application의 설정 파일로 대체
+- 독립적인 applicaiton
+- microservices 아키텍쳐에 유용함.
