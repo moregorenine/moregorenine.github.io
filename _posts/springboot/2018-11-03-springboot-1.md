@@ -41,3 +41,11 @@ Spring Boot에 대해 알아보자 설정에서 부터
 * 스프링 부트 CLI 명령어를 통한 방법
   * 예제 [링크](https://javabrains.io/courses/spring_bootquickstart/lessons/Using-Spring-Boot-CLI/)
 
+## application.properties
+스프링 설정파일 정보만 해도 어마어마하게 방대하다. 이걸 일일이 외우는 사람은 없겠죠? 자신의 버젼에 맞는 스프링 API 문서에서 찾을 수 있습니다.  
+current의 항상 최신 버젼의 스프링 API를 예로 들면  
+current version의 [Spring Boot Reference Guide](https://docs.spring.io/spring-boot/docs/current/reference/html/index.html)  
+문서양만 해도 어마무시한데요 무려 10번째 항목 Common application properties 에서 찾을 수 있으니 참고세요..
+* X. Appendices
+  * A. Common application properties
+이런 방대한 양의 설정들을 application.properties(굳이 properties에만 국한 되는게 아니라 yml등 다양한 설정 파일이 존재하죠) 에서 간단하게 설정할 수 있도록 도와주니 고마운 일이죠.
