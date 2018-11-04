@@ -48,4 +48,5 @@ current version의 [Spring Boot Reference Guide](https://docs.spring.io/spring-b
 문서양만 해도 어마무시한데요 무려 10번째 항목 Common application properties 에서 찾을 수 있으니 참고세요..
 * X. Appendices
   * A. Common application properties
-이런 방대한 양의 설정들을 application.properties(굳이 properties에만 국한 되는게 아니라 yml등 다양한 설정 파일이 존재하죠) 에서 간단하게 설정할 수 있도록 도와주니 고마운 일이죠.
+
+이런 방대한 양의 설정들을 `application.properties` or `application.yml` 에서 간단하게 설정할 수 있도록 도와주니 고마운 일이죠.
