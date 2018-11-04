@@ -5,7 +5,7 @@ categories:
   - JPA
 tags: 
   - JPA
-  - Querydsl
+  - querydsl
 last_modified_at: 2018-10-29T14:30:00+09:00
 toc: true
 toc_sticky: true

@@ -31,3 +31,13 @@ Spring Boot에 대해 알아보자 설정에서 부터
 - Servlet Container의 설정 파일이 application의 설정 파일로 대체
 - 독립적인 applicaiton
 - microservices 아키텍쳐에 유용함.
+
+## 스프링 부트 어떻게 시작할까요?
+스프링 부트 프로젝트 생성을 어떻게 시작할지 아래 3가지 방법에 대해서 알아본다.
+* STS IDE를 통한 방법
+  * 예제 [링크](https://javabrains.io/courses/spring_bootquickstart/lessons/Using-the-STS-IDE/)
+* 공식 스프링 사이트에서 프로젝트 생성 다운로드 [https://start.spring.io](https://start.spring.io)
+  * 예제 [링크](https://javabrains.io/courses/spring_bootquickstart/lessons/Using-Spring-Initializr/)
+* 스프링 부트 CLI 명령어를 통한 방법
+  * 예제 [링크](https://javabrains.io/courses/spring_bootquickstart/lessons/Using-Spring-Boot-CLI/)
+
