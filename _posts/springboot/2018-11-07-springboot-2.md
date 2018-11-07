@@ -5,7 +5,7 @@ categories:
   - springboot
 tags: 
   - springboot
-  - jpa
+  - JPA
 last_modified_at: 2018-11-07T22:00:00+09:00
 toc: true
 toc_sticky: true
