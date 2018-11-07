@@ -20,8 +20,7 @@ Spring Boot에 대해 알아보자 설정에서 부터
 JPA는 특정 DB에 종속되지 않는 범용적인 DB 접근방식이다.
 Entity 객체를 클래스로 선언하고 해당 클래스가 테이블 이랑 매핑 된다고 보면 된다. 우리는 어떤 DB를 사용할지 알 필요가 없다. 해당 Entity 객체에 대한 CRUD를 작성하면 차후 연결되는 DB에 JPA library가 알아서 쿼리를 작성해 mapping해 주다고 보면 된다. 이는 DB에 종속되지 않기에 DB변경으로 부터 자유롭고 빠른 개발을 가능케하고 쿼리 오류를 줄여준다. 만약 당신이 '어 내가 작성하는 쿼리보다 성능이 낮으면 어떻하지?'라고 걱정할수도 있겠지만... JPA 제공하는 업체에서는 자신들의 쿼리 자동 변경에 대해 상당한 자부심을 느끼고 있으니 천재가 아니라면 그냥 넘어가자.  
 우선 이번 화는 Web, JPA, Apach Derby 만 최소화 하여 선택 진행한다.  
-[![foo]
-(https://c1.staticflickr.com/5/4804/30825041407_6cc3be911d_o.png)](https://flic.kr/p/NXUoTa)  
+[![foo](https://c1.staticflickr.com/5/4804/30825041407_6cc3be911d_o.png)](https://flic.kr/p/NXUoTa)  
 
 ## Entity 객체
 우선 테이블과 매핑될 Entity 객체를 생성한다. Topic이란 객체는 id를 PK로 가지며 name, description 컬럼을 가지는 테이블이 될 것이다.  
