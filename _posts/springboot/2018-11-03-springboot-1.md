@@ -52,4 +52,4 @@ current version의 [Spring Boot Reference Guide](https://docs.spring.io/spring-b
 이런 방대한 양의 설정들을 `application.properties` or `application.yml` 에서 간단하게 설정할 수 있도록 도와주니 고마운 일이죠.
 
 ## Related Posts
-Spring Boot Quick Start #1 [link](https://moregorenine.github.io/springboot/springboot-2/ "Spring Boot Quick Start #2")
+Spring Boot Quick Start #2 [link](https://moregorenine.github.io/springboot/springboot-2/ "Spring Boot Quick Start #2")
