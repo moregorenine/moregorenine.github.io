@@ -120,12 +120,12 @@ author:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/w4springrain"
-    - label: "Facebook"
-      icon: "fab fa-fw fa-facebook-square"
-      url: "https://facebook.com/w4springrain"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/w4springrain"
+    # - label: "Facebook"
+      # icon: "fab fa-fw fa-facebook-square"
+      # url: "https://facebook.com/w4springrain"
+    # - label: "Instagram"
+      # icon: "fab fa-fw fa-instagram"
+      # url: "https://instagram.com/w4springrain"
 
 # Site Footer
 footer:
