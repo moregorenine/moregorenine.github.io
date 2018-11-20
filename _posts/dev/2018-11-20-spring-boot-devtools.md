@@ -18,7 +18,6 @@ Spring Boot JSP화면의 변경 사항이 새로고침을 해도 반영되지 �
 
 ## dependency 추가
 - Spring Boot에서 버젼관리를 해주는 dependency라 따로 Version은 기술하지 않았다.
-- `<optional>true</optional>` 속성을 추가할 수도 있으나 해당 설정은 POM파일에 기술하기 보다 `application.properties`설정 파일에 적용함이 나아보여 기술하지 않았다. 
 {% highlight java linenos %}
 <dependency>
 	<groupId>org.springframework.boot</groupId>
