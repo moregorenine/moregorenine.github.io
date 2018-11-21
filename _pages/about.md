@@ -1,7 +1,7 @@
 ---
+permalink: /about/
 title: "About"
 excerpt: "아침 여명에 눈을 떴을때 기분 좋은 남풍이 일었다. 돛은 올리자."
-permalink: /about/
 last_modified_at: 2018-11-21T13:05:00+09:00
 toc: true
 ---
