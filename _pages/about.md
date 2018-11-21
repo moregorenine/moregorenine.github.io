@@ -6,7 +6,7 @@ last_modified_at: 2018-11-21T13:05:00+09:00
 toc: true
 ---
 
-[![foo](https://www.flickr.com/photos/161640061@N05/45936377722/sizes/m/)](https://www.flickr.com/photos/161640061@N05/45936377722/in/dateposted-public/)
+[![foo](https://c1.staticflickr.com/5/4837/45936377722_29d8b0100f.jpg)](https://www.flickr.com/photos/161640061@N05/45936377722/in/dateposted-public/)
 
 ## 항해의 시작
 아쉽게도 배 이야기가 아니다. 하지만 인생사를 무언가에 빗대어 이야기할 때 **항해**란 두글자 만큼 매력적인 단어가 있을까? 그건 내겐 가슴을 설레게 하는 무엇가와 함께 미지의 영역에 대한 두려움 또한 내포하고 있는 단어이다.  
