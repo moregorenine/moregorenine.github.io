@@ -2,6 +2,16 @@
 permalink: /about/
 title: "About"
 excerpt: "아침 여명에 눈을 떴을때 기분 좋은 남풍이 일었다. 돛은 올리자."
+layouts_gallery:
+  - url: /assets/images/mm-layout-splash.png
+    image_path: /assets/images/mm-layout-splash.png
+    alt: "splash layout example"
+  - url: /assets/images/mm-layout-single-meta.png
+    image_path: /assets/images/mm-layout-single-meta.png
+    alt: "single layout with comments and related posts"
+  - url: /assets/images/mm-layout-archive.png
+    image_path: /assets/images/mm-layout-archive.png
+    alt: "archive layout example"
 last_modified_at: 2018-11-21T13:05:00+09:00
 toc: true
 ---
