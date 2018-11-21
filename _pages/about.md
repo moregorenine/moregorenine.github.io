@@ -3,7 +3,7 @@ title: "About"
 excerpt: "아침 여명에 눈을 떴을때 기분 좋은 남풍이 일었다. 돛은 올리자."
 permalink: /about/
 last_modified_at: 2018-11-21T13:05:00+09:00
-author_profile: true
+toc: true
 ---
 
 [![foo](https://images.unsplash.com/photo-1500917832468-298fa6292e2b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7dc310134cdefd68cbb1fc7c6ab2049d&auto=format&fit=crop&w=1350&q=80)](https://images.unsplash.com/photo-1500917832468-298fa6292e2b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7dc310134cdefd68cbb1fc7c6ab2049d&auto=format&fit=crop&w=1350&q=80)
