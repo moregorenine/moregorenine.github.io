@@ -20,3 +20,5 @@ toc: true
 [![foo](https://images.unsplash.com/photo-1529460608-bc455fccd5a4?ixlib=rb-0.3.5&s=7e57d07764579d4e2f372c144acc3404&auto=format&fit=crop&w=1490&q=80)](https://images.unsplash.com/photo-1529460608-bc455fccd5a4?ixlib=rb-0.3.5&s=7e57d07764579d4e2f372c144acc3404&auto=format&fit=crop&w=1490&q=80)  
 
 > seeker of truth 진실을 찾는자. 진실을 찾기위해 정진하는 자세는 구도자의 전유물처럼 생각됐다. 바다에 나오기 전까진...
+
+바다에서 살아남기 위해서는 구도자의 자세가 필요했다. 항해술이란 끊이없는 관찰의 연속이였고 관찰할 것들은 차고 넘쳤다. 현재 나의 위치에서 해와 달과 별들의 위치, 계절과 바람과 조류와 너울의 흐름등을 고려해 끊임없이 항로를 수정해야 했다.
