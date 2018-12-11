@@ -1,5 +1,5 @@
 ---
-title: "ztree를 이용한 트리구조 데이타 구현[작성중]"
+title: "zTree 예제 jquery 트리 구현"
 excerpt: "트리 구조/폴더 구조/계층형 구조... 형태의 데이타를 다루고 화면에 표현하는 프로젝트"
 categories: 
   - toyproject
@@ -14,6 +14,7 @@ toc_sticky: true
 ## Intro
 트리 구조/폴더 구조/계층형 구조의 데이터를 다루고 zTree라는 plugin을 사용해 이를 UI로 표현하는 프로젝트입니다.  
 해당 프로젝트의 github [link](https://github.com/moregorenine/toyproject/tree/master/tree-structure-ztree "github link")  
+Demo 테스트 사이트 [link](http://w4springrain.cafe24.com/menus "w4springrain homepage")
 특징은 아래와 같습니다.  
 - [zTree plugin](http://www.treejs.cn/ "homepage link")은 MIT License라 자유로운 이용이 가능합니다.
 - zTree는 순수하게 javascript와 jquery로 만들어진 plugin입니다.
