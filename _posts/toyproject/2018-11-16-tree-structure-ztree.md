@@ -1,11 +1,12 @@
 ---
-title: "zTree 예제 jquery 트리 구현"
+title: "zTree 예제 데모 jquery 트리 구현"
 excerpt: "트리 구조/폴더 구조/계층형 구조... 형태의 데이타를 다루고 화면에 표현하는 프로젝트"
 categories: 
   - toyproject
 tags: 
   - toyproject
   - JPA
+  - zTree
 last_modified_at: 2018-12-11T00:00:00+09:00
 toc: true
 toc_sticky: true
