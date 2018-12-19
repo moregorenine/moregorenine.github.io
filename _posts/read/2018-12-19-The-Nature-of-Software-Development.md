@@ -8,6 +8,7 @@ last_modified_at: 2018-12-19T00:00:00+09:00
 toc: true
 toc_sticky: true
 ---
+## Intro
 
 ### 시작하는 말
 > 애자일은 간결합니다. 4가지 가치와 12가지 원칙만 있습니다.<br>
