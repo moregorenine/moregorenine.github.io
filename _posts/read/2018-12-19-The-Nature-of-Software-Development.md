@@ -14,6 +14,7 @@ toc_sticky: true
 > 애자일은 간결합니다. 4가지 가치와 12가지 원칙만 있습니다.<br>
 &#8230;중략&#8230;<br>
 이 책은 소프트웨어 개발이라는 복잡한 활동 속에서 본질적인 간결함을 찾으려는 하나의 시도입니다.
+
 <cite>론 제프리스</cite> --- The Nature of Software Development
 {: .small}
 
@@ -21,6 +22,7 @@ toc_sticky: true
 
 ### 감사의 말
 > 자유, 믿음, 그리고 위대한 도서관과 같은 나의 부모님께...
+
 <cite>론 제프리스</cite> --- The Nature of Software Development
 {: .small}
 
@@ -32,6 +34,7 @@ toc_sticky: true
 
 ### 들어가기 앞서
 > 소프트웨어 개발에는 본질적인 방법이 존재한다. 그 방법은 모두에게 도움을 준다.
+
 <cite>론 제프리스</cite> --- The Nature of Software Development
 {: .small}
 
@@ -48,6 +51,7 @@ toc_sticky: true
 드디어 **피처**에 대한 정의가 나왔다. **Feature** 였다니!!!. **MMF**라고도 부르며 아래와 같이 정의한다.
 
 > Minimum Marketable Feature, 피처가 가치를 만들어낼 수 있는 최소 단위의 집합
+
 <cite>론 제프리스</cite> --- The Nature of Software Development
 {: .small}
 
@@ -58,8 +62,10 @@ toc_sticky: true
 > 소프트웨어를 직접 보기 전까지는 프로젝트 진행 상황을 알 수 없습니다. 코드를 테스트하는 단계가 오면 어떤 일이 일어날까요? 보통 좋은 일은 일어나지 않습니다.!<br>
 &#8230;중략&#8230;<br>
 더 나쁜 것은... 프로젝트가 계획대로 가는 일은 정말 드물다는 것입니다.
+
 <cite>론 제프리스</cite> --- The Nature of Software Development
 {: .small}
+
 정말 공감가는 말이라서 웃을 수 밖에. **가치**를 눈으로 확인할 수 있는 단위의 **피처**로 나누어 진행할 때의 장점에 대해 서술.
 
 ### 피처 단위로 조직 구성하기
