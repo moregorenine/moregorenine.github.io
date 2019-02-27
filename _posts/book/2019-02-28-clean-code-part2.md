@@ -5,7 +5,7 @@ categories:
   - 도서
 tags: 
   - 도서
-last_modified_at: 2019-02-18T00:00:00+09:00
+last_modified_at: 2019-02-28T00:00:00+09:00
 toc: true
 toc_sticky: true
 ---
@@ -98,7 +98,8 @@ Complex fulcrumPoint = new Complex(23.0);
   - HolyHandGrenade → DeleteItems
   - whack() → kill()
 
-### 한 개념에 한 단어를 사용하라
+### 한 개념에
+한 단어를 사용하라
 - 추상적인 개념 하나에 단어 하나를 사용하자.
   - 똑같은 메서드를 클래스마다 fetch, retrieve, get으로 제각각 부르면 혼란스럽다.
   - 마찬가지로 controller, manager, driver를 섞어 쓰면 혼란스럽다.
@@ -112,10 +113,89 @@ public List<Element> add(Element element)
 {% endhighlight %}
 
 ### 해법 영역에서 가져온 이름을 사용하라
+개발자라면 당연히 알고 있을 JobQueue, AccountVisitor(Visitor pattern)등을 사용하지 않을 이유는 없다. 전산용어, 알고리즘 이름, 패턴 이름, 수학 용어 등은 사용하자.
+
 ### 문제 영역에서 가져온 이름을 사용하라
+적절한 프로그래머 용어(위 13)가 없거나 문제영역과 관련이 깊은 용어의 경우 문제 영역 용어를 사용하자.
+
 ### 의미 있는 맥락을 추가하라
+- 클래스, 함수, namespace등으로 감싸서 맥락(Context)을 표현하라
+- 그래도 불분명하다면 접두어를 사용하자.
+
+{% highlight java linenos %}
+// Bad
+private void printGuessStatistics(char candidate, int count) {
+    String number;
+    String verb;
+    String pluralModifier;
+    if (count == 0) {  
+        number = "no";  
+        verb = "are";  
+        pluralModifier = "s";  
+    }  else if (count == 1) {
+        number = "1";  
+        verb = "is";  
+        pluralModifier = "";  
+    }  else {
+        number = Integer.toString(count);  
+        verb = "are";  
+        pluralModifier = "s";  
+    }
+    String guessMessage = String.format("There %s %s %s%s", verb, number, candidate, pluralModifier );
+
+    print(guessMessage);
+}
+{% endhighlight %}
+
+{% highlight java linenos %}
+// Good
+public class GuessStatisticsMessage {
+    private String number;
+    private String verb;
+    private String pluralModifier;
+
+    public String make(char candidate, int count) {
+        createPluralDependentMessageParts(count);
+        return String.format("There %s %s %s%s", verb, number, candidate, pluralModifier );
+    }
+
+    private void createPluralDependentMessageParts(int count) {
+        if (count == 0) {
+            thereAreNoLetters();
+        } else if (count == 1) {
+            thereIsOneLetter();
+        } else {
+            thereAreM
+            anyLetters(count);
+        }
+    }
+
+    private void thereAreManyLetters(int count) {
+        number = Integer.toString(count);
+        verb = "are";
+        pluralModifier = "s";
+    }
+
+    private void thereIsOneLetter() {
+        number = "1";
+        verb = "is";
+        pluralModifier = "";
+    }
+
+    private void thereAreNoLetters() {
+        number = "no";
+        verb = "are";
+        pluralModifier = "s";
+    }
+}
+{% endhighlight %}
+
 ### 불필요한 맥락을 없애라
+- `Gas Station Delux` 이라는 어플리케이션을 작성한다고 해서 클래스 이름의 앞에 GSD를 붙이지는 말자. G를 입력하고 자동완성을 누를 경우 모든 클래스가 나타나는 등 효율적이지 못하다.  
+위 a처럼 접두어를 붙이는 것은 모듈의 재사용 관점에서도 좋지 못하다. 재사용하려면 이름을 바꿔야 한다.(eg, `GSDAccountAddress` 대신 `Address`라고만 해도 충분하다.)  
+
 ### 마치면서
+> 두려워하지 말고 서로의 명명을 지적하고 고치자. 그렇게 하면 이름을 외우는 것에 시간을 빼앗기지 않고 "자연스럽게 읽히는 코드"를 짜는 데에 더 집중할 수 있다.
 
 ## 3장 함수
 작게 만들어라!
