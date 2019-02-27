@@ -31,6 +31,9 @@ public List<int[]> getFlaggedCells() {
 }
 {% endhighlight %}
 ### 그릇된 정보를 피하라
+- 중의적으로 해석될 수 있는 이름 지양하기.
+- 개발자에게는 특수한 의미를 가지는 단어(List 등)는 실제 컨테이너가 List가 아닌 이상 accountList라 명명하지 않는다. 차라리 accountGroup, bunchOfAccounts, accounts등으로 명명하자
+- 흡사한 이름은 사용하지 않도록 주의한다. XYZControllerForEfficientHandlingOfStrings, XYZControllerForEfficientStorageOfStringsfksms라는 이름을 사용한다면? 차이를 알아챘는가?
 ### 의미 있게 구분하라
 ### 발음하기 쉬운 이름을 사용하라
 ### 검색하기 쉬운 이름을 사용하라
