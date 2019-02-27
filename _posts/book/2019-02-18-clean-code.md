@@ -29,19 +29,19 @@ toc_sticky: true
 - 원대한 재설계의 꿈
   - 나쁜 코드가 쌓여 더는 리팩도링도 수정도 불가한 상태에 이르러 재디자인을 마련한다.
 
-##### 태도
+- 태도
 나쁜 코드의 원인이 무리한 요구사항과 일정이라 때문이라 어쩔 수 없다고 생각할 수도 있다.
 하지만 일정에 쫓기더라도 대다수 관리자는 좋은 코드를 원한다.
 관리자들이 일정과 요구사항을 강력하게 밀어붙이는 이유는 그것이 그들의 책임이기 때문이다.
 그리고 좋은 코드를 사수하는 일은 바로 우리 프로그래머들의 책임이다.
 
-##### 원초적 난제
+- 원초적 난제
 기한을 맞추기 위해 더러운 코드를 짜나 더러운 코드가 결국은 기한에 맞추는 데 방해 요소가 된다. 즉 언 발에 오줌 누는 꼴이다. 빨리 가기 위한 유일한 방법은, 언제나 코드를 최대한 깨끗하게 유지하는 습관이다.
 
-##### 깨끗한 코드라는 예술?
+- 깨끗한 코드라는 예술?
 잘 그린 그림을 구분하는 능력이 그림을 잘 그리는 능력은 아니다. 깨끗한 코드를 작성하려면 '청결'이라는 힘겹게 습득한 감각을 활용해 자잘한 기법들을 적용하는 절제와 규율이 필요하다.
 
-##### 깨끗한 코드란?
+- 깨끗한 코드란?
 <details>
   <summary>
     <b> Bjarne Stroustrup, inventor of C++ and author of The C++ Programming Language </b>
@@ -50,10 +50,10 @@ toc_sticky: true
 > *I like my code to be elegant and efficient. The logic should be straightforward to make it hard for bugs to hide, the dependencies minimal to ease maintenance, error handling complete according to an articulated strategy, and performance close to optimal so as not to tempt people to make the code messy with unprincipled optimizations. Clean code does one thing well.*
 </details>
 
-- 코드는 즐겁게 읽혀야 한다.
-- 효율적인 코드라야 한다. 이는 성능적 측면 뿐만 아니라 나쁜 코드는 난장판을 더 키우기 때문이다.(깨진 유리창 이론)
-- 에러 핸들링, 메모리 누수, 경쟁상태, 일관되지 않은 네이밍 등 디테일을 신경쓰라.
-- 나쁜 코드는 여러가지 일을 하려고 한다. 나쁜 코드는 애매한 의도와 모호한 목적을 포함한다. 클린코드는 한 가지에 집중한다. **클린코드는 한 가지 일을 잘 한다.**
+  - 코드는 즐겁게 읽혀야 한다.
+  - 효율적인 코드라야 한다. 이는 성능적 측면 뿐만 아니라 나쁜 코드는 난장판을 더 키우기 때문이다.(깨진 유리창 이론)
+  - 에러 핸들링, 메모리 누수, 경쟁상태, 일관되지 않은 네이밍 등 디테일을 신경쓰라.
+  - 나쁜 코드는 여러가지 일을 하려고 한다. 나쁜 코드는 애매한 의도와 모호한 목적을 포함한다. 클린코드는 한 가지에 집중한다. **클린코드는 한 가지 일을 잘 한다.**
 
 
 <details>
