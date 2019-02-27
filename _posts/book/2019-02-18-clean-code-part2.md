@@ -35,7 +35,17 @@ public List<int[]> getFlaggedCells() {
 - 개발자에게는 특수한 의미를 가지는 단어(List 등)는 실제 컨테이너가 List가 아닌 이상 accountList라 명명하지 않는다. 차라리 accountGroup, bunchOfAccounts, accounts등으로 명명하자
 - 흡사한 이름은 사용하지 않도록 주의한다. XYZControllerForEfficientHandlingOfStrings, XYZControllerForEfficientStorageOfStringsfksms라는 이름을 사용한다면? 차이를 알아챘는가?
 ### 의미 있게 구분하라
+- 연속된 숫자를 덧붙이거나 불용어를 추가하는 방식은 지양 (a1, a2, …), 아무런 정보를 제공하지 못하는, 저자의 의도가 전혀 드러나지 않는 명명이다.
+- 클래스 이름에 Info, Data와 같은 불용어를 붙이지 말자. 정확한 개념 구분이 되지 않음
+  - Product라는 클래스가 있다고 가정하자. ProductInfo, ProductData라 부른다면 개념은 구분하지 않은 채 이름만 달리한 경우다.
+- 불용어는 중복이다.
+  - Name VS NameString
+  - getActiveAccount() VS getActiveAccounts() VS getActiveAccountInfo() (이들이 혼재할 경우 서로의 역할을 정확히 구분하기 어렵다.)
+  - money VS moneyAmount
+  - message VS theMessage
 ### 발음하기 쉬운 이름을 사용하라
+- 동료간 코드의 Object를 지칭하여 의사소통을 할 경우를 떠올려라.
+  - "홍길동님, 이 레코드 좀 보세요. 'Generation Timestamp'값이 내일 날짜입니다.! 어떻게 이렇죠?"
 ### 검색하기 쉬운 이름을 사용하라
 ### 인코딩을 피하라
 #### 헝가리식 표기법
