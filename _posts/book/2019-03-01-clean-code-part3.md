@@ -5,7 +5,7 @@ categories:
   - 도서
 tags: 
   - 도서
-last_modified_at: 2019-02-28T12:00:00+09:00
+last_modified_at: 2019-03-01T12:00:00+09:00
 toc: true
 toc_sticky: true
 ---
@@ -17,16 +17,52 @@ toc_sticky: true
 
 ## 3장 함수
 
-작게 만들어라!
-__ 블록과 들여쓰기
+### 작게 만들어라!
+- 함수를 만드는 첫번째 규칙은 '작게!'다.
+- 함수를 만드는 둘째 규칙은 '더 작게!'다.
 
-한 가지만 해라!
-__ 함수 내 섹션
+{% highlight java linenos %}
+public static String renderPageWithSetupsAndTeardowns( PageData pageData, boolean isSuite) throws Exception {
+	boolean isTestPage = pageData.hasAttribute("Test"); 
+	if (isTestPage) {
+		WikiPage testPage = pageData.getWikiPage(); 
+		StringBuffer newPageContent = new StringBuffer(); 
+		includeSetupPages(testPage, newPageContent, isSuite); 
+		newPageContent.append(pageData.getContent()); 
+		includeTeardownPages(testPage, newPageContent, isSuite); 
+		pageData.setContent(newPageContent.toString());
+	}
+	return pageData.getHtml(); 
+}
+{% endhighlight %}
 
-함수 당 추상화 수준은 하나로!
-__ 위에서 아래로 코드 읽기: 내려가기 규칙
+위 코드도 길다. 되도록 한 함수당 3~5줄 이내로 줄이는 것을 권장한다
 
-Switch 문
+{% highlight java linenos %}
+public static String renderPageWithSetupsAndTeardowns( PageData pageData, boolean isSuite) throws Exception { 
+   if (isTestPage(pageData)) 
+   	includeSetupAndTeardownPages(pageData, isSuite); 
+   return pageData.getHtml();
+}
+{% endhighlight %}
+
+### 블록과 들여쓰기
+중첩구조(if/else, while문 등)에 들어가는 블록은 한 줄이어야 한다. 각 함수 별 들여쓰기 수준이 2단을 넘어서지 않고, 각 함수가 명백하다면 함수는 더욱 읽고 이해하기 쉬워진다.
+
+### 한 가지만 해라!
+- 함수는 한가지를 해야 한다. 그 한가지를 잘 해야 한다. 그 한가지만을 해야 한다.
+- 지정된 함수 이름 아래에서 추상화 수준이 하나인 단계만 수행한다면 그 함수는 한 가지 작업만 하는 것이다.
+- 함수를 여러 섹션으로 나눌 수 있다면 그 함수는 여러작업을 하는 셈이다.
+
+### 함수 당 추상화 수준은 하나로!
+함수가 ‘한가지’ 작업만 하려면 함수 내 모든 문장의 추상화 수준이 동일해야 된다.  
+만약 한 함수 내에 추상화 수준이 섞이게 된다면 읽는 사람이 헷갈린다.
+
+#### 위에서 아래로 코드 읽기: 내려가기 규칙
+코드는 위에서 아래로 이야기처럼 읽혀야 좋다.  
+함수 추상화 부분이 한번에 한단계씩 낮아지는 것이 가장 이상적이다.(내려가기 규칙)
+
+### Switch 문
 서술적인 이름을 사용하라!
 함수 인수
 __ 많이 쓰는 단항 형식
