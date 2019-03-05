@@ -98,7 +98,7 @@ protected VersionInfo makeVersion() throws Exception {
 {% endhighlight %}
 
 #### 중요성을 강조하는 주석
-{% endhighlight %}
+{% highlight java linenos %}
 String listItemContent = match.group(3).trim();
 // 여기서 trim은 정말 중요하다. trim 함수는 문자열에서 시작 공백을 제거한다.
 // 문자열에 시작 공백이 있으면 다른 문자열로 인식되기 때문이다. 
@@ -110,14 +110,112 @@ return buildList(text.substring(match.end()));
 설명이 잘 된 공개 API는 참으로 유용하고 만족스럽다. 공개 API를 구현한다면 반드시 훌륭한 Javadocs 작성을 추천한다. 하지만 여느 주석과 마찬가지로 Javadocs 역시 독자를 오도하거나, 잘못 위치하거나, 그릇된 정보를 전달할 가능성이 존재하는 것 역시 잊으면 안 된다. 
 
 ### 나쁜 주석
+대다수의 주석이 이 범주에 속한다. 일반적으로 대다수 주석은 허술한 코드를 지탱하거나, 엉성한 코드를 변명하거나, 미숙한 결정을 합리화하는 등 프로그래머가 주절거리는 독백에서 크게 벗어나지 못한다. 
+
 #### 주절거리는 주석
+특별한 이유 없이 달리는 주석이다. 
+
+{% highlight java linenos %}
+public void loadProperties() {
+    try {
+        String propertiesPath = propertiesLocation + "/" + PROPERTIES_FILE;
+        FileInputStream propertiesStream = new FileInputStream(propertiesPath);
+        loadedProperties.load(propertiesStream);
+    } catch (IOException e) {
+        // 속성 파일이 없다면 기본값을 모두 메모리로 읽어 들였다는 의미다. 
+    }
+}
+{% endhighlight %}
+
+catch 블록에 있는 주석의 의미를 알아내려면 다른 코드를 뒤져보는 수밖에 없다. 이해가 안되어 다른 모듈까지 뒤져야 하는 주석은 제대로 된 주석이 아니다.
+
 #### 같은 이야기를 중복하는 주석
+코드 내용을 그대로 중복하는 주석이 있다. 전혀 필요없는 코드
+
+{% highlight java linenos %}
+// this.closed가 true일 때 반환되는 유틸리티 메서드다.
+// 타임아웃에 도달하면 예외를 던진다. 
+public synchronized void waitForClose(final long timeoutMillis) throws Exception {
+    if (!closed) {
+        wait(timeoutMillis);
+        if (!closed) {
+            throw new Exception("MockResponseSender could not be closed");
+        }
+    }
+}
+{% endhighlight %}
+
 #### 오해할 여지가 있는 주석
+위 코드를 다시 보자. 중복이 많으면서도 오해할 여지가 살짝 있다. this.closed가 true로 변하는 순간에 메서드는 반환되지 않는다. this.closed가 true여야 메서드는 반환된다. 아니면 무조건 타임아웃을 기다렸다 this.closed가 그래도 true가 아니면 예외를 던진다. 주석에 담긴 '살짝 잘못된 정보'로 인해 어느 프로그래머가 경솔하게 함수를 호출해 자기 코드가 아주 느려진 이유를 못찾게 되는 것이다.
+
 #### 의무적으로 다는 주석
+모든 함수에 Javadocs를 달거나 모든 변수에 주석을 달아야 한다는 규칙은 어리석기 그지없다. 이런 주석은 코드를 복잡하게 만들며, 거짓말을 퍼뜨리고, 혼동과 무질서를 초래한다. 아래와 같은 주석은 아무 가치도 없다. 
+
+{% highlight java linenos %}
+/**
+ *
+ * @param title CD 제목
+ * @param author CD 저자
+ * @param tracks CD 트랙 숫자
+ * @param durationInMinutes CD 길이(단위: 분)
+ */
+public void addCD(String title, String author, int tracks, int durationInMinutes) {
+    CD cd = new CD();
+    cd.title = title;
+    cd.author = author;
+    cd.tracks = tracks;
+    cd.duration = durationInMinutes;
+    cdList.add(cd);
+}
+{% endhighlight %}
+
 #### 이력을 기록하는 주석
+지금은 소스 코드 관리 시스템이 있으니 전혀 필요없다. 
+
+{% highlight java linenos %}
+* 변경 이력 (11-Oct-2001부터)
+* ------------------------------------------------
+* 11-Oct-2001 : 클래스를 다시 정리하고 새로운 패키징
+* 05-Nov-2001: getDescription() 메소드 추가
+* 이하 생략
+{% endhighlight %}
+
 #### 있으나 마나 한 주석
+
+{% highlight java linenos %}
+/*
+ * 기본 생성자
+ */
+protected AnnualDateRule() {
+
+}
+{% endhighlight %}
+
 #### 무서운 잡음
+때로는 Javadocs도 잡음이다.
+
+{% highlight java linenos %}
+/** The name. */
+private String name;
+
+/** The version. */
+private String version;
+{% endhighlight %}
+
 #### 함수나 변수로 표현할 수 있다면 주석을 달지 마라
+{% highlight java linenos %}
+// 전역 목록 <smodule>에 속하는 모듈이 우리가 속한 하위 시스템에 의존하는가?
+if (module.getDependSubsystems().contains(subSysMod.getSubSystem()))
+{% endhighlight %}
+
+주석을 제거하고 다시 표현하면 다음과 같다.
+
+{% highlight java linenos %}
+ArrayList moduleDependencies = smodule.getDependSubSystems();
+String ourSubSystem = subSysMod.getSubSystem();
+if (moduleDependees.contains(ourSubSystem))
+{% endhighlight %}
+
 #### 위치를 표시하는 주석
 #### 닫는 괄호에 다는 주석
 #### 공로를 돌리거나 저자를 표시하는 주석
