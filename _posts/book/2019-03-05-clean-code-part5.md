@@ -210,10 +210,140 @@ public class FitNesseExpediter implements ResponseSender {
 정렬이 필요할 정도로 목록이 길다면 목록의 길이가 문제이지 정렬이 부족해서가 아니다. 선언부가 길다는 것은 클래스를 쪼개야 한다는 것을 의미한다.
 
 #### 들여쓰기
+범위<sup>scope</sup>로 이뤄진 계층을 표현하기 위해 우리는 코드를 들여쓴다. 들여쓰는 정도는 계층에서 코드가 자리잡은 수준에 비례한다. 클래스 정의처럼 파일 수준인 문장은 들여쓰지 않는다. 클래스 내 메서드는 클래스보다 한 수준 들여쓴다.
+
+간단한 if문, while문, 짧은 함수에서 들여쓰기를 무시하고픈 유혹이 생긴다. 하지만 들여쓰기로 제대로 범위를 표현한 코드가 가독성이 더 높다.
+
+{% highlight java linenos %}
+// 한행에 범위를 뭉뚱그린 코드를 피한다.
+
+public class CommentWidget extends TextWidget {
+	public static final String REGEXP = "^#[^\r\n]*(?:(?:\r\n)|\n|\r)?";
+	
+	public CommentWidget(ParentWidget parent, String text){super(parent, text);}
+	public String render() throws Exception {return ""; } 
+}
+{% endhighlight %}
+
+
+{% highlight java linenos %}
+// 들여쓰기로 범위를 제대로 표현하자.
+
+public class CommentWidget extends TextWidget {
+	public static final String REGEXP = "^#[^\r\n]*(?:(?:\r\n)|\n|\r)?";
+	
+	public CommentWidget(ParentWidget parent, String text){
+		super(parent, text);
+	}
+	
+	public String render() throws Exception {
+		return ""; 
+	} 
+}
+{% endhighlight %}
 
 ### 가짜 범위
+빈 while문이나 for문을 접할 때가 있다. 가능한한 피해야 되지만, 피하지 못 할 경우엔  
+빈 블록을 올바로 들여쓰고 괄호로 감싸라. 그렇지 하지 않으면 눈에 띄지 않는다.
+
 ### 팀 규칙
+팀에 속해있다면, 가장 우선시 되어야 하고 선호해야 할 규칙은 팀 규칙이며 이를 따라야 한다. 그래야 소프트웨어가 일관적인 스타일을 보인다.
+좋은 소프트웨어 시스템은 읽기 쉬운 문서로 이뤄지고, 스타일은 일관적이고 매끄러워야 한다.
+
 ### 밥 아저씨의 형식 규칙
+
+{% highlight java linenos %}
+public class CodeAnalyzer implements JavaFileAnalysis { 
+	private int lineCount;
+	private int maxLineWidth;
+	private int widestLineNumber;
+	private LineWidthHistogram lineWidthHistogram; 
+	private int totalChars;
+	
+	public CodeAnalyzer() {
+		lineWidthHistogram = new LineWidthHistogram();
+	}
+	
+	public static List<File> findJavaFiles(File parentDirectory) { 
+		List<File> files = new ArrayList<File>(); 
+		findJavaFiles(parentDirectory, files);
+		return files;
+	}
+	
+	private static void findJavaFiles(File parentDirectory, List<File> files) {
+		for (File file : parentDirectory.listFiles()) {
+			if (file.getName().endsWith(".java")) 
+				files.add(file);
+			else if (file.isDirectory()) 
+				findJavaFiles(file, files);
+		} 
+	}
+	
+	public void analyzeFile(File javaFile) throws Exception { 
+		BufferedReader br = new BufferedReader(new FileReader(javaFile)); 
+		String line;
+		while ((line = br.readLine()) != null)
+			measureLine(line); 
+	}
+	
+	private void measureLine(String line) { 
+		lineCount++;
+		int lineSize = line.length();
+		totalChars += lineSize; 
+		lineWidthHistogram.addLine(lineSize, lineCount);
+		recordWidestLine(lineSize);
+	}
+	
+	private void recordWidestLine(int lineSize) { 
+		if (lineSize > maxLineWidth) {
+			maxLineWidth = lineSize;
+			widestLineNumber = lineCount; 
+		}
+	}
+
+	public int getLineCount() { 
+		return lineCount;
+	}
+
+	public int getMaxLineWidth() { 
+		return maxLineWidth;
+	}
+
+	public int getWidestLineNumber() { 
+		return widestLineNumber;
+	}
+
+	public LineWidthHistogram getLineWidthHistogram() {
+		return lineWidthHistogram;
+	}
+	
+	public double getMeanLineWidth() { 
+		return (double)totalChars/lineCount;
+	}
+
+	public int getMedianLineWidth() {
+		Integer[] sortedWidths = getSortedWidths(); 
+		int cumulativeLineCount = 0;
+		for (int width : sortedWidths) {
+			cumulativeLineCount += lineCountForWidth(width); 
+			if (cumulativeLineCount > lineCount/2)
+				return width;
+		}
+		throw new Error("Cannot get here"); 
+	}
+	
+	private int lineCountForWidth(int width) {
+		return lineWidthHistogram.getLinesforWidth(width).size();
+	}
+	
+	private Integer[] getSortedWidths() {
+		Set<Integer> widths = lineWidthHistogram.getWidths(); 
+		Integer[] sortedWidths = (widths.toArray(new Integer[0])); 
+		Arrays.sort(sortedWidths);
+		return sortedWidths;
+	} 
+}
+{% endhighlight %}
 
 ## 6장 객체와 자료 구조
 ### 자료 추상화
