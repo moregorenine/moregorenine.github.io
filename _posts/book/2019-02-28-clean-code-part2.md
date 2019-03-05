@@ -1,5 +1,5 @@
 ---
-title: "Clean Code - 로버트 C.마틴 #2장"
+title: "Clean Code - 로버트 C.마틴 #2 의미 있는 이름"
 #excerpt: "애자일 소프트웨어 장인 정신"
 categories: 
   - 도서
