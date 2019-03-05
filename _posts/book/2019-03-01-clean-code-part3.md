@@ -130,13 +130,45 @@ public class EmployeeFactoryImpl implements EmployeeFactory {
 - 이름은 일관성이 있어야 한다.(같은 문구, 명사, 동사 사용) 문체가 비슷하면 이야기를 순차적으로 풀어가기도 쉬워진다.
 
 ### 함수 인수
-__ 많이 쓰는 단항 형식
-__ 플래그 인수
-__ 이항 함수
-__ 삼항 함수
-__ 인수 객체
-__ 인수 목록
-__ 동사와 키워드
+함수에서 이상적인 인수 개수는 0개(무항).
+인수는 코드 이해에 방해가 되는 요소이므로 최선은 0개이고, 차선은 1개뿐인 경우이다.
+출력인수(함수의 반환 값이 아닌 입력 인수로 결과를 받는 경우)는 이해하기 어려우므로 왠만하면 쓰지 않는 것이 좋겠다.
+
+- 많이 쓰는 단항 형식(아래 3가지 유형이 아니라면 단항 함수는 가급적 피하는 것이 좋다.)
+  - 인수에 질문을 던지는 경우
+    - `boolean fileExists(“MyFile”);`  
+  - 인수를 뭔가로 변환해 결과를 변환하는 경우
+    - `InputStream fileOpen(“MyFile”);`  
+  - 이벤트 함수일 경우
+    - `passwordAttemptFailedNtimes(int attempts)
+    - 입력 인수만 있다. 출력 인수는 없다.
+    - 함수 호출을 이벤트로 해석해 입력 인수로 시스템 상태를 변경한다.
+    - 이벤트라는 사실이 코드에 명확하게 드러나야 하며 조심해서 사용한다.
+- 플래그 인수
+  - 플래그 인수는 추하다. 쓰지마라. bool 값을 넘기는 것 자체가 그 함수는 한꺼번에 여러가지 일을 처리한다고 공표하는 것과 마찬가지다.
+  - render(boolean isSuite)는 renderForSuite()와 renderForSingleTest()라는 함수로 나누는게 낫다.
+- 이항 함수
+  - 단항 함수보다 이해하기가 어렵다.
+  - 2개의 인수간의 자연적인 순서가 있어야함
+  - Point 클래스의 경우에는 이항 함수가 적절하다. `Point p = new Point(x,y);`
+  - 무조건 나쁜 것은 아니지만, 인수가 2개이니 만큼 이해가 어렵고 위험이 따르므로 가능하면 단항으로 바꾸도록
+- 삼항 함수
+  - 이항 함수보다 이해하기가 훨씬 어려우므로, 위험도 2배 이상 늘어난다.
+  - 삼항 함수를 만들 때는 신중히 고려하라.
+  - `assertEquals(1.0, amount, .001)`은 그리 음험하지 않은 삼항 함수다. 단 부동소수점 비교가 상대적이라는 사실은 언제든 주지할 중요한 사항이다.
+- 인수 객체
+  - 인수가 많이 필요할 경우, 일부 인수를 독자적인 클래스 변수로 선언할 가능성을 살펴보자
+  - x,y를 인자로 넘기는 것보다 Point를 넘기는 것이 더 낫다.
+  -`Circle makeCircle(double x, double y, double radius);` 보단 `Circle makeCircle(Point center, double radius);`가 낫다.
+- 인수 목록
+  - 때로는 String.format같은 함수들처럼 인수 개수가 가변적인 함수도 필요하다.
+  - String.format의 인수는 List형 인수이기 때문에 이항함수라고 할 수 있다.
+  - `public String format(String format, Object... args)`
+- 동사와 키워드
+  - 단항 함수는 함수와 인수가 동사/명사 쌍을 이뤄야한다.
+    - `writeField(name);`
+  - 함수이름에 키워드(인수 이름)을 추가하면 인수 순서를 기억할 필요가 없어진다.
+    - `assertExpectedEqualsActual(expected, actual);`  
 
 ### 부수 효과를 일으키지 마라!
 __ 출력 인수
