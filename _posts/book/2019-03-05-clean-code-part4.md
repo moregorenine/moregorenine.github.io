@@ -203,6 +203,7 @@ private String version;
 {% endhighlight %}
 
 #### 함수나 변수로 표현할 수 있다면 주석을 달지 마라
+
 {% highlight java linenos %}
 // 전역 목록 <smodule>에 속하는 모듈이 우리가 속한 하위 시스템에 의존하는가?
 if (module.getDependSubsystems().contains(subSysMod.getSubSystem()))
@@ -217,15 +218,81 @@ if (moduleDependees.contains(ourSubSystem))
 {% endhighlight %}
 
 #### 위치를 표시하는 주석
+때때로 프로그래머는 소스 파일에서 특정 위치를 표시하려 주석을 사용한다. 예를 들어, 최근에 살펴보던 프로그램에서 다음 행을 발견했다. 
+
+{% highlight java linenos %}
+// Actions /////////////////////////////////////////////
+{% endhighlight %}
+
+이런 주석은 가독성만 낮추므로 제거해야 마땅하다. 특히 뒷부분에 슬래시로 이어지는 잡음은 제거하는 편이 좋다. 너무 자주 사용하지 않을때만 배너는 눈에 띄며 주위를 환기한다. 그러므로 반드시 필요할 때 아주 드몰게 사용하는 편이 좋다.
+
 #### 닫는 괄호에 다는 주석
+중첩이 심하고 장황한 함수라면 의미가 있을지도 모르지만 작고 캡슐화면 함수에는 잡음일 뿐이다. 그러므로 닫는 괄호에 주석을 달아야겠다는 생각이 든다면 대신에 함수를 줄이려 시도하자. 
+
 #### 공로를 돌리거나 저자를 표시하는 주석
+소스 코드 관리 시스템은 누가 언제 무엇을 추가했는지 귀신처럼 기억하기 때문에 저자 이름으로 코드를 오염시킬 필요가 없음. 
+
+{% highlight java linenos %}
+/* 릭이 추가함 */
+{% endhighlight %}
+
 #### 주석으로 처리한 코드
+{% highlight java linenos %}
+this.bytePos = writeBytes(pngIdBytes, 0);
+//hdrPos = bytePos;
+writeHeader();
+writeResolution();
+//dataPos = bytePos;
+if (writeImageData()) {
+    wirteEnd();
+    this.pngBytes = resizeByteArray(this.pngBytes, this.maxPos);
+} else {
+    this.pngBytes = null;
+}
+return this.pngBytes;
+{% endhighlight %}
+
+주석으로 처리된 코드는 다른 사람들이 지우기를 주저한다. 소스관리 시스템이 우리를 대신해 코드를 기억해준다. 그냥 삭제하라.
+
 #### HTML 주석
+HTML 주석은 편집기/IDE에서조차 읽기가 어렵다.
+
 #### 전역 정보
+주석을 달아야 한다면 근처에 있는 코드만 기술하라. 시스템의 전반적인 정보를 기술하지 마라. 해당 시스템의 코드가 변해도 아래 주석이 변하리라는 보장은 전혀 없다. 그리고 심하게 중복된 주석도 확인하자. 
+
+{% highlight java linenos %}
+/**
+ * 적합성 테스트가 동작하는 포트: 기본값은 <b>8082</b>.
+ *
+ * @param fitnessePort
+ */
+public void setFitnessePort(int fitnessePort) {
+    this.fitnewssePort = fitnessePort;
+}
+{% endhighlight %}
+
 #### 너무 많은 정보
+주석에다 흥미로운 역사나 관련 없는 정보를 장황하게 늘어놓지 마라.
+
 #### 모호한 관계
+주석과 주석이 설명하는 코드는 둘 사이 관계가 명백해야 한다.
+
+{% highlight java linenos %}
+/**
+ * 모든 픽셀을 담을 만큼 충분한 배열로 시작한다(여기에 필터 바이트를 더한다).
+ * 그리고 헤더 정보를 위해 200바이트를 더한다.
+ */
+this.pngBytes = new byte[((this.width + 1) * this.height * 3) + 200];
+{% endhighlight %}
+
+필터 바이트는 +1과 *3 중 어느 것과 관련이 있을까? 한 픽셀이 한 바이트인가? 200을 추가하는 이유는? 주석 자체가 다시 설명을 요구하는 경우다.
+
 #### 함수 헤더
+짧고 한 가지만 수행하며 이름을 잘 붙인 함수가 주석으로 헤더를 추가한 함수보다 훨씬 좋다.
+
 #### 비공개 코드에서 Javadocs
+공개 API는 Javadocs가 유용하지만 공개하지 않을 코드라면 Javadocs는 쓸모가 없다. 코드만 보기싫고 산만해질 뿐이다.
+
 #### 예제
 
 ## 5장 형식 맞추기
