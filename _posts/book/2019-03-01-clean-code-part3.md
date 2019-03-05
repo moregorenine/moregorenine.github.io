@@ -192,17 +192,76 @@ public class UserValidator {
 }
 {% endhighlight %}
 
-여기서, 함수가 일으키는 부수 효과는 Session.initialize() 호출이다. checkPassword 함수는 이름만 봐서는 세션을 초기화한다는 사실이 드러나지 않는다. 이럴 경우 checkPasswordAndInitializeSession이라는 이름이 훨씬 좋다. 물론 함수가 '한 가지'만 한다는 규칙을 위반하지만.
+여기서, 함수가 일으키는 부수 효과는 `Session.initialize();` 호출이다. `checkPassword` 함수는 이름만 봐서는 세션을 초기화한다는 사실이 드러나지 않는다. 이럴 경우 `checkPasswordAndInitializeSession`이라는 이름이 훨씬 좋다. 물론 함수가 '한 가지'만 한다는 규칙을 위반하지만.
 
 - 출력 인수
   - 일반적으로 출력 인수는 피해야 한다.
   - 함수에서 상태를 변경해야 한다면 함수가 속한 객체 상태를 변경하는 방식을 택하라.
 
 ### 명령과 조회를 분리하라!
+함수는 뭔가 객체 상태를 변경하거나, 객체 정보를 반환하거나 둘 중 하나다. 둘 다 수행해서는 안 된다.  
+`public boolean set(String attribute, String value);`같은 경우에는 속성 값 설정 성공 시 true를 반환하므로 아래와 같은 괴상한 코드가 작성된다.  
+`if(set(“username”, “unclebob”))...` 그러므로 명령과 조회를 분리해 혼란을 주지 않도록 한다.
+
 ### 오류 코드보다 예외를 사용하라!
-__ Try/Catch 블록 뽑아내기
-__ 오류 처리도 한 가지 작업이다.
-__ Error.java 의존성 자석
+try/catch를 사용하면 오류 처리 코드가 원래 코드에서 분리되므로 코드가 깔끔해 진다.
+- Try/Catch 블록 뽑아내기
+{% highlight java linenos %}
+if (deletePage(page) == E_OK) {
+	if (registry.deleteReference(page.name) == E_OK) {
+		if (configKeys.deleteKey(page.name.makeKey()) == E_OK) {
+			logger.log("page deleted");
+		} else {
+			logger.log("configKey not deleted");
+		}
+	} else {
+		logger.log("deleteReference from registry failed"); 
+	} 
+} else {
+	logger.log("delete failed"); return E_ERROR;
+}
+{% endhighlight %}
+
+정상 작동과 오류 처리 동작을 뒤섞는 추한 구조이므로 if/else와 마찬가지로 블록을 별도 함수로 뽑아내는 편이 좋다.
+
+{% highlight java linenos %}
+public void delete(Page page) {
+	try {
+		deletePageAndAllReferences(page);
+  	} catch (Exception e) {
+  		logError(e);
+  	}
+}
+
+위에서 `delete` 함수는 모든 오류를 처리한다. 그래서 코드를 이해하기 쉽다. 실제로 페이지 제거하는 함수는 아래의 `deletePageAndAllReferences`다. `deletePageAndAllReferences` 함수는 예외를 처리하지 않는다. 이렇게 정상 동작과 오류 처리 동작을 분리하면 코드를 이해하고 수정하기가 쉬워진다.
+
+private void deletePageAndAllReferences(Page page) throws Exception { 
+	deletePage(page);
+	registry.deleteReference(page.name); 
+	configKeys.deleteKey(page.name.makeKey());
+}
+
+private void logError(Exception e) { 
+	logger.log(e.getMessage());
+}
+{% endhighlight %}
+
+- 오류 처리도 한가지 작업이다.
+
+- Error.java 의존성 자석
+{% highlight java linenos %}
+public enum Error { 
+	OK,
+	INVALID,
+	NO_SUCH,
+	LOCKED,
+	OUT_OF_RESOURCES, 	
+	WAITING_FOR_EVENT;
+}
+{% endhighlight %}
+
+  - 오류를 처리하는 곳곳에서 오류코드를 사용한다면 enum class를 쓰게 되는데 이런 클래스는 의존성 자석이므로, 새 오류코드를 추가하거나 변경할 때 코스트가 많이 필요하다.
+  - 그러므로 예외(새 예외는 Exception 클래스에서 파생된다.)를 사용하는 것이 더 안전하다.
 
 ### 반복하지 마라!
 ### 구조적 프로그래밍
