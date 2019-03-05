@@ -171,7 +171,32 @@ public class EmployeeFactoryImpl implements EmployeeFactory {
     - `assertExpectedEqualsActual(expected, actual);`  
 
 ### 부수 효과를 일으키지 마라!
-__ 출력 인수
+부수효과는 거짓말이다. 함수에서 한가지를 하겠다고 약속하고는 **남몰래** 다른 짓을 하는 것이므로, 한 함수에서는 딱 한가지만 수행할 것!
+
+아래 코드에서 `Session.initialize();`는 함수명과는 맞지 않는 부수효과이다.
+{% highlight java linenos %}
+public class UserValidator {
+	private Cryptographer cryptographer;
+	public boolean checkPassword(String userName, String password) { 
+		User user = UserGateway.findByName(userName);
+		if (user != User.NULL) {
+			String codedPhrase = user.getPhraseEncodedByPassword(); 
+			String phrase = cryptographer.decrypt(codedPhrase, password); 
+			if ("Valid Password".equals(phrase)) {
+				Session.initialize();
+				return true; 
+			}
+		}
+		return false; 
+	}
+}
+{% endhighlight %}
+
+여기서, 함수가 일으키는 부수 효과는 Session.initialize() 호출이다. checkPassword 함수는 이름만 봐서는 세션을 초기화한다는 사실이 드러나지 않는다. 이럴 경우 checkPasswordAndInitializeSession이라는 이름이 훨씬 좋다. 물론 함수가 '한 가지'만 한다는 규칙을 위반하지만.
+
+- 출력 인수
+  - 일반적으로 출력 인수는 피해야 한다.
+  - 함수에서 상태를 변경해야 한다면 함수가 속한 객체 상태를 변경하는 방식을 택하라.
 
 ### 명령과 조회를 분리하라!
 ### 오류 코드보다 예외를 사용하라!
