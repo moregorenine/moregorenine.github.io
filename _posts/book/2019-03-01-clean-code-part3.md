@@ -140,13 +140,13 @@ public class EmployeeFactoryImpl implements EmployeeFactory {
   - 인수를 뭔가로 변환해 결과를 변환하는 경우
     - `InputStream fileOpen(“MyFile”);`  
   - 이벤트 함수일 경우
-    - `passwordAttemptFailedNtimes(int attempts)
+    - `passwordAttemptFailedNtimes(int attempts)`
     - 입력 인수만 있다. 출력 인수는 없다.
     - 함수 호출을 이벤트로 해석해 입력 인수로 시스템 상태를 변경한다.
     - 이벤트라는 사실이 코드에 명확하게 드러나야 하며 조심해서 사용한다.
 - 플래그 인수
   - 플래그 인수는 추하다. 쓰지마라. bool 값을 넘기는 것 자체가 그 함수는 한꺼번에 여러가지 일을 처리한다고 공표하는 것과 마찬가지다.
-  - render(boolean isSuite)는 renderForSuite()와 renderForSingleTest()라는 함수로 나누는게 낫다.
+  - `render(boolean isSuite)`는 `renderForSuite()`와 `renderForSingleTest()`라는 함수로 나누는게 낫다.
 - 이항 함수
   - 단항 함수보다 이해하기가 어렵다.
   - 2개의 인수간의 자연적인 순서가 있어야함
