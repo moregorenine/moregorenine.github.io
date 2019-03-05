@@ -15,299 +15,201 @@ toc_sticky: true
 [Clean-Code 스터디 결과물 github](https://github.com/Yooii-Studios/Clean-Code "Clean-Code 스터디 결과물")  
 이런 좋은 문서를 공개해주신 팀에 감사드린다. <q>1장 코드가 존재하리라</q> 주제를 정리하면서 위의 스터디 결과물의 내용만큼 깔끔하게 정리할 수 있을 거란 생각은 들지 않았다. 이번 책은 위 링크의 내용과 함께 읽어 나갈 생각이다. 스터디 모임에 참석해 본 경험이 없지만, 글은 같은 내용일지라도 개인의 경험에 따라 다양하게 해석되고 받아들여지리라 생각한다. 그런 다양한 견해들을 접할 기회와 여건이 된다면 얼마나 좋을까?
 
-## 4장 주석
-> 나쁜 코드에 주석을 달지 마라. 새로 짜라.     
- - 브라이언 W.커니핸, P.J.플라우거
-
-주석은 필요악이다. 코드로 의도를 표현하지 못해, 실패를 만회하기 위해 쓰는 것이다. 주석은 언제나 실패를 의미한다. 주석 없이는 자신을 표현할 방법을 찾지 못해 할 수 없이 주석을 사용한다. 그래서 주석은 반겨 맞을 손님이 아니다.
-
-주석을 무시하는 이유가 무엇이냐고? 주석이 오래될수록 코드에서 멀어져서 거짓말을 하게 될 가능성이 커지기 때문이다. 코드는 유지보수를 해도, 주석을 계속 유지보수하기란 현실적으로 불가능하기 때문이다.
-
-### 주석은 나쁜 코드를 보완하지 못한다
-코드에 주석을 추가하는 일반적인 이유는 코드 품질이 나빠서이다. 깔끔하고 주석이 거의 없는 코드가, 복잡하고 어수선하며 주석이 많이 달린 코드보다 훨씬 좋다. 주석으로 설명하려 애쓰는 대신에 그 난장판을 깨끗이 치우는 데 시간을 보내라!
-
-### 코드로 의도를 표현하라!
-{% highlight java linenos %}
-// 직원에게 복지 혜택을 받을 자격이 있는지 검사한다. 
-if ((emplotee.flags & HOURLY_FLAG) && (employee.age > 65)
-{% endhighlight %}
-
-다음 코드는 어떤가?
-
-{% highlight java linenos %}
-if (employee.isEligibleForFullBenefits())
-{% endhighlight %}
-
-주석도 필요없이 함수 이름만으로 충분히 깔끔하게 표현되었다.
-
-### 좋은 주석
-정말로 좋은 주석은, 주석을 달지 않을 방법을 찾아낸 주석이나 아래는 글자 값을 한다고 생각하는 주석 몇 가지를 소개한다.
-
-#### 법적인 주석
-각 소스 파일 첫머리에 들어가는 저작권 정보와 소유권 정보 등
-`// Copyright (C) 2003, 2004, 2005 by Object Montor, Inc. All right reserved.`  
-`// GNU General Public License`
-
-#### 정보를 제공하는 주석
-{% highlight java linenos %}
-// 테스트 중인 Responder 인스턴스를 반환
-protected abstract Responder responderInstance();
-{% endhighlight %}
-
-  물론 이 주석도 함수 이름에 정보를 담아 responderBeingTested로 바꾸면 없앨 수 있다.    
-  더 나은 예:
-
-{% highlight java linenos %}
-// kk:mm:ss EEE, MMM dd, yyyy 형식이다.
-Pattern timeMatcher = Pattern.compile("\\d*:\\d*\\d* \\w*, \\w*, \\d*, \\d*");
-{% endhighlight %}
-
-#### 의도를 설명하는 주석
-{% highlight java linenos %}
-// 스레드를 대량 생성하는 방법으로 어떻게든 경쟁 조건을 만들려 시도한다. 
-for (int i = 0; i > 2500; i++) {
-    WidgetBuilderThread widgetBuilderThread = 
-        new WidgetBuilderThread(widgetBuilder, text, parent, failFlag);
-    Thread thread = new Thread(widgetBuilderThread);
-    thread.start();
-}
-{% endhighlight %}
-
-#### 의미를 명료하게 밝히는 주석
-{% highlight java linenos %}
-assertTrue(a.compareTo(b) == 0); // a == b
-assertTrue(a.compareTo(b) != 0); // a != b
-assertTrue(a.compareTo(b) == -1); // a < b
-assertTrue(a.compareTo(b) == 1); // a > b
-{% endhighlight %}
-
-#### 결과를 경고하는 주석
-{% highlight java linenos %}
-// 여유 시간이 충분하지 않다면 실행하지 마십시오.
-public void _testWithReallyBigFile() {
-}
-{% endhighlight %}
-
-#### TODO 주석
-{% highlight java linenos %}
-// TODO-MdM 현재 필요하지 않다.
-// 체크아웃 모델을 도입하면 함수가 필요 없다.
-protected VersionInfo makeVersion() throws Exception {
-    return null;
-}
-{% endhighlight %}
-
-#### 중요성을 강조하는 주석
-{% highlight java linenos %}
-String listItemContent = match.group(3).trim();
-// 여기서 trim은 정말 중요하다. trim 함수는 문자열에서 시작 공백을 제거한다.
-// 문자열에 시작 공백이 있으면 다른 문자열로 인식되기 때문이다. 
-new ListItemWidget(this, listItemContent, this.level + 1);
-return buildList(text.substring(match.end()));
-{% endhighlight %}
-
-#### 공개 API에서 Javadocs    
-설명이 잘 된 공개 API는 참으로 유용하고 만족스럽다. 공개 API를 구현한다면 반드시 훌륭한 Javadocs 작성을 추천한다. 하지만 여느 주석과 마찬가지로 Javadocs 역시 독자를 오도하거나, 잘못 위치하거나, 그릇된 정보를 전달할 가능성이 존재하는 것 역시 잊으면 안 된다. 
-
-### 나쁜 주석
-대다수의 주석이 이 범주에 속한다. 일반적으로 대다수 주석은 허술한 코드를 지탱하거나, 엉성한 코드를 변명하거나, 미숙한 결정을 합리화하는 등 프로그래머가 주절거리는 독백에서 크게 벗어나지 못한다. 
-
-#### 주절거리는 주석
-특별한 이유 없이 달리는 주석이다. 
-
-{% highlight java linenos %}
-public void loadProperties() {
-    try {
-        String propertiesPath = propertiesLocation + "/" + PROPERTIES_FILE;
-        FileInputStream propertiesStream = new FileInputStream(propertiesPath);
-        loadedProperties.load(propertiesStream);
-    } catch (IOException e) {
-        // 속성 파일이 없다면 기본값을 모두 메모리로 읽어 들였다는 의미다. 
-    }
-}
-{% endhighlight %}
-
-catch 블록에 있는 주석의 의미를 알아내려면 다른 코드를 뒤져보는 수밖에 없다. 이해가 안되어 다른 모듈까지 뒤져야 하는 주석은 제대로 된 주석이 아니다.
-
-#### 같은 이야기를 중복하는 주석
-코드 내용을 그대로 중복하는 주석이 있다. 전혀 필요없는 코드
-
-{% highlight java linenos %}
-// this.closed가 true일 때 반환되는 유틸리티 메서드다.
-// 타임아웃에 도달하면 예외를 던진다. 
-public synchronized void waitForClose(final long timeoutMillis) throws Exception {
-    if (!closed) {
-        wait(timeoutMillis);
-        if (!closed) {
-            throw new Exception("MockResponseSender could not be closed");
-        }
-    }
-}
-{% endhighlight %}
-
-#### 오해할 여지가 있는 주석
-위 코드를 다시 보자. 중복이 많으면서도 오해할 여지가 살짝 있다. this.closed가 true로 변하는 순간에 메서드는 반환되지 않는다. this.closed가 true여야 메서드는 반환된다. 아니면 무조건 타임아웃을 기다렸다 this.closed가 그래도 true가 아니면 예외를 던진다. 주석에 담긴 '살짝 잘못된 정보'로 인해 어느 프로그래머가 경솔하게 함수를 호출해 자기 코드가 아주 느려진 이유를 못찾게 되는 것이다.
-
-#### 의무적으로 다는 주석
-모든 함수에 Javadocs를 달거나 모든 변수에 주석을 달아야 한다는 규칙은 어리석기 그지없다. 이런 주석은 코드를 복잡하게 만들며, 거짓말을 퍼뜨리고, 혼동과 무질서를 초래한다. 아래와 같은 주석은 아무 가치도 없다. 
-
-{% highlight java linenos %}
-/**
- *
- * @param title CD 제목
- * @param author CD 저자
- * @param tracks CD 트랙 숫자
- * @param durationInMinutes CD 길이(단위: 분)
- */
-public void addCD(String title, String author, int tracks, int durationInMinutes) {
-    CD cd = new CD();
-    cd.title = title;
-    cd.author = author;
-    cd.tracks = tracks;
-    cd.duration = durationInMinutes;
-    cdList.add(cd);
-}
-{% endhighlight %}
-
-#### 이력을 기록하는 주석
-지금은 소스 코드 관리 시스템이 있으니 전혀 필요없다. 
-
-{% highlight java linenos %}
-* 변경 이력 (11-Oct-2001부터)
-* ------------------------------------------------
-* 11-Oct-2001 : 클래스를 다시 정리하고 새로운 패키징
-* 05-Nov-2001: getDescription() 메소드 추가
-* 이하 생략
-{% endhighlight %}
-
-#### 있으나 마나 한 주석
-
-{% highlight java linenos %}
-/*
- * 기본 생성자
- */
-protected AnnualDateRule() {
-
-}
-{% endhighlight %}
-
-#### 무서운 잡음
-때로는 Javadocs도 잡음이다.
-
-{% highlight java linenos %}
-/** The name. */
-private String name;
-
-/** The version. */
-private String version;
-{% endhighlight %}
-
-#### 함수나 변수로 표현할 수 있다면 주석을 달지 마라
-
-{% highlight java linenos %}
-// 전역 목록 <smodule>에 속하는 모듈이 우리가 속한 하위 시스템에 의존하는가?
-if (module.getDependSubsystems().contains(subSysMod.getSubSystem()))
-{% endhighlight %}
-
-주석을 제거하고 다시 표현하면 다음과 같다.
-
-{% highlight java linenos %}
-ArrayList moduleDependencies = smodule.getDependSubSystems();
-String ourSubSystem = subSysMod.getSubSystem();
-if (moduleDependees.contains(ourSubSystem))
-{% endhighlight %}
-
-#### 위치를 표시하는 주석
-때때로 프로그래머는 소스 파일에서 특정 위치를 표시하려 주석을 사용한다. 예를 들어, 최근에 살펴보던 프로그램에서 다음 행을 발견했다. 
-
-{% highlight java linenos %}
-// Actions /////////////////////////////////////////////
-{% endhighlight %}
-
-이런 주석은 가독성만 낮추므로 제거해야 마땅하다. 특히 뒷부분에 슬래시로 이어지는 잡음은 제거하는 편이 좋다. 너무 자주 사용하지 않을때만 배너는 눈에 띄며 주위를 환기한다. 그러므로 반드시 필요할 때 아주 드몰게 사용하는 편이 좋다.
-
-#### 닫는 괄호에 다는 주석
-중첩이 심하고 장황한 함수라면 의미가 있을지도 모르지만 작고 캡슐화면 함수에는 잡음일 뿐이다. 그러므로 닫는 괄호에 주석을 달아야겠다는 생각이 든다면 대신에 함수를 줄이려 시도하자. 
-
-#### 공로를 돌리거나 저자를 표시하는 주석
-소스 코드 관리 시스템은 누가 언제 무엇을 추가했는지 귀신처럼 기억하기 때문에 저자 이름으로 코드를 오염시킬 필요가 없음. 
-
-{% highlight java linenos %}
-/* 릭이 추가함 */
-{% endhighlight %}
-
-#### 주석으로 처리한 코드
-{% highlight java linenos %}
-this.bytePos = writeBytes(pngIdBytes, 0);
-//hdrPos = bytePos;
-writeHeader();
-writeResolution();
-//dataPos = bytePos;
-if (writeImageData()) {
-    wirteEnd();
-    this.pngBytes = resizeByteArray(this.pngBytes, this.maxPos);
-} else {
-    this.pngBytes = null;
-}
-return this.pngBytes;
-{% endhighlight %}
-
-주석으로 처리된 코드는 다른 사람들이 지우기를 주저한다. 소스관리 시스템이 우리를 대신해 코드를 기억해준다. 그냥 삭제하라.
-
-#### HTML 주석
-HTML 주석은 편집기/IDE에서조차 읽기가 어렵다.
-
-#### 전역 정보
-주석을 달아야 한다면 근처에 있는 코드만 기술하라. 시스템의 전반적인 정보를 기술하지 마라. 해당 시스템의 코드가 변해도 아래 주석이 변하리라는 보장은 전혀 없다. 그리고 심하게 중복된 주석도 확인하자. 
-
-{% highlight java linenos %}
-/**
- * 적합성 테스트가 동작하는 포트: 기본값은 <b>8082</b>.
- *
- * @param fitnessePort
- */
-public void setFitnessePort(int fitnessePort) {
-    this.fitnewssePort = fitnessePort;
-}
-{% endhighlight %}
-
-#### 너무 많은 정보
-주석에다 흥미로운 역사나 관련 없는 정보를 장황하게 늘어놓지 마라.
-
-#### 모호한 관계
-주석과 주석이 설명하는 코드는 둘 사이 관계가 명백해야 한다.
-
-{% highlight java linenos %}
-/**
- * 모든 픽셀을 담을 만큼 충분한 배열로 시작한다(여기에 필터 바이트를 더한다).
- * 그리고 헤더 정보를 위해 200바이트를 더한다.
- */
-this.pngBytes = new byte[((this.width + 1) * this.height * 3) + 200];
-{% endhighlight %}
-
-필터 바이트는 +1과 *3 중 어느 것과 관련이 있을까? 한 픽셀이 한 바이트인가? 200을 추가하는 이유는? 주석 자체가 다시 설명을 요구하는 경우다.
-
-#### 함수 헤더
-짧고 한 가지만 수행하며 이름을 잘 붙인 함수가 주석으로 헤더를 추가한 함수보다 훨씬 좋다.
-
-#### 비공개 코드에서 Javadocs
-공개 API는 Javadocs가 유용하지만 공개하지 않을 코드라면 Javadocs는 쓸모가 없다. 코드만 보기싫고 산만해질 뿐이다.
-
-#### 예제
-
 ## 5장 형식 맞추기
+질서정연하고 깔끔하며, 일관적인 코드를 본다면 사람들에게 전문가가 짰다는 인상을 심어줄 수 있다.  
+반대로, 코드가 어수선해 보인다면 프로젝트 전반적으로 무성의한 태도로 작성했다고 생각할 것이다.
+
+프로그래머라면 형식을 깔끔하게 맞춰 코드를 짜야한다.  
+코드 형식을 맞추기 위한 간단한 규칙을 정하고, 그 규칙을 착실히 따라야 하며,  
+팀으로 일한다면 팀이 합의해 규칙을 정하고 모두가 그 규칙을 따라야 한다.  
+필요하다면 규칙을 자동으로 적용하는 도구를 활용한다 (**e.g. Android Studio의 Code Formatter**)
+
 ### 형식을 맞추는 목적
+코드 형식은 **중요하다!** 너무 중요해서 무시하기 어렵다.  
+코드 형식은 의사소통의 일환이며, **의사소통은 전문 개발자의 일차적인 의무다.**  
+오늘 구현한 기능이 다음 버전에서 바뀔 확률은 높고, 시간이 지나면 원래 코드의 흔적을 찾아볼 수 없는 경우도 많지만,  
+오늘 구현한 코드의 스타일과 가독성 수준은 유지보수의 용이성과 확정성에 지속적인 영향을 미친다.  
+  
+> **코드는 사라져도 스타일과 규율은 사라지지 않는다!**
+
 ### 적절한 행 길이를 유지하라
-__ 신문 기사처럼 작성하라
-__ 개념은 빈 행으로 분리하라
-__ 세로 밀집도
-__ 수직 거리
-__ 세로 순서
+소스코드는 얼마나 길어야 적당할까?  
+500줄을 넘지 않고 대부분 200줄 정도인 파일로도 커다란 시스템을 구축할 수 있다.  
+(실제로 전문 자바 프로젝트들(JUnit, FitNesse, Time and Money 등)이 이렇게 구현되어있다)  
+<br/>
+코드 길이를 200줄 정도로 제한하는 것은 반드시 지킬 엄격한 규칙은 아니지만,  
+일반적으로 큰 파일보다는 작은 파일이 이해하기 쉽다.
+
+#### 신문 기사처럼 작성하라
+좋은 신문 기사는 최상단에 표제(기사를 몇마디로 요약하는 문구),  
+첫 문단에는 전체 기사 내용을 요약하며, 기사를 읽으며 내려갈 수록 세세한 사실이 조금씩 드러나며 세부사항이 나오게 된다.  
+소스파일 이름(표제)는 간단하면서도 설명이 가능하게 지어,  
+이름만 보고도 올바른 모듈을 살펴보고 있는지를 판단 할 수 있도록 한다.  
+소스파일의 첫 부분(요약 내용)은 고차원 개념과 알고리즘을 설명한다.  
+아래로 내려갈수록 의도를 세세하게 묘사하며, 마지막에는 가장 저차원 함수(아마 Getter/Setter?)와 세부 내역이 나온다.  
+신문이 사실, 날짜, 이름 등을 무작위로 뒤섞은 긴 기사 하나만 싣는다면 아무도 신문을 읽지 않을 것이다.
+
+#### 개념은 빈 행으로 분리하라
+코드의 각 행은 수식이나 절을 나타내고, 일련의 행 묶음은 완결된 생각 하나를 표현한다.  
+생각 사이에는 빈 행을 넣어 분리해야한다. 그렇지 않다면 단지 줄바꿈만 다를 뿐인데도 코드 가독성이 현저히 떨어진다.
+
+{% highlight java linenos %}
+// 빈 행을 넣을 경우
+package fitnesse.wikitext.widgets;
+
+import java.util.regex.*;
+
+public class BoldWidget extends ParentWidget {
+	public static final String REGEXP = "'''.+?'''";
+	private static final Pattern pattern = Pattern.compile("'''(.+?)'''", 
+		Pattern.MULTILINE + Pattern.DOTALL
+	);
+	
+	public BoldWidget(ParentWidget parent, String text) throws Exception { 
+		super(parent);
+		Matcher match = pattern.matcher(text);
+		match.find();
+		addChildWidgets(match.group(1)); 
+	}
+	
+	public String render() throws Exception { 
+		StringBuffer html = new StringBuffer("<b>"); 
+		html.append(childHtml()).append("</b>"); 
+		return html.toString();
+	} 
+}
+{% endhighlight %}
+
+#### 세로 밀집도
+줄바꿈이 개념을 분리한다면, 세로 밀집도는 연관성을 의미한다.  
+즉, 서로 밀집한 코드 행은 세로로 가까이 놓여야 한다.
+
+{% highlight java linenos %}
+// 의미없는 주석으로 변수를 떨어뜨려 놓아서 한눈에 파악이 잘 안된다.
+
+public class ReporterConfig {
+	/**
+	* The class name of the reporter listener 
+	*/
+	private String m_className;
+	
+	/**
+	* The properties of the reporter listener 
+	*/
+	private List<Property> m_properties = new ArrayList<Property>();
+	public void addProperty(Property property) { 
+		m_properties.add(property);
+	}
+{% endhighlight %}
+
+{% highlight java linenos %}
+// 의미 없는 주석을 제거함으로써 코드가 한눈에 들어온다.
+// 변수 2개에 메소드가 1개인 클래스라는 사실이 드러난다.
+
+public class ReporterConfig {
+	private String m_className;
+	private List<Property> m_properties = new ArrayList<Property>();
+	
+	public void addProperty(Property property) { 
+		m_properties.add(property);
+	}
+{% endhighlight %}
+
+#### 수직 거리
+서로 밀접한 개념은 세로로 가까이 둬야 한다.  
+두 개념이 서로 다른 파일에 속한다면 규칙이 통하지 않지만, 
+타당한 근거가 없다면 서로 밀접한 개념은 한 파일에 속해야 마땅하다(protected 변수를 피해야 하는 이유)  
+같은 파일에 속할 정도로 밀접한 두 개념은 세로 거리로 연관성을 표현한다. 
+여기서 연관성이란 한 개념을 이해하는 데 다른 개념이 중요한 정도다.
+
+- 변수 선언
+  - 변수는 사용하는 위치에서 최대한 가까이 선언한다.
+- 인스턴스 변수
+  - 인스턴스 변수는 클래스 맨 처음에 선언한다(자바의 경우).
+  - 변수 간 세로로 거리를 두지 않는다 - 잘 설계한 클래스는 대다수 클래스 메서드가 인스턴스 변수를 사용하기 때문. C++의 경우에는 마지막에 선언하는 것이 일반적이다. 어느 곳이든 잘 알려진 위치에 인스턴스 변수를 모으는 것이 중요하다.
+- 종속 함수
+  - 한 함수가 다른 함수를 호출한다면(종속 함수) 두 함수는 세로로 가까이 배치한다.
+  - 가능하면 호출되는 함수를 호출하는 함수보다 뒤에 배치한다. (프로그램이 자연스럽게 읽힐 수 있도록)
+  - 이러한 규칙을 일관되게 적용한다면 독자는 방금 함수에서 호출한 함수가 잠시 후에 정의될 것이라고 자연스레 예측한다.
+- 개념적 유사성
+  - 개념적인 친화도가 높을 수록 코드를 서로 가까이 배치한다.
+  - 앞서 살펴보았듯이 한 함수가 다른 함수를 호출하는 종속성, 변수와 그 변수를 사용하는 함수가 그 예다.
+  - 그 외에도 비슷한 동작을 수행하는 함수 무리 또한 개념의 친화도가 높다.
+
+{% highlight java linenos %}
+// 같은 assert 관련된 동작들을 수행하며, 명명법이 똑같고 기본 기능이 유사한 함수들로써 개념적 친화도가 높다.
+// 이런 경우에는 종속성은 오히려 부차적 요인이므로, 종속적인 관계가 없더라도 가까이 배치하면 좋다.
+
+public class Assert {
+	static public void assertTrue(String message, boolean condition) {
+		if (!condition) 
+			fail(message);
+	}
+
+	static public void assertTrue(boolean condition) { 
+		assertTrue(null, condition);
+	}
+
+	static public void assertFalse(String message, boolean condition) { 
+		assertTrue(message, !condition);
+	}
+	
+	static public void assertFalse(boolean condition) { 
+		assertFalse(null, condition);
+	} 
+{% endhighlight %}
+
+#### 세로 순서
+일반적으로 함수 호출 종속성은 아래방향으로 유지하므로, 호출되는 함수를 호출하는 함수보다 뒤에 배치한다.  
+그러면 소스코드가 자연스럽게 고차원 --> 저차원으로 내려간다.  
+가장 중요한 개념을 가장 먼저 표현하고, 세세한 사항은 마지막에 표현한다.  
+그렇게 하면 첫 함수 몇개만 읽어도 개념을 파악하기 쉬워질 것이다.
 
 ### 가로 형식 맞추기
-__ 가로 공백과 밀집도
-__ 가로 정렬
-__ 들여쓰기
+대다수의 프로그래머들은 명백히 짧은 행을 선호하므로 짧은 행이 바람직하다.  
+Hollerith가 제안한 80자 제한은 다소 인위적이므로 조금 더 늘여도 좋다. 하지만 120자 이상을 넘어간다면 주의 부족이다.  
+필자 개인적으로는 120자 정도로 길이를 제한한다.
+
+#### 가로 공백과 밀집도
+가로로는 공백을 사용해 밀접/느슨한 개념을 표현한다
+
+{% highlight java linenos %}
+private void measureLine(String line) { 
+	lineCount++;
+	
+	// 흔히 볼 수 있는 코드인데, 할당 연산자 좌우로 공백을 주어 왼쪽,오른쪽 요소가 확실하게 구분된다.
+	int lineSize = line.length();
+	totalChars += lineSize; 
+	
+	// 반면 함수이름과 괄호 사이에는 공백을 없앰으로써 함수와 인수의 밀접함을 보여준다
+	// 괄호 안의 인수끼리는 쉼표 뒤의 공백을 통해 인수가 별개라는 사실을 보여준다.
+	lineWidthHistogram.addLine(lineSize, lineCount);
+	recordWidestLine(lineSize);
+}
+{% endhighlight %}
+
+#### 가로 정렬
+
+{% highlight java linenos %}
+public class FitNesseExpediter implements ResponseSender {
+	private		Socket		  socket;
+	private 	InputStream 	  input;
+	private 	OutputStream 	  output;
+	private 	Reques		  request; 		
+	private 	Response 	  response;	
+	private 	FitNesseContex	  context; 
+	protected 	long		  requestParsingTimeLimit;
+	private 	long		  requestProgress;
+	private 	long		  requestParsingDeadline;
+	private 	boolean		  hasError;
+}
+{% endhighlight %}
+
+보기엔 깔끔해 보일지 모르나, 코드가 엉뚱한 부분을 강조해 변수 유형을 자연스레 무시하고 이름부터 읽게 된다.  
+게다가 Code Formatter 대부분들은 이렇게 해놔봤자 무시하고 원래대로 돌려놓는다 그러므로 선언문과 할당문을 별도로 정렬할 필요가 없다.  
+정렬이 필요할 정도로 목록이 길다면 목록의 길이가 문제이지 정렬이 부족해서가 아니다. 선언부가 길다는 것은 클래스를 쪼개야 한다는 것을 의미한다.
+
+#### 들여쓰기
 
 ### 가짜 범위
 ### 팀 규칙
