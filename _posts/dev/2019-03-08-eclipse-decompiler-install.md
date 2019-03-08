@@ -13,7 +13,7 @@ toc_sticky: true
 ---
 
 ## Intro
-프로젝트 투입시 Eclipse에 가장 먼저 설치하는 plugin인 Enhanced Class Decompiler가 설치오류가 발생했다.  
+프로젝트 투입시 Eclipse에 가장 먼저 설치하는 plugin인 Enhanced Class Decompiler 설치시 오류가 발생했다.  
 Eclipse Version은 Oxygen.3a (4.7.3a) 였다. 검색해본 결과 해당 Version에만 해당하는 내용은 아닌 듯 했다.
 github에서는 #11에 proxy 관련 문제라고들 하는데 해결이 되지 않았다. 그래서 그냥 github 프로젝트를 다운로드해 local에서 설치해서 해결 했다.
 
