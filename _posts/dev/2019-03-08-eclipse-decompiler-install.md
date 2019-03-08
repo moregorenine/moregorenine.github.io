@@ -18,7 +18,7 @@ Eclipse Version은 Oxygen.3a (4.7.3a) 였다. 검색해본 결과 해당 Version
 github에서는 #11에 proxy 관련 문제라고들 하는데 해결이 되지 않았다. 그래서 그냥 github 프로젝트를 다운로드해 local에서 설치해서 해결 했다.
 
 ## github ecd 프로젝트 직접 다운로드
-issue #11에 제기된 내용이지만 proxy로 해결이 되지 않아. #38에 등록된 RobertZenz의 답변을 참조해 해결 했다.
+issue #11에 제기된 내용이지만 proxy로 해결이 되지 않아. #38에 등록된 RobertZenz의 답변을 참조해 해결 했다.  
 [ecd github - issue #38](https://github.com/ecd-plugin/ecd/issues/38 "issue #38")  
 ecd의 github 프로젝트를 직접 다운로드 받은 후 eclipse에서 다운로드 받은 파일로 직접 plugin 설치를 수행하며 아래 과정대로 진행했다.
 
@@ -29,5 +29,5 @@ ecd의 github 프로젝트를 직접 다운로드 받은 후 eclipse에서 다�
   
 ## JDK8 설정
 설치시 repository 접속 방법이 https 로 변경되면서 JDK1.7 이하 버젼에서 발생할 수 있는 문제일 수도 있나보다.
-이럴 경우 -vm 환경 변수로 JDK8 이상 버젼을 지정해 해결하는 케이스도 있나보다.
+이럴 경우 -vm 환경 변수로 JDK8 이상 버젼을 지정해 해결하는 케이스도 있나보다.  
 [JDK 버젼 문제 - stackoverflow.com](https://stackoverflow.com/questions/45319531/eclipse-luna-shows-error-unable-to-read-repository-at/51359313#51359313 "JDK 버젼 문제 - stackoverflow.com")
