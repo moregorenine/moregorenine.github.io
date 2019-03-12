@@ -165,8 +165,7 @@ public class GuessStatisticsMessage {
         } else if (count == 1) {
             thereIsOneLetter();
         } else {
-            thereAreM
-            anyLetters(count);
+            thereAreManyLetters(count);
         }
     }
 
@@ -192,7 +191,7 @@ public class GuessStatisticsMessage {
 
 ### 불필요한 맥락을 없애라
 - `Gas Station Delux` 이라는 어플리케이션을 작성한다고 해서 클래스 이름의 앞에 GSD를 붙이지는 말자. G를 입력하고 자동완성을 누를 경우 모든 클래스가 나타나는 등 효율적이지 못하다.  
-위 a처럼 접두어를 붙이는 것은 모듈의 재사용 관점에서도 좋지 못하다. 재사용하려면 이름을 바꿔야 한다.(eg, `GSDAccountAddress` 대신 `Address`라고만 해도 충분하다.)  
+위 처럼 접두어를 붙이는 것은 모듈의 재사용 관점에서도 좋지 못하다. 재사용하려면 이름을 바꿔야 한다.(eg, `GSDAccountAddress` 대신 `Address`라고만 해도 충분하다.)  
 
 ### 마치면서
 > 두려워하지 말고 서로의 명명을 지적하고 고치자. 그렇게 하면 이름을 외우는 것에 시간을 빼앗기지 않고 "자연스럽게 읽히는 코드"를 짜는 데에 더 집중할 수 있다.
