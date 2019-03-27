@@ -31,3 +31,10 @@ ecd의 github 프로젝트를 직접 다운로드 받은 후 eclipse에서 다�
 설치시 repository 접속 방법이 https 로 변경되면서 JDK1.7 이하 버젼에서 발생할 수 있는 문제일 수도 있나보다.
 이럴 경우 -vm 환경 변수로 JDK8 이상 버젼을 지정해 해결하는 케이스도 있나보다.  
 [JDK 버젼 문제 - stackoverflow.com](https://stackoverflow.com/questions/45319531/eclipse-luna-shows-error-unable-to-read-repository-at/51359313#51359313 "JDK 버젼 문제 - stackoverflow.com")
+
+## Class 보기 동작 안할때
+특히 oxygen 버젼일 경우 필요한 설정이다. class 파일들에 대한 연결이 아마 다른 plugin으로 설정 되어있을 텐데 Class Decompiler Viewer를 Default로 설정해줘야 한다.
+- Click on "Window > Preferences > General > Editors > File Associations"
+- Change default to your for both .class association.
+- "*.class" : "Class Decompiler Viewer" is selected by default.
+- "*.class without source" : "Class Decompiler Viewer" is selected by default.
