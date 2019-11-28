@@ -22,14 +22,17 @@ Settings -> Editor -> General -> Match case: 체크 해제
 ## Editor Actions
 
 ## Main menu
-- ★★☆☆☆ Ctrl + Shift + ' (Window - Active Tool Window - Maximize Tool Window)
+- ★★☆☆☆ **Ctrl + Shift + '** (Window - Active Tool Window - Maximize Tool Window)
   - 선택된 tool창 사이즈 max toggle ()
-- ★★★☆☆ Alt + j : (Edit - Find - Add Selection for Next Occurrence)
+- ★★★★★ **Alt + j** : (Edit - Find - Add Selection for Next Occurrence)
   - 선택영역이랑 동일한 다음 문자열 다중선택 
-- ★★★★☆ Ctrl + Shift + UP/Down : (Code - Move Statement Down)
-  - 선택영역 이동 
-
+- ★★★★★ **Ctrl + Shift + UP/Down** : (Code - Move Statement Down)
+  - 선택영역을 화살표 방향으로 이동 line영역, 블럭 영역, 함수 단위 영역 다 가능
+- ★★☆☆☆ **Ctrl + Alt + S** (File - Settings...)
+  - Settings 화면을 띄운다.
 
 ## Tool Windows
-- ★★★★☆ Alt + 0~9 : (Tool Windows)
+- ★★★★☆ **Alt + 0~9** : (Tool Windows)
   - 번호에 따라 tool창에 포커싱 된다. 
+  
+  
