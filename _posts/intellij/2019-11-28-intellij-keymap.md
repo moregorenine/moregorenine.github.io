@@ -18,7 +18,7 @@ eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 �
 ## Editor Actions
 
 ## Main menu
-- ★★★★☆ Ctrl + Shift + Quote : 선택된 tool창 사이즈가 max toggle (Main menu | Window | Active Tool Window | Maximize Tool Window)
+- ★★★★☆ Ctrl + Shift + ' : 선택된 tool창 사이즈 max toggle (Maximize Tool Window)
 
 ## Tool Windows
 - ★★★★☆ Alt + 0~9 : 번호에 따라 tool창에 포커싱 된다. (Tool Windows)
