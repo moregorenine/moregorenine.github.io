@@ -22,9 +22,14 @@ Settings -> Editor -> General -> Match case: 체크 해제
 ## Editor Actions
 
 ## Main menu
-- ★★★★☆ Ctrl + Shift + ' : 선택된 tool창 사이즈 max toggle (Maximize Tool Window)
-- ★★★★☆ Alt + j : 선택영역이랑 동일한 다음 문자열 다중선택 (Add Selection for Next Occurrence)
+- ★★☆☆☆ Ctrl + Shift + ' (Window - Active Tool Window - Maximize Tool Window)
+  - 선택된 tool창 사이즈 max toggle ()
+- ★★★☆☆ Alt + j : (Edit - Find - Add Selection for Next Occurrence)
+  - 선택영역이랑 동일한 다음 문자열 다중선택 
+- ★★★★☆ Ctrl + Shift + UP/Down : (Code - Move Statement Down)
+  - 선택영역 이동 
 
 
 ## Tool Windows
-- ★★★★☆ Alt + 0~9 : 번호에 따라 tool창에 포커싱 된다. (Tool Windows)
+- ★★★★☆ Alt + 0~9 : (Tool Windows)
+  - 번호에 따라 tool창에 포커싱 된다. 
