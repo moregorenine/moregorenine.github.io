@@ -33,7 +33,7 @@ Settings -> Editor -> General -> Match case: 체크 해제
   - 자동으로 Imports 시켜준다.
 - **Ctrl + Alt + L** : (Code → Reformat Code)
   - ★★★★★
-  - 자동으로 Imports 시켜준다.
+  - 코드 자동 정렬
 - **Alt + J** : (Edit → Find → Add Selection for Next Occurrence)
   - ★★★★★
   - 선택영역이랑 동일한 다음 문자열 다중선택 
@@ -44,12 +44,12 @@ Settings -> Editor -> General -> Match case: 체크 해제
   - ★★☆☆☆
   - Settings 화면을 띄운다.
 - **Ctrl + Shift + '** (Window → Active Tool Window → Maximize Tool Window)
-  - ★★☆☆☆
+  - ★☆☆☆☆
   - 선택된 tool창 사이즈 max toggle ()  
 
 ## Tool Windows
 - **Alt + 0~9** : (Tool Windows)
-  - ★★★★☆
+  - ★☆☆☆☆
   - 번호에 따라 tool창에 포커싱 된다. 
   
   
