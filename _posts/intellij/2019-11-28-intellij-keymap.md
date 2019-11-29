@@ -20,7 +20,7 @@ Code Assist 기능 사용시 대/소 문자 구분하도록 세팅되어있다. 
 Settings -> Editor -> General -> Match case: 체크 해제
 
 ## Editor Actions
-- **Ctrl + W** : (Editor Actions → Duplicate Line or Selection)
+- **Ctrl + D** : (Editor Actions → Duplicate Line or Selection)
   - ★★★★★
   - 커서 위치한 라인이나 선택영역을 복사생성한다.
   
