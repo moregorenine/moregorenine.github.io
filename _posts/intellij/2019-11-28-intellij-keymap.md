@@ -23,7 +23,7 @@ Settings -> Editor -> General -> Match case: 체크 해제
 - **Ctrl + D** : (Editor Actions → Duplicate Line or Selection)
   - ★★★★★
   - 커서 위치한 라인이나 선택영역을 복사생성한다.
-  
+
 ## Main menu
 - **Ctrl + Shift + UP/Down** : (Code → Move Statement Down)
   - ★★★★★
@@ -36,13 +36,22 @@ Settings -> Editor -> General -> Match case: 체크 해제
   - 코드 자동 정렬
 - **Alt + J** : (Edit → Find → Add Selection for Next Occurrence)
   - ★★★★★
-  - 선택영역이랑 동일한 다음 문자열 다중선택 
+  - 선택영역이랑 동일한 다음 문자열 선택
+- **Alt + Shift + J** : (Edit → Find → Unselect Occurrence)
+  - ★★★★★
+  - 선택영역이랑 동일한 다음 문자열 선택 undo
 - **Alt + W** : (Edit → Extend Selection  )
   - ★★★★★
   - 커서 기준으로 선택영역을 확장한다.
 - **Ctrl + Alt + S** (File → Settings...)
   - ★★☆☆☆
   - Settings 화면을 띄운다.
+- **Ctrl + N** (Navigate → Class...)
+  - ★★★☆☆
+  - Class 검색 화면을 띄운다.
+- **Ctrl + Shift + N** (Navigate → File...)
+  - ★★★☆☆
+  - File명 검색 화면을 띄운다.
 - **Ctrl + Shift + '** (Window → Active Tool Window → Maximize Tool Window)
   - ★☆☆☆☆
   - 선택된 tool창 사이즈 max toggle ()  
