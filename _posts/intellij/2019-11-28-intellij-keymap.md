@@ -20,9 +20,13 @@ Code Assist 기능 사용시 대/소 문자 구분하도록 세팅되어있다. 
 Settings -> Editor -> General -> Match case: 체크 해제
 
 ## Editor Actions
-- **Ctrl + D** : (Editor Actions → Duplicate Line or Selection)
+- **Ctrl + D** : (Duplicate Line or Selection)
   - ★★★★★
   - 커서 위치한 라인이나 선택영역을 복사생성한다.
+- **Ctrl + Shift + U** : (Toggle Case)
+  - ★★★☆☆
+  - 선택영역 대소문자 변경 토글
+
 
 ## Main menu
 - **Ctrl + Shift + UP/Down** : (Code → Move Statement Down)
@@ -54,7 +58,7 @@ Settings -> Editor -> General -> Match case: 체크 해제
   - File명 검색 화면을 띄운다.
 - **Ctrl + Shift + '** (Window → Active Tool Window → Maximize Tool Window)
   - ★☆☆☆☆
-  - 선택된 tool창 사이즈 max toggle ()  
+  - 선택된 tool창 사이즈 max toggle ()
 
 ## Tool Windows
 - **Alt + 0~9** : (Tool Windows)
