@@ -27,7 +27,6 @@ Settings -> Editor -> General -> Match case: 체크 해제
   - ★★★☆☆
   - 선택영역 대소문자 변경 토글
 
-
 ## Main menu
 - **Ctrl + Shift + UP/Down** : (Code → Move Statement Down)
   - ★★★★★
@@ -56,6 +55,9 @@ Settings -> Editor -> General -> Match case: 체크 해제
 - **Ctrl + Shift + N** (Navigate → File...)
   - ★★★☆☆
   - File명 검색 화면을 띄운다.
+- **Ctrl + F8** (Run → Toggle Line Breakpoint)
+  - ★☆☆☆☆
+  - Break Point toggle
 - **Ctrl + Shift + '** (Window → Active Tool Window → Maximize Tool Window)
   - ★☆☆☆☆
   - 선택된 tool창 사이즈 max toggle ()
