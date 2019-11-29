@@ -17,7 +17,8 @@ eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 �
 
 ## Code Assist 기능 사용시 대/소 문자 구분하도록 세팅되어있다.
 Code Assist 기능 사용시 대/소 문자 구분하도록 세팅되어있다. 핵불편...<br>
-Settings -> Editor -> General -> Match case: 체크 해제
+Settings → Editor → General → Code Completion → Match case: 체크 해제
+
 
 ## Editor Actions
 - **Ctrl + D** : (Duplicate Line or Selection)
@@ -58,9 +59,15 @@ Settings -> Editor -> General -> Match case: 체크 해제
 - **Ctrl + F8** (Run → Toggle Line Breakpoint)
   - ★☆☆☆☆
   - Break Point toggle
+- **Ctrl + Shift + E** (View → Recent Locations)
+  - ★★★★★
+  - 최근에 코드의 조회 위치 내역들을 보여준다. 한번더 클릭시 최근 코드 수정 기준으로 보여준다.
+- **Ctrl + Shift + F12** (Window → Active Tool Window → Hide All Tool Windows)
+  - ★★☆☆☆
+  - 모든 tool windows를 숨김으로서 코드 editor창만이 Maximize되는 효과
 - **Ctrl + Shift + '** (Window → Active Tool Window → Maximize Tool Window)
   - ★☆☆☆☆
-  - 선택된 tool창 사이즈 max toggle ()
+  - 선택된 tool창 사이즈 max toggle
 
 ## Tool Windows
 - **Alt + 0~9** : (Tool Windows)
