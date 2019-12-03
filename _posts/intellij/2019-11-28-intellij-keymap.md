@@ -30,6 +30,10 @@ Settings → Editor → General → Code Completion → Match case: 체크 해�
   - Add unambiguous imports on the fly
   - Optimize imports on the fly (for current project)
 
+## Typo: In word 없애기
+**F2**(highlighted error) 검사시 스펠링 체크 해제
+- Editor → Inspections → Spelling 체크 해제
+
 ## Editor Actions
 - **Ctrl + D** : (Duplicate Line or Selection)
   - ★★★★★
