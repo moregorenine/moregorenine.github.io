@@ -96,4 +96,9 @@ Settings → Editor → General → Code Completion → Match case: 체크 해�
   - ★☆☆☆☆
   - 번호에 따라 tool창에 포커싱 된다. 
   
+## Other
+- **Ctrl + Tab** : (Switcher)
+  - ★★★★★
+  - 이전 편집탭 돌아가기
+
   
