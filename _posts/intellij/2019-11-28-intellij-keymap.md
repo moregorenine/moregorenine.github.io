@@ -24,6 +24,12 @@ Settings → Editor → General → Code Completion → Match case: 체크 해�
 - File → Settings → Build, Execution, Deployment → Compiler : build project automatically 체크
 - **Ctrl + Alt + Shift + /** 검색창에서 Registry 선택 : compiler.automake.allow.when.app.running 체크
 
+## auto import 문제
+**Ctrl + Alt + O** (Optimize Imports) 사용되지 않은 import 제거되나 새로운 패키지를 가져 오지 않음.
+- File → Settings → Editor → General → Auto Import 세팅의 아래 두 항목 
+  - Add unambiguous imports on the fly
+  - Optimize imports on the fly (for current project)
+
 ## Editor Actions
 - **Ctrl + D** : (Duplicate Line or Selection)
   - ★★★★★
