@@ -15,9 +15,14 @@ eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 �
 내가 종종 사용하는 기능이 인터넷 올라와 있는 여러 단축키 글들 중에서 없는 것도 많아.
 개인적인 참고용으로 작성한다.
 
+## Welcome to IntelliJ IDEA
+intellij 실행시 기본적으로 마지막 작업 프로젝트가 자동으로 Open 된다. 아래 두 가지 방법이 있다.
+- **File → Close Project** : 현재 프로젝트를 닫고 프로젝트 선택 화면을 띄운다.
+- **File → Settings → Appearance & Behavior → System Settings → Reopen last project on startup** 체크 해제 : intellij 시작시 프로젝트 선택 화면을 띄운다.
+
 ## Code Assist 기능 사용시 대/소 문자 구분 해제
 Code Assist 기능 사용시 대/소 문자 구분하도록 세팅되어있다. 핵불편...<br>
-Settings → Editor → General → Code Completion → Match case: 체크 해제
+- **Settings → Editor → General → Code Completion → Match case** 체크 해제
 
 ## auto build
 소스 코드 변경시 자동 빌드 후 재실행 시켜준다.
