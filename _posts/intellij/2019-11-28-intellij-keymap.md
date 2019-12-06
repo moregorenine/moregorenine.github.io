@@ -31,9 +31,13 @@ Code Assist 기능 사용시 대/소 문자 구분하도록 세팅되어있다. 
 
 ## auto import 문제
 **Ctrl + Alt + O** (Optimize Imports) 사용되지 않은 import 제거되나 새로운 패키지를 가져 오지 않음.
-- File → Settings → Editor → General → Auto Import 세팅의 아래 두 항목 
+- **File → Settings → Editor → General → Auto Import** 세팅의 아래 두 항목 
   - Add unambiguous imports on the fly
   - Optimize imports on the fly (for current project)
+  
+## Indexing
+intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 필요 없는 폴더는 exclude 시키자. 난 node_modules 를 exclude 시키기 위해서 찾아본 기능인데 target이랑 node_modules은 기본적으로 exclude가 되어 있었다.
+- **File → Project Structure → Modules → Sources tab.**
 
 ## Typo: In word 없애기
 **F2**(highlighted error) 검사시 스펠링 체크 해제
