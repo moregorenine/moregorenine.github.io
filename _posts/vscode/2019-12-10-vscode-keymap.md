@@ -32,15 +32,26 @@ eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 �
   - ★★
 - **Ctrl+K Ctrl+S** : Keyboard Shortcuts
   - ★★
-  
+
+## Basic editing
+- **Alt+ ↑ / ↓** : Move line up/down
+  - ★★★★★
+- **Shift+Alt + ↓ / ↑** : Copy line up/down
+  - ★★★★★
+- **Ctrl+Shift+K** : Delete line
+  - ★★★★★
+
 ## Navigation
 - **F8** : Go to next error or warning Shift+F8 Go to previous error or warning
   - ★★★★★
+- **Alt+ ← / →** : Go back / forward
 
 ## Rich languages editing
 - **Ctrl+.** : Quick
   - ★★★★★
-
+  
+  
+  
 
 아래는 intellij 단축키 내용으로 삭제 예정.
 
