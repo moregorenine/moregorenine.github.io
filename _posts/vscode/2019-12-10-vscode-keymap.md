@@ -22,6 +22,12 @@ eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 �
 - **Ctrl+K Ctrl+D** : Move last selection to next Find match
   - ★★★★★
   - 선택영역이랑 동일한 다음 문자열 스킵
+  
+## Multi-cursor and selection
+- **Shift+Alt+→** : Expand selection
+  - ★★★★
+- **Shift+Alt+←** : Shrink selection
+  - ★★★★
 
 ## General
 - Ctrl+Shift+P, F1 Show Command Palette
@@ -49,6 +55,10 @@ eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 �
 ## Rich languages editing
 - **Ctrl+.** : Quick
   - ★★★★★
+  
+## Debug
+- **F9** : Toggle breakpoint
+  - ★★
   
   
   
