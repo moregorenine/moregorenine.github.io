@@ -22,16 +22,24 @@ eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 �
 - **Ctrl+K Ctrl+D** : Move last selection to next Find match
   - ★★★★★
   - 선택영역이랑 동일한 다음 문자열 스킵
+
+## General
+- Ctrl+Shift+P, F1 Show Command Palette
+  - ★★★
+- Ctrl+P Quick Open, Go to File…
+  - ★★★★
+- **Ctrl+,** : User Settings
+  - ★★
+- **Ctrl+K Ctrl+S** : Keyboard Shortcuts
+  - ★★
   
 ## Navigation
 - **F8** : Go to next error or warning Shift+F8 Go to previous error or warning
   - ★★★★★
-  - error 이나 warning 영역으로 이동
 
 ## Rich languages editing
 - **Ctrl+.** : Quick
   - ★★★★★
-  - error 이나 warning fix
 
 
 아래는 intellij 단축키 내용으로 삭제 예정.
