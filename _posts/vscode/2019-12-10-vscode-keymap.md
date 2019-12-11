@@ -15,20 +15,6 @@ eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 �
 내가 종종 사용하는 기능이 인터넷 올라와 있는 여러 단축키 글들 중에서 없는 것도 많아.
 개인적인 참고용으로 작성한다.
 
-## Search and replace
-- **Ctrl+D** : Add selection to next Find match
-  - ★★★★★
-  - 선택영역이랑 동일한 다음 문자열 선택
-- **Ctrl+K Ctrl+D** : Move last selection to next Find match
-  - ★★★★★
-  - 선택영역이랑 동일한 다음 문자열 스킵
-  
-## Multi-cursor and selection
-- **Shift+Alt+→** : Expand selection
-  - ★★★★
-- **Shift+Alt+←** : Shrink selection
-  - ★★★★
-
 ## General
 - **Ctrl+Shift+P or F1** : Show Command Palette
   - ★★★
@@ -46,14 +32,30 @@ eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 �
   - ★★★★★
 - **Ctrl+Shift+K** : Delete line
   - ★★★★★
-
+  
 ## Navigation
 - **F8** : Go to next error or warning Shift+F8 Go to previous error or warning
   - ★★★★★
 - **Alt+ ← / →** : Go back / forward
 
+## Search and replace
+- **Ctrl+D** : Add selection to next Find match
+  - ★★★★★
+  - 선택영역이랑 동일한 다음 문자열 선택
+- **Ctrl+K Ctrl+D** : Move last selection to next Find match
+  - ★★★★★
+  - 선택영역이랑 동일한 다음 문자열 스킵
+  
+## Multi-cursor and selection
+- **Shift+Alt+→** : Expand selection
+  - ★★★★
+- **Shift+Alt+←** : Shrink selection
+  - ★★★★
+
 ## Rich languages editing
 - **Ctrl+.** : Quick
+  - ★★★★★
+- **Shift+Alt+F** : Format document
   - ★★★★★
   
 ## Debug
