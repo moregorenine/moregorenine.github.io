@@ -40,7 +40,7 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **File → Project Structure → Modules → Sources tab.**
 
 ## Typo: In word 없애기
-**F2**(highlighted error) 검사시 스펠링 체크 해제
+**F2** : (highlighted error) 검사시 스펠링 체크 해제
 - Editor → Inspections → Spelling 체크 해제
 
 ## Editor Actions
@@ -48,7 +48,7 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
   - ★★★★★
   - 커서 위치한 라인이나 선택영역을 복사생성한다.
 - **Ctrl + Shift + U** : (Toggle Case)
-  - ★★★☆☆
+  - ★★★
   - 선택영역 대소문자 변경 토글
 
 ## Main menu
@@ -58,6 +58,8 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **Ctrl + Shift + UP/Down** : (Code → Move Statement Down)
   - ★★★★★
   - 선택영역을 화살표 방향으로 이동 line영역, 블럭 영역, 함수 단위 영역 다 가능
+- **F4** : (Main menu → View → Jump to Source)
+  - ★★★★★
 - **Ctrl + Alt + O** : (Code → Optimize Imports)
   - ★★★★★
   - 자동으로 Imports 시켜준다.
@@ -65,7 +67,7 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
   - ★★★★★
   - 코드 자동 정렬
 - **Ctrl + Shift + Enter** : (Edit → Complete Current Statement)
-  - ★★☆☆☆
+  - ★★★
   - 커서 기준으로 마지막에 ;를 입력해준다. 
 - **Alt + W** : (Edit → Extend Selection)
   - ★★★★★
@@ -76,48 +78,46 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **Alt + Shift + J** : (Edit → Find → Unselect Occurrence)
   - ★★★★★
   - 선택영역이랑 동일한 다음 문자열 선택 undo
-- **Ctrl + Alt + S** (File → Settings...)
-  - ★★☆☆☆
+- **Ctrl + Alt + S** : (File → Settings...)
+  - ★★
   - Settings 화면을 띄운다.
-- **Ctrl + N** (Navigate → Class...)
-  - ★★★☆☆
+- **Ctrl + N** : (Navigate → Class...)
+  - ★★★
   - Class 검색 화면을 띄운다.
-- **Ctrl + Shift + N** (Navigate → File...)
-  - ★★★☆☆
+- **Ctrl + Shift + N** : (Navigate → File...)
+  - ★★★
   - File명 검색 화면을 띄운다.
 - **Shift + F6** : (Refactor → Rename...)
   - ★★★★★
   - 이름 변경
-- **Shift + F9** (Run → Debug)
+- **Shift + F9** : (Run → Debug)
   - ★★★★★
   - 디버그 모드 실행
-- **Shift + F10** (Run → Run)
+- **Shift + F10** : (Run → Run)
   - ★★★★★
   - 실행
-- **Ctrl + F8** (Run → Toggle Line Breakpoint)
-  - ★☆☆☆☆
+- **Ctrl + F8** : (Run → Toggle Line Breakpoint)
+  - ★
   - Break Point toggle
-- **Ctrl + P** (View → Parameter Info)
-  - ★★★★☆
+- **Ctrl + P** : (View → Parameter Info)
+  - ★★★★
   - 함수에 사용되는 인자 목록을 보여준다.
-- **Ctrl + Shift + E** (View → Recent Locations)
+- **Ctrl + Shift + E** : (View → Recent Locations)
   - ★★★★★
   - 최근에 코드의 조회 위치 내역들을 보여준다. 한번더 클릭시 최근 코드 수정 기준으로 보여준다.
-- **Ctrl + Shift + F12** (Window → Active Tool Window → Hide All Tool Windows)
-  - ★★☆☆☆
+- **Ctrl + Shift + F12** : (Window → Active Tool Window → Hide All Tool Windows)
+  - ★★
   - 모든 tool windows를 숨김으로서 코드 editor창만이 Maximize되는 효과
-- **Ctrl + Shift + '** (Window → Active Tool Window → Maximize Tool Window)
-  - ★☆☆☆☆
+- **Ctrl + Shift + '** : (Window → Active Tool Window → Maximize Tool Window)
+  - ★
   - 선택된 tool창 사이즈 max toggle
 
 ## Tool Windows
 - **Alt + 0~9** : (Tool Windows)
-  - ★☆☆☆☆
+  - ★
   - 번호에 따라 tool창에 포커싱 된다. 
   
 ## Other
 - **Ctrl + Tab** : (Switcher)
   - ★★★★★
   - 이전 편집탭 돌아가기
-
-  
