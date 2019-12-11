@@ -37,6 +37,7 @@ eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 �
 - **F8** : Go to next error or warning Shift+F8 Go to previous error or warning
   - ★★★★★
 - **Alt+ ← / →** : Go back / forward
+  - ★★★★★
 
 ## Search and replace
 - **Ctrl+D** : Add selection to next Find match
@@ -53,8 +54,9 @@ eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 �
   - ★★★★
 
 ## Rich languages editing
-- **Ctrl+.** : Quick
+- **Ctrl+.** : Quick Fix
   - ★★★★★
+  - **F8**과 함께 쓰인다.
 - **Shift+Alt+F** : Format document
   - ★★★★★
   
