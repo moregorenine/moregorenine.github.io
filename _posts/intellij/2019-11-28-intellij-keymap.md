@@ -26,7 +26,7 @@ Code Assist 기능 사용시 대/소 문자 구분하도록 세팅되어있다. 
 
 ## auto build
 소스 코드 변경시 자동 빌드 후 재실행 시켜준다.
-- File → Settings → Build, Execution, Deployment → Compiler : build project automatically 체크
+- **File → Settings → Build, Execution, Deployment → Compiler** : build project automatically 체크
 - **Ctrl + Alt + Shift + /** 검색창에서 Registry 선택 : compiler.automake.allow.when.app.running 체크
 
 ## auto import 문제
@@ -41,11 +41,11 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 
 ## Typo: In word 없애기
 **F2** : (highlighted error) 검사시 스펠링 체크 해제
-- Editor → Inspections → Spelling 체크 해제
+- **Editor → Inspections → Spelling** 체크 해제
 
 ## 자동저장 해제
-- File → Settings → Appearance & Behavior → System Settings : Save files... 2개 항목 체크 해제
-- File → Settings → Editor → General → Editor Tabs : 파일 수정시 \*표시해주기 위해 Mark modified 체크
+- **File → Settings → Appearance & Behavior → System Settings** : Save files... 2개 항목 체크 해제
+- **File → Settings → Editor → General → Editor Tabs** : 파일 수정시 \*표시해주기 위해 Mark modified 체크
 
 ## Editor Actions
 - **Ctrl + D** : (Duplicate Line or Selection)
@@ -103,6 +103,9 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **Ctrl + F8** : (Run → Toggle Line Breakpoint)
   - ★
   - Break Point toggle
+- **Ctrl + Alt + F8** or **Alt + Button1 Click** : (Main menu → Run → Quick Evaluate Expression)
+  - ★★★★★
+  - Debug모드시 커서 선택 영역의 값을 보여준다.
 - **Ctrl + P** : (View → Parameter Info)
   - ★★★★
   - 함수에 사용되는 인자 목록을 보여준다.
