@@ -91,6 +91,9 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **Ctrl + Shift + N** : (Navigate → File...)
   - ★★★
   - File명 검색 화면을 띄운다.
+- **Ctrl + Alt + Left** or **Ctrl + Alt + Right** : (Navigate → Back or Forward)
+  - ★★★★★
+  - 화면 이동한 히스토리 내역 Back or Forward
 - **Shift + F6** : (Refactor → Rename...)
   - ★★★★★
   - 이름 변경
@@ -118,6 +121,8 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **Ctrl + Shift + '** : (Window → Active Tool Window → Maximize Tool Window)
   - ★
   - 선택된 tool창 사이즈 max toggle
+- **Alt + Left** or **Alt + Right** : (Window → Editor Tabs → Select Next Tab or Select Previous Tab)
+  - ★★★★★
 
 ## Tool Windows
 - **Alt + 0~9** : (Tool Windows)
