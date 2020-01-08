@@ -20,7 +20,6 @@ public static Boolean valueOf(boolean b) {
     return b ? Boolean.TRUE : Boolean.FALSE;
 }
 {% endhighlight %}
-### 장점
 - 장점1 : 생성자와는 달리 정적 팩터리 메서드에는 이름(name)이 있다.
 - 장점2 : 생성자와는 달리 호출할 때마다 새로운 객체를 생성할 필요는 없다.
   - 변경 불가능 클래스(**규칙15**)라면 이미 만들어 둔 객체를 활용할 수도 있고,
@@ -39,6 +38,5 @@ public static Boolean valueOf(boolean b) {
     - 클라이언트 코드는 반환된 객체의 실제 구현 세부사항이 아니라 인터페이스만 보고 작성하게 되는데, 일반적으로 바람직한 습관이다(**규칙52**)
   - JDK 1.5부터 도입된 java.util.EnumSet(규칙32)에는 public으로 선언된 생성자가 없으며, 정적 팩터리 메서드뿐이다.
 - 장점4 : 형인자 자료형(parameterized type) 객체를 만들 때 편하다.
-### 단점
 - 단점1 : public이나 protected로 선언된 생성자가 없으므로 하위 클래스를 만들 수 없다.
 - 단점2 : 정적 팩터리 메서드가 다른 정적 메서드와 확연히 구분되지 않는다.
