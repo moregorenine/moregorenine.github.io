@@ -47,6 +47,9 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **File → Settings → Appearance & Behavior → System Settings** : Save files... 2개 항목 체크 해제
 - **File → Settings → Editor → General → Editor Tabs** : 파일 수정시 \*표시해주기 위해 Mark modified 체크
 
+## plugins
+- [Key Promoter X](https://plugins.jetbrains.com/plugin/9792-key-promoter-x/versions)
+
 ## Editor Actions
 - **Ctrl + D** : (Duplicate Line or Selection)
   - ★★★★★
