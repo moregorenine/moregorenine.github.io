@@ -73,6 +73,9 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **Ctrl + Alt + L** : (Code → Reformat Code)
   - ★★★★★
   - 코드 자동 정렬
+- **Ctrl + Alt + L** : (Code → Surround With...)
+  - ★★★★
+  - 코드 자동 생성(ex. try catch)
 - **Ctrl + Shift + Enter** : (Edit → Complete Current Statement)
   - ★★★
   - 커서 기준으로 마지막에 ;를 입력해준다. 
