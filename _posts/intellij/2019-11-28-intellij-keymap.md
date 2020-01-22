@@ -85,6 +85,9 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **Alt + Shift + J** : (Edit → Find → Unselect Occurrence)
   - ★★★★★
   - 선택영역이랑 동일한 다음 문자열 선택 undo
+- **Ctrl + Shift + F** : (Edit → Find → Find in Path...)
+  - ★★★★★
+  - 전체에서 검색
 - **Ctrl + Alt + S** : (File → Settings...)
   - ★★
   - Settings 화면을 띄운다.
@@ -136,3 +139,6 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **Ctrl + Tab** : (Switcher)
   - ★★★★★
   - 이전 편집탭 돌아가기
+
+## 참조
+- [Heee's Development Blog](https://gmlwjd9405.github.io/2019/05/21/intellij-shortkey.html)
