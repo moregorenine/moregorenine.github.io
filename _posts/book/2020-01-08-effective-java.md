@@ -14,7 +14,7 @@ toc_sticky: true
 - 객체 삭제 보장 방법
 - 객체 삭제 전 청소 작업 관리
 
-## [rule1]**규칙1** : 생성자 대신 정적 팩터리 메서드를 사용할 수 없는지 생각해 보라.
+## [rule1][**규칙1**] : 생성자 대신 정적 팩터리 메서드를 사용할 수 없는지 생각해 보라.
 {% highlight java linenos %}
 public static Boolean valueOf(boolean b) {
     return b ? Boolean.TRUE : Boolean.FALSE;
