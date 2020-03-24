@@ -48,6 +48,31 @@ return b ? Boolean.TRUE : Boolean.FALSE;
 
 ## <a name="r3">규칙3</a> : private 생성자나 enum 자료형은 싱글턴 패턴을 따르도록 설계하라
 
+싱글턴은 객체를 하나만 만들 수 있는 클래스다.
+JDK 1.5 이전에는 싱글턴을 구현하는 방법이 두 가지였다.
+두 방법 다 생성자는 private 로 선언하고, 싱글턴 객체는 정적(static) 멤버를 통해 이용한다.
+
+- 첫 번째 방법의 경우, 정적 멤버는 final로 선언한다.
+{% highlight java linenos %}
+public class Elvis {
+    public static final Elvis INSTANCE = new Elvis();
+    private Elvis() { ... }
+    
+    public void leaveTheBuilding() { ... }
+{% endhighlight %}
+
+생성자를 private 로 선언하고 public static ClassType getInstance() { return INSTANCE; }
+위의 두 방법 모두 private 생성자를 reflection 통해 부를 수 있음에 주의해야 한다.
+
+성능에 대한 것은, 두번째 방법이 method를 이용하니까 첫번째 방법의 성능이 더 좋다고 생각할 수 있지만, 최신 JVM은 static fiactory method호출을 거의 항상 inline으로 처리하기 때문에 성능상의 차이는 거의 없다고 봐도 된다.
+
+위의 두 방법으로 구현한 싱글턴 클래스를 직렬화하려면 implements Serializable을 추가하는 것으로는 부족. 모든 필드를 transient로 선언, readResolve method 추가해야함. (그렇게 하지 않으면 deserialize할 때 새로운 객체가 생기게 된다.)
+
+원소가 하나뿐이 enum
+JDK 1.5부터는 싱글턴 구현할 때 새로운 방법을 사용할 수 있는데 바로 원소가 하나뿐인 enum 자료형을 쓰는 것!
+직렬화가 자동으로 처리되고, 리플렉션을 통한 공격에도 안전하다고.
+저자는 원소가 하나뿐인 enum 자료형이야 말로 싱글턴을 구현하는 가장 좋은 방법이라고 주장한다.
+
 # 열거형(enum)과 어노테이션
 
 자바 1.5에는 새로운 참조 자료형(reference type)이 추가되었다. 열거형(enum type)이라 불리는 새로운 종류의 클래스와, 어노테이션 자료형이라 불리는 새로운 종류의 인터페이스가 그것이다.
@@ -311,4 +336,9 @@ public static Operation inverse(Operation op) {
         default:        throw new AssertionError("Unknown op: " + op);
     }
 }
+{% endhighlight %}
+
+
+
+{% highlight java linenos %}
 {% endhighlight %}
