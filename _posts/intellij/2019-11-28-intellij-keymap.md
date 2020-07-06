@@ -106,6 +106,9 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **Shift + F6** : (Refactor → Rename...)
   - ★★★★★
   - 이름 변경
+- **Ctrl + Alt + N** : (Refactor → Inline variable)
+  - ★★★★★
+  - 변수선언 
 - **Shift + F9** : (Run → Debug)
   - ★★★★★
   - 디버그 모드 실행
