@@ -108,7 +108,7 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
   - 이름 변경
 - **Ctrl + Alt + N** : (Refactor → Inline variable)
   - ★★★★★
-  - 변수선언과 return 
+  - 변수선언과 return 합치기
 - **Shift + F9** : (Run → Debug)
   - ★★★★★
   - 디버그 모드 실행
