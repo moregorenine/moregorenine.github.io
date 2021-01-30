@@ -1,3 +1,6 @@
+#IntelliJ IDEA
+git restore --staged
+
 # Vim
 *~
 *.sw[p_]
