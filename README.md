@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# moregorenine.github.io
-=======
 # [w4springrain](https://moregorenine.github.io/)
 
 [![LICENSE](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/mmistakes/minimal-mistakes/master/LICENSE)
@@ -32,4 +29,3 @@
    ```
 
 To update the theme run `bundle update`.
->>>>>>> 653e2b7 (update readme.md and post)
