@@ -13,6 +13,7 @@ toc_sticky: true
 # 영어공부 자료 유튜브 소개 [youtube link](https://www.youtube.com/watch?v=Adqx9qe9XJ8)
 
 ## 1. Graded readers
+[Graded readers](https://www.youtube.com/results?search_query=graded+readers)  
 유튜브 검색창에 'graded readers' 검색하셔서 내게 맞는 책 찾기
 ## 2. Learn English through story
 [Learn English through story](https://www.youtube.com/channel/UCoIdrULeenCQ_d1_-ayFuTA)  
