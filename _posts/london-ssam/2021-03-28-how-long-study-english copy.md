@@ -1,6 +1,6 @@
 ---
-title: "런던쌤 영어공부 방법론"
-excerpt: "런던쌤 영어공부 방법론"
+title: "영어공부 하루에 몇시간 해야할까요? 주의사항과 전략까지 알려드릴게요"
+excerpt: "영어공부 하루에 몇시간 해야할까요? 주의사항과 전략까지 알려드릴게요"
 categories: 
   - 런던쌤
 tags: 
@@ -12,7 +12,7 @@ toc_sticky: true
 
 # 영어공부 하루에 몇시간 해야할까요? 주의사항과 전략까지 알려드릴게요
 
-## 1. 영상 소개 [youtube](https://www.youtube.com/watch?v=XEP6Y7GUzXI)
+## 1. 영상 소개 [youtube link](https://www.youtube.com/watch?v=XEP6Y7GUzXI)
 **1.1. 절대적인 공부 시간보다 중요한 것이 무엇인지**  
 **1.2. 이상적으로 투자해야 하는 시간은 얼마나 되는지**  
 **1.3. 이상적인 시간 투자가 현실적으로 불가능하면, 어떻게 해야 하는지**  
