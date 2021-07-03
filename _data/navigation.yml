@@ -1,7 +1,0 @@
-main:
-  - title: "about"
-    url: /about/
-  - title: "category"
-    url: /categories/
-  - title: "tag"
-    url: /tags/
