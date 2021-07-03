@@ -13,9 +13,9 @@ toc_sticky: true
 
 ```shell
 git config --global alias.b "branch"
-git config --global alias.ch "cherry-pick"
-git config --global alias.co "checkout"
-git config --global alias.cm "commit"
+git config --global alias.cp "cherry-pick"
+git config --global alias.ch "checkout"
+git config --global alias.co "commit"
 git config --global alias.d "diff"
 git config --global alias.m "merge"
 git config --global alias.r "restore"
