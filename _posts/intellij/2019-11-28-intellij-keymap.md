@@ -5,7 +5,7 @@ categories:
   - intellij
 tags: 
   - intellij
-last_modified_at: 2019-11-28T00:00:00+09:00
+last_modified_at: 2021-07-04T00:00:00+09:00
 toc: true
 toc_sticky: true
 ---
@@ -46,6 +46,11 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 ## 자동저장 해제
 - **Settings → Appearance & Behavior → System Settings** : Save files... 2개 항목 체크 해제
 - **Settings → Editor → General → Editor Tabs** : 파일 수정시 \*표시해주기 위해 Mark modified 체크
+
+## import * 해제
+- **Settings → Editor → Code Style → Java → Imports**
+  - "Class count to use import with '*" : 10
+  - "Names count to use static import with '*'" : 10
 
 ## plugins
 - Key Promoter X
@@ -155,6 +160,3 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **Ctrl + Tab** : (Switcher)
   - ★★★★★
   - 이전 편집탭 돌아가기
-
-## 참조
-- [Heee's Development Blog](https://gmlwjd9405.github.io/2019/05/21/intellij-shortkey.html)
