@@ -18,7 +18,7 @@ eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 �
 ## Welcome to IntelliJ IDEA
 intellij 실행시 기본적으로 마지막 작업 프로젝트가 자동으로 Open 된다. 아래 두 가지 방법이 있다.
 - **File → Close Project** : 현재 프로젝트를 닫고 프로젝트 선택 화면을 띄운다.
-- **File → Settings → Appearance & Behavior → System Settings → Reopen last project on startup** 체크 해제 : intellij 시작시 프로젝트 선택 화면을 띄운다.
+- **Settings → Appearance & Behavior → System Settings → Reopen last project on startup** 체크 해제 : intellij 시작시 프로젝트 선택 화면을 띄운다.
 
 ## Code Assist 기능 사용시 대/소 문자 구분 해제
 Code Assist 기능 사용시 대/소 문자 구분하도록 세팅되어있다. 핵불편...<br>
@@ -26,12 +26,12 @@ Code Assist 기능 사용시 대/소 문자 구분하도록 세팅되어있다. 
 
 ## auto build
 소스 코드 변경시 자동 빌드 후 재실행 시켜준다.
-- **File → Settings → Build, Execution, Deployment → Compiler** : build project automatically 체크
+- **Settings → Build, Execution, Deployment → Compiler** : build project automatically 체크
 - **Ctrl + Alt + Shift + /** 검색창에서 Registry 선택 : compiler.automake.allow.when.app.running 체크
 
 ## auto import 문제
 **Ctrl + Alt + O** (Optimize Imports) 사용되지 않은 import 제거되나 새로운 패키지를 가져 오지 않음.
-- **File → Settings → Editor → General → Auto Import** 세팅의 아래 두 항목 
+- **Settings → Editor → General → Auto Import** 세팅의 아래 두 항목 
   - Add unambiguous imports on the fly
   - Optimize imports on the fly (for current project)
   
@@ -44,11 +44,21 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **Editor → Inspections → Spelling** 체크 해제
 
 ## 자동저장 해제
-- **File → Settings → Appearance & Behavior → System Settings** : Save files... 2개 항목 체크 해제
-- **File → Settings → Editor → General → Editor Tabs** : 파일 수정시 \*표시해주기 위해 Mark modified 체크
+- **Settings → Appearance & Behavior → System Settings** : Save files... 2개 항목 체크 해제
+- **Settings → Editor → General → Editor Tabs** : 파일 수정시 \*표시해주기 위해 Mark modified 체크
 
 ## plugins
-- [Key Promoter X](https://plugins.jetbrains.com/plugin/9792-key-promoter-x/versions)
+- Key Promoter X
+  - 마우스로 실행시 해당 액션에 바인딩된 단축키를 알려준다.
+  - 단축키를 익힐 때 사용하면 좋음.
+- Presentation Assistant
+  - 실행한 액션에의 단축키를 화면에 보여준다.
+  - 강의용으로 좋음.
+- Gradianto
+  - 개인적으로 좋아하는 테마
+  - 2019년 jetbrain에서 개최한 콘테스트 테마부분 1위였음.
+- String Manipulation
+  - camel, snake, kebab... 변환용으로 최고
 
 ## Editor Actions
 - **Ctrl + D** : (Duplicate Line or Selection)
@@ -91,7 +101,7 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - **Ctrl + Shift + F** : (Edit → Find → Find in Path...)
   - ★★★★★
   - 전체에서 검색
-- **Ctrl + Alt + S** : (File → Settings...)
+- **Ctrl + Alt + S** : (Settings...)
   - ★★
   - Settings 화면을 띄운다.
 - **Ctrl + N** : (Navigate → Class...)
