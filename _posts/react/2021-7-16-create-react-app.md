@@ -61,6 +61,10 @@ deploy를 실행하면 github project repository에 gh-pages란 branch가 생성
 ```shell
 npm run deploy
 ```
+## Learn React
+React를 배울 때 두가지 접근 방법을 제공합니다.
+- learn by **doing** : [practical tutorial.](https://reactjs.org/tutorial/tutorial.html)
+- learn concepts **step by step** : [guide to main concepts.](https://reactjs.org/docs/hello-world.html)  
 
 ## links
 react 공식 홈페이지 : [https://reactjs.org/](https://reactjs.org/)  
