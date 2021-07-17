@@ -61,3 +61,7 @@ deploy를 실행하면 github project repository에 gh-pages란 branch가 생성
 ```shell
 npm run deploy
 ```
+
+## links
+react 공식 홈페이지 : [https://reactjs.org/](https://reactjs.org/)  
+create-react-app : [https://create-react-app.dev/](https://create-react-app.dev/)
