@@ -86,57 +86,68 @@ function getGreeting(user) {
 ```
 
 ### JSX 속성 지정
-You may use quotes to specify string literals as attributes:
-
+따옴표를 사용하여 문자열을 속성으로 지정할 수 있습니다
+```js
 const element = <div tabIndex="0"></div>;
-You may also use curly braces to embed a JavaScript expression in an attribute:
-
+```
+속성에 JavaScript 표현식을 포함하기 위해 `{}`를 사용할 수도 있습니다:
+```js
 const element = <img src={user.avatarUrl}></img>;
-Don’t put quotes around curly braces when embedding a JavaScript expression in an attribute. You should either use quotes (for string values) or curly braces (for expressions), but not both in the same attribute.
+```
+속성에 JavaScript 표현식을 포함할 때 중괄호 주위에 따옴표를 사용하지 마십시오. 따옴표(문자열 값의 경우) 또는 중괄호(표현식의 경우)를 사용해야 하지만 동일한 속성에서 둘 다 사용해서는 안 됩니다.
 
-Warning:
+>Warning:  
+JSX는 HTML보다 JavaScript에 더 가깝기 때문에
+React DOM은 HTML 속성 대신 camelCase 명명 규칙을 사용합니다.  
+예를 들어 class는 className, 그리고 tabindex는 tabIndex로 사용한다.
 
-Since JSX is closer to JavaScript than to HTML, React DOM uses camelCase property naming convention instead of HTML attribute names.
-
-For example, class becomes className in JSX, and tabindex becomes tabIndex.
-
-Specifying Children with JSX
-If a tag is empty, you may close it immediately with />, like XML:
-
+### JSX로 자식 지정하기
+태그가 비어 있으면 XML과 같이 `/>`태그를 사용하여 즉시 닫을 수 있습니다 .
+```js
 const element = <img src={user.avatarUrl} />;
-JSX tags may contain children:
-
+```
+JSX 태그에는 하위 항목이 포함될 수 있습니다.
+```js
 const element = (
   <div>
     <h1>Hello!</h1>
     <h2>Good to see you here.</h2>
   </div>
 );
-JSX Prevents Injection Attacks
-It is safe to embed user input in JSX:
+```
 
+### JSX는 주입 공격을 방지합니다.
+JSX에 사용자 입력을 포함하는 것이 안전합니다.
+```js
 const title = response.potentiallyMaliciousInput;
 // This is safe:
 const element = <h1>{title}</h1>;
-By default, React DOM escapes any values embedded in JSX before rendering them. Thus it ensures that you can never inject anything that’s not explicitly written in your application. Everything is converted to a string before being rendered. This helps prevent XSS (cross-site-scripting) attacks.
+```
+기본적으로 React DOM은 렌더링하기 전에 JSX에 포함된 모든 값을 이스케이프 합니다.
+따라서 애플리케이션에 명시적으로 작성되지 않은 내용은 절대 주입할 수 없습니다.
+모든 것은 렌더링되기 전에 문자열로 변환됩니다.
+이는 XSS(교차 사이트 스크립팅) 공격 을 방지하는 데 도움이 됩니다 .
 
-JSX Represents Objects
-Babel compiles JSX down to React.createElement() calls.
-
-These two examples are identical:
-
+### JSX Represents Objects
+Babel은 JSX를 `React.createElement()`호출 로 컴파일 합니다.  
+이 두 예는 동일합니다.
+```js
 const element = (
   <h1 className="greeting">
     Hello, world!
   </h1>
 );
+```
+```js
 const element = React.createElement(
   'h1',
   {className: 'greeting'},
   'Hello, world!'
 );
-React.createElement() performs a few checks to help you write bug-free code but essentially it creates an object like this:
-
+```
+React.createElement() performs a few checks to help you write bug-free code
+but essentially it creates an object like this:
+`React.createElement()` 버그 없는 코드를 작성하는 데 도움이 되는 몇 가지 검사를 수행하지만 기본적으로 다음과 같은 객체를 생성합니다.
 // Note: this structure is simplified
 const element = {
   type: 'h1',
