@@ -63,8 +63,8 @@ npm run deploy
 ```
 ## Learn React
 React를 배울 때 두가지 접근 방법을 제공합니다.
-- learn by **doing** : [practical tutorial.](https://reactjs.org/tutorial/tutorial.html)
-- learn concepts **step by step** : [guide to main concepts.](https://reactjs.org/docs/hello-world.html)  
+- **직접 구현해보면서 학습하는 것** : [practical tutorial.](https://reactjs.org/tutorial/tutorial.html)
+- **개념을 차근차근 익히며 학습하는 것** : [guide to main concepts.](https://reactjs.org/docs/hello-world.html)  
 
 ## links
 react 공식 홈페이지 : [https://reactjs.org/](https://reactjs.org/)  
