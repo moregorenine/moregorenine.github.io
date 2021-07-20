@@ -145,9 +145,8 @@ const element = React.createElement(
   'Hello, world!'
 );
 ```
-React.createElement() performs a few checks to help you write bug-free code
-but essentially it creates an object like this:
 `React.createElement()` 버그 없는 코드를 작성하는 데 도움이 되는 몇 가지 검사를 수행하지만 기본적으로 다음과 같은 객체를 생성합니다.
+```js
 // Note: this structure is simplified
 const element = {
   type: 'h1',
@@ -156,10 +155,5 @@ const element = {
     children: 'Hello, world!'
   }
 };
-These objects are called “React elements”. You can think of them as descriptions of what you want to see on the screen. React reads these objects and uses them to construct the DOM and keep it up to date.
-
-We will explore rendering React elements to the DOM in the next section.
-
-Tip:
-
-We recommend using the “Babel” language definition for your editor of choice so that both ES6 and JSX code is properly highlighted.
+```
+이러한 객체를 “React elements”라고 하며, 화면에서 보고 싶은 것을 나타내는 표현이라 생각하면 됩니다. React는 이 객체를 읽어서, DOM을 구성하고 최신 상태로 유지하는 데 사용합니다.
