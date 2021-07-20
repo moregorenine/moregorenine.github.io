@@ -154,7 +154,12 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 ## Tool Windows
 - **Alt + 0~9** : (Tool Windows)
   - ★
-  - 번호에 따라 tool창에 포커싱 된다. 
+  - 번호에 따라 tool창에 포커싱 된다.
+
+## Refactor
+- **CTRL + Alt + V** : (Introduce Variable)
+  - ★★★★★
+  - 해당라인에 변수를 생성해준다. 
   
 ## Other
 - **Ctrl + Tab** : (Switcher)
