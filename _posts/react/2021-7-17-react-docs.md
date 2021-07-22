@@ -309,7 +309,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
-[CodePen에서 시험해보기](https://codepen.io/pen?&editors=0010)
       
 일반적으로 새 React 앱은 최상위에 단일 App 컴포넌트를 가지고 있습니다. 하지만 기존 앱에 React를 통합하는 경우에는 Button과 같은 작은 컴포넌트부터 시작해서 뷰 계층의 상단으로 올라가면서 점진적으로 작업해야 할 수 있습니다.
 
