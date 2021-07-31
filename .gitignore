@@ -30,3 +30,8 @@ _site
 
 # RubyMine
 .idea
+
+### IntelliJ IDEA ###
+*.iws
+*.iml
+*.ipr
