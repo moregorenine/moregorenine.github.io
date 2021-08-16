@@ -5,7 +5,7 @@ categories:
     - react
 tags:
     - react
-last_modified_at: 2021-7-17T14:00:00+09:00
+last_modified_at: 2021-8-16T14:00:00+09:00
 toc: true
 toc_sticky: true
 ---
@@ -13,9 +13,7 @@ toc_sticky: true
 # Main Concepts
 ## 1. Hello World
 아래는 화면에 Hello, world!를 출력하는 가장 간단한 예제입니다.
-
-
-notice}
+{: .notice}
 
 ```jsx
 ReactDOM.render(
