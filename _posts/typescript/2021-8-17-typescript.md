@@ -128,3 +128,98 @@ let ninjaTwo: {
 };
 ninjaTwo = { name: 'ken', age: 20, beltColour: 'black' };
 ```
+
+## Dynamic (any) Types
+`any` type은 모든 type의 값을 허용합니다. 즉 typescript를 사용하는 이점이 전혀 없으며 사용시 주의가 필요합니다.
+
+```typescript
+let age: any = 25;
+
+age = true;
+console.log(age);
+age = 'hello';
+console.log(age);
+age = { name: 'luigi' };
+console.log(age);
+
+let mixed: any[] = [];
+
+mixed.push(5);
+mixed.push('mario');
+mixed.push(false);
+console.log(mixed);
+
+let ninja: { name: any, age: any };
+
+ninja = { name: 'yoshi', age: 25 };
+console.log(ninja);
+
+ninja = { name: 25, age: 'yoshi' };
+console.log(ninja);
+```
+
+## Better Workflow & tsconfig
+### 프로젝트 폴더 구성
+`tsconfig.json` typescript 설정 파일 생성
+```sh
+tsc --init
+```
+### tsconfig.json 설정에 따른 실행
+```sh
+tsc //tsconfig.json 설정에 따른 실행
+tsc -w //tsconfig.json 설정에 따른 watch 실행 및 감시, 소스파일 변경 후 저장시 tsc를 자동 실행합니다.
+```
+
+## Function Basics
+```typescript
+// let greet: Function = () => {
+//   console.log('hello, world');
+// }
+
+// greet = 'hello';
+
+// greet = () => {
+//   console.log('hello, again');
+// }
+
+const add = (a: number, b: number, c/*?*/: number | string = 10): void => {
+  console.log(a + b);
+  console.log(c);
+}
+
+add(5, 10, 'ninja');
+
+const minus = (a: number, b: number): number => {
+  return a + b;
+}
+
+let result = minus(10,7);
+console.log(result);
+```
+
+## Type Aliases
+`type` 별칭을 사용하여 코드 중복을 줄일 수 있습니다.
+```typescript
+type StringOrNum = string | number;
+type objWithName = { name: string, uid: StringOrNum };
+
+const logDetails = (uid: StringOrNum, item: string) => {
+  console.log(`${item} has a uid of ${uid}`);
+}
+
+const greet = (user: objWithName) => {
+  console.log(`${user.name} says hello`);
+}
+
+const greetAgain = (user: objWithName) => {
+  console.log(`${user.name} says hello Again`);
+}
+```
+
+## Better Workflow & tsconfig
+```typescript
+```
+
+## Better Workflow & tsconfig
+```typescript
+```
