@@ -417,3 +417,126 @@ invOne.setDetails("work on the mario website") //pass
 
 invOne.amount = 500 //pass : public 필드는 class 내부/외부에서 접근이 가능합니다.
 ```
+
+## Modules
+아래 모듈 설정은 두가지 단점이 존재합니다.
+- es6를 지원하는 최신브라우저에서만 올바르게 동작합니다.
+- 코드를 단일파일로 묶지 않습니다. 브라우저는 모듈 시스템을 사용하여 별도의 파일들을 로드하고 컴파일시 여러 요청을 합니다.
+
+차후 webpack을 통해 이를 보완 가능합니다.
+
+`tsconfig.json`
+```typescript
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "es6", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */
+    "module": "es2015", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */
+  },
+}
+```
+- "target": "es6"
+  - 출력을 es6 으로합니다. se6가 지원되는 최신 브라우저가 대상입니다.
+- "module": "es2015"
+  - 일반 javascript 버젼의 module 사용합니다.
+
+`index.html` type을 module로 지정합니다.
+```html
+<script type="module" src='app.js'></script>
+```
+
+`Invoice.ts` export 합니다.
+```typescript
+export class Invoice {
+...
+}
+```
+
+`app.ts` exporte된 모듈을 import 합니다.
+```typescript
+import { Invoice } from './classes/Invoice.js';
+```
+
+## interface
+java의 interface와 비슷합니다. interface에서는 형태만 선언하고, interface를 type으로 하는 객체에서 interface에 선언된 필드 및 메소드를 구현해야 합니다.  
+`app.ts`
+```typescript
+import { Invoice } from './classes/Invoice.js';
+
+// interfaces
+export interface IsPerson {
+  name: string;
+  age?: number;
+  speak(a: string): void;
+  spend(a: number): number;
+}
+
+const me: IsPerson = {
+  name: 'shaun',
+  //age: 30,
+  speak(text: string): void {
+    console.log(text);
+  },
+  spend(amount: number): number {
+    console.log('I spent ', amount);
+    return amount;
+  },
+};
+
+console.log(me);
+me.speak('hello, world');
+
+const greetPerson = (person: IsPerson): void => {
+  console.log('hello ', person.name);
+}
+
+greetPerson(me);
+// greetPerson({name: 'shaun'});
+```
+
+## Interfaces with Classes
+`HasFormatter.ts`
+```typescript
+export interface HasFormatter {
+  format(): string;
+}
+```
+
+`Invoice.ts`
+```typescript
+import { HasFormatter } from '../interfaces/HasFormatter.js';
+
+export class Invoice implements HasFormatter {
+  constructor(
+    readonly client: string, 
+    private details: string, 
+    public amount: number,
+  ){}
+
+  format() {
+    return `${this.client} owes £${this.amount} for ${this.details}`;
+  }
+}
+```
+`app.ts`
+```typescript
+import { Invoice } from './classes/Invoice.js';
+import { Payment } from './classes/Payment.js';
+import { HasFormatter } from './interfaces/HasFormatter.js';
+
+let docOne: HasFormatter;
+let docTwo: HasFormatter;
+
+docOne = new Invoice('yoshi', 'web work', 250);
+docTwo = new Payment('mario', 'plumbing', 200);
+
+let docs: HasFormatter[] = [];
+docs.push(docOne);
+docs.push(docTwo);
+
+docs.forEach(doc => {
+  console.log(doc.format())
+})
+```
+
+## Rendering an HTML Template
