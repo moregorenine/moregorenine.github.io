@@ -298,6 +298,7 @@ logDetails = (ninja: {name: string, age: number}) => {
 </body>
 </html>
 ```
+
 `.ts typescript` file
 ```typescript
 const anchor = document.querySelector('a')!;
@@ -327,3 +328,4 @@ form.addEventListener('submit', (e: Event) => {
   );
 });
 ```
+selector 객체의 value 값을 가져올 때 valueAsNumber, valueAsDate 로 number나 date type으로 가져올 수 있습니다.
