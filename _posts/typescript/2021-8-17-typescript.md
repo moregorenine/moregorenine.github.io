@@ -5,7 +5,7 @@ categories:
     - typescript
 tags:
     - typescript
-last_modified_at: 2021-8-17T14:00:00+09:00
+last_modified_at: 2021-8-22T00:00:00+09:00
 toc: true
 toc_sticky: true
 ---
@@ -329,3 +329,91 @@ form.addEventListener('submit', (e: Event) => {
 });
 ```
 selector 객체의 value 값을 가져올 때 valueAsNumber, valueAsDate 로 number나 date type으로 가져올 수 있습니다.
+
+## Classes
+`.ts typescript` file
+```typescript
+// classes
+class Invoice {
+  client: string;
+  details: string;
+  amount: number;
+
+  constructor(c: string, d: string, a: number){
+    this.client = c;
+    this.details = d;
+    this.amount = a;
+  }
+
+  format() {
+    return `${this.client} owes £${this.amount} for ${this.details}`;
+  }
+}
+
+const invOne = new Invoice('mario', 'work on the mario website', 250);
+const invTwo = new Invoice('luigi', 'work on the luigi website', 300);
+
+let invoices: Invoice[] = [];
+invoices.push(invOne)
+invoices.push(invTwo);
+// invoices.push({ name: 'shaun' });
+
+invoices.forEach(inv => {
+  console.log(inv.client, /*inv.details,*/ inv.amount, inv.format());
+})
+```
+invOne.client = 'shaun'  
+invTwo.amount = 500  
+같은 객체의 필드/속성 값에 직접 접근하여 수정이 가능합니다. 이를 방지하기 위한 방법을 아래의 Public, Private & Readonly 에서 소개해드립니다.
+
+## Public, Private & Readonly
+java처럼 접근 제어자가 있습니다.  
+- readonly
+  - class 내부/외부에서 접근이 가능합니다.
+  - class 내부/외부에서 값 변경이 불가능합니다.
+  - 생성자에서 값 할당이 가능합니다.
+- private
+  - class 내부에서만 접근 및 값 변경이 가능합니다.
+- public
+  - class 내부/외부에서 접근 및 값 변경이 가능합니다.
+
+`.ts typescript` file
+```typescript
+// classes
+class Invoice {
+  // readonly client: string;
+  // private details: string;
+  // public amount: number;
+
+  constructor(
+    readonly client: string,
+    private details: string,
+    public amount: number,
+  ) { }
+
+  format() {
+    return `${this.client} owes £${this.amount} for ${this.details}`;
+  }
+
+  setClient(str: string) {
+    this.client = str //error : read-only 필드는 class 내부/외부에서 값 변경이 불가능합니다.
+    console.log(invOne.client) //pass : read-only 필드는 class 내부/외부에서 값 접근이 가능합니다.
+  }
+  setDetails(str: string) {
+    this.details = str //pass : pivate 필드는 class 내부에서만 접근이 가능합니다.
+  }
+  setAmout(num: number) {
+    this.amount = num //pass : public 필드는 class 내부/외부에서 접근이 가능합니다.
+  }
+}
+
+const invOne = new Invoice('mario', 'work on the mario website', 250);
+
+// invOne.client = "shaun" //error : class 내부/외부에서 값 변경이 불가능합니다.
+console.log(invOne.client) //pass : class 내부/외부에서 접근이 가능합니다.
+
+// invOne.details = "work on the mario website" //error : pivate 필드는 class 내부에서만 접근이 가능합니다.
+invOne.setDetails("work on the mario website") //pass
+
+invOne.amount = 500 //pass : public 필드는 class 내부/외부에서 접근이 가능합니다.
+```
