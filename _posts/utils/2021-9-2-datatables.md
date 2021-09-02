@@ -32,7 +32,7 @@ $.fn.dataTable.Buttons.jszip(JSZip);
 ## button completed event
 위에서 `import 'datatables.net-scroller/js/dataTables.scroller.min'` 했던 이유는 7만건이 넘는 데이타를 불러오기 때문에 스크롤을 써야했습니다.  
 그런데 7만건이나 되는 데이타를 Excel 다운로드시 오랜 시간이 걸려 사용자에게 알려주기 위한 loading 화면이 필요했습니다.  
-엑셀 버튼 클릭시 이벤트는 잡을 수 있었으나 엑셀 다운로드 완료시 이벤트를 잡을 수 없어 아래 링크로 해결했습니다.  
+엑셀 버튼 클릭시 `buttons.action`으로 이벤트는 잡을 수 있었으나 엑셀 다운로드 완료시 이벤트를 잡을 수 없어 아래 링크로 해결했습니다.  
 https://datatables.net/reference/event/buttons-processing
 ```js
 var table = $('#example').DataTable();
