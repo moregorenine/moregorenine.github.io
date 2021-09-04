@@ -621,3 +621,56 @@ const docFour: Resource<string[]> = {
 
 console.log(docThree, docFour);
 ```
+
+## Enums
+Enum 또한 javascript에는 없던 타언어에서 사용되는 skill입니다.  
+상수 또는 키워드 세트를 저장하고 숫자 값과 연관시킬 수 있는 특별한 유형입니다.
+
+`enum 적용 전 코드`
+```typescript
+interface Resource<T> {
+  uid: number;
+  resourceType: number;
+  data: T;
+}
+
+const docOne: Resource<object> = {
+  uid: 1,
+  resourceType: 0,
+  data: { title: 'name of the wind' }
+}
+const docTwo: Resource<object> = {
+  uid: 10,
+  resourceType: 3,
+  data: { title: 'name of the wind' }
+}
+```
+resourceType의 0이 BOOK을 뜻하고 3이 DIRECTOR를 뜻한다고 생각해봅시다. 4는 PERSON이 될 수도 있습니다.  
+하지만 이런 number로 관리하는 방식이 정확히 무슨 의미인지 코드상으로는 확인할 수가 없습니다.  
+이럴 경우 무의미한 number로 관리되는 부분을 의미가 있는 문자열로 표현해서 코드상를 효율적으로 관리할 수 있습니다.
+
+`enum 적용 후 코드`
+```typescript
+enum ResourceType { BOOK, AUTHOR, FILM, DIRECTOR, PERSON };
+
+interface Resource<T> {
+  uid: number;
+  resourceType: ResourceType;
+  data: T;
+}
+
+const docOne: Resource<object> = {
+  uid: 1,
+  resourceType: ResourceType.BOOK,
+  data: { title: 'name of the wind' }
+}
+const docTwo: Resource<object> = {
+  uid: 10,
+  resourceType: ResourceType.DIRECTOR,
+  data: { title: 'name of the wind' }
+}
+
+console.log(docOne);
+console.log(docTwo);
+```
+ResourceType.BOOK이 0으로 ResourceType.DIRECTOR가 3으로 `enum ResourceType`의 index로 변경되어 출력되는 것을 확인 할 수 있습니다.
