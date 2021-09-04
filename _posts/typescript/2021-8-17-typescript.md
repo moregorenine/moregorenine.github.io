@@ -495,6 +495,7 @@ greetPerson(me);
 ```
 
 ## Interfaces with Classes
+interface에서 format 메소드를 선언합니다.  
 `HasFormatter.ts`
 ```typescript
 export interface HasFormatter {
@@ -502,6 +503,8 @@ export interface HasFormatter {
 }
 ```
 
+`Invoice` class에서 `HasFormatter` interface를 implement합니다.  
+`format` 메소드가 수행할 기능을 구현합니다.  
 `Invoice.ts`
 ```typescript
 import { HasFormatter } from '../interfaces/HasFormatter.js';
@@ -518,6 +521,8 @@ export class Invoice implements HasFormatter {
   }
 }
 ```
+`Invoice`와 `Payment` class는 둘다 `HasFormatter` interface를 implement 했기 때문에  
+`Invoice`와 `Payment` 를 HasFormatter 형으로 upcasting 할 수 있습니다.   
 `app.ts`
 ```typescript
 import { Invoice } from './classes/Invoice.js';
@@ -540,6 +545,50 @@ docs.forEach(doc => {
 ```
 
 ## Generics
+Generic 또한 class, interface 처럼 javascript에서는 존재하지 않는 개념 이였습니다.  
+특히 타입과 관련된 Generic은 현재도 javascript에서는 없는 typescript 개념 입니다.  
+타 언어에서 먼재 존재하던 기술인데요. 코딩시 type을 특정 짓지 않고 유연한 코딩을 가능하게 해주는 기술입니다.  
+
+```typescript
+const addUID = (obj: object) => {
+   let uid = Math.floor(Math.random() * 100);
+   return {...obj, uid};
+}
+
+let docOne = addUID({name: 'yoshi', age: 40});
+
+console.log(docOne.name);
+```
+addUID 메소드는 `object` type을 인자로 받습니다. javascript에서는 object가 모든 객체의 최상의 객체이기 때문에 모든 객체들은 object로 upcasting 될 수 있습니다.  
+인자로 넘겨받은 객체에 uid란 난수를 생성해 {넘겨 받은 객체와 난수}를 객체화 해서 반환해 줍니다.
+
+그럼 변수 `docOne`는 {name: 'yoshi', age: 40, uid: 3(난수)} 란 객체를 얻을 것 입니다.
+
+그런데 `docOne.name`을 출력하면 typescript에서 오류가 발생할 것 입니다.  
+왜나하면 addUID 메소드가 반환하는 객체에 `name`이란 필드의 존재 여부를 typescript에서 알려주지 않았기 때문입니다.
+
+```typescript
+const addUID = <T>(obj: T) => {
+  let uid = Math.floor(Math.random() * 100);
+  return {...obj, uid};
+}
+
+let docOne = addUID({name: 'yoshi', age: 40});
+let docTwo = addUID('shaun');
+
+console.log(docOne.name);
+
+console.log(docTwo.name);
+```
+`<T>`은 함수에 전달된 `T란 Type`을 capture한다는 의미입니다.(T이외의 다른 알파벳이 사용되어도 무관합니다.)  
+그리고 capture된 `T type` 형태 인자 `obj`를 받겠다는 의미 입니다.  
+그래서 `addUID` 메서드가 객체 반환시 `obj`에 어떤 속성이 있는지 알 수 있게 됩니다.  
+docOne은 정상 작동을 합니다만,  
+docTwo의 경우 {0: 's', 1: 'h', 2: 'a', 3: 'u', 4: 'n', uid: 48} 란 객체를 반환받게 됩니다.  
+그래서 typescript에서는 Property 'name' does not exist on type '"shaun" & { uid: number; }' 오류를 반환할 것 입니다.  
+그래서 코딩시 오류를 방지하기 위해 typescript에서 type을 capture할 시에 extends로 string 타입의 name필드의 객체를 선언해 오류를 미연해 방지하는 코딩을 하게 됩니다.
+
+`app.ts`
 ```typescript
 const addUID = <T extends {name: string}>(obj: T) => {
   let uid = Math.floor(Math.random() * 100);
