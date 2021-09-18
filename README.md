@@ -21,8 +21,8 @@
 
 4. run server in bash:
    ```shell
-   bundle update jekyll
    bundle install
+   bundle update jekyll
    bundle exec jekyll serve
    ```
    When a language error occurs in Korean
