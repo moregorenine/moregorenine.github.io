@@ -674,3 +674,44 @@ console.log(docOne);
 console.log(docTwo);
 ```
 ResourceType.BOOK이 0으로 ResourceType.DIRECTOR가 3으로 `enum ResourceType`의 index로 변경되어 출력되는 것을 확인 할 수 있습니다.
+
+## Tuples
+`기본 사용법`
+```ts
+// TUPLES
+let arr = ['ryu', 25, true];
+arr[0] = false;
+arr[1] = 'yoshi';
+arr = [30, false, 'yoshi'];
+
+let tup: [string, number, boolean] = ['ryu', 25, true];
+// tup[0] = false;
+tup[0] = 'ken';
+
+let student: [string, number];
+//student = [23564, 'chun-li'];
+student = ['chun-li', 23564];
+```
+
+`tuples 적용 전 코드`
+```ts
+let doc: HasFormatter;
+if (type.value === 'invoice') {
+  doc = new Invoice(tofrom.value, details.value, amount.valueAsNumber);
+} else {
+  doc = new Payment(tofrom.value, details.value, amount.valueAsNumber);
+}
+```
+
+`tuples 적용 후 코드`
+```ts
+let values: [string, string, number];
+values = [tofrom.value, details.value, amount.valueAsNumber];
+
+let doc: HasFormatter;
+if (type.value === 'invoice') {
+  doc = new Invoice(...values);
+} else {
+  doc = new Payment(...values);
+}
+```
