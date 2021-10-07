@@ -2,7 +2,7 @@
 title: "Intellij 단축키 및 설정"
 excerpt: "Intellij 단축키 및 설정"
 categories: 
-  - intellij
+  - idea
 tags: 
   - intellij
 last_modified_at: 2021-07-04T00:00:00+09:00

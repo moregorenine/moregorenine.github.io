@@ -2,9 +2,8 @@
 title: "Spring Boot JSP 변경사항 새로고침(Refresh) 되지 않을 때"
 excerpt: "Spring Boot JSP 변경사항 새로고침 되지 않을 때, 캐쉬를 삭제해도 변경사항 반영되지 않을 때"
 categories: 
-  - dev
+  - springboot
 tags: 
-  - dev
   - springboot
 last_modified_at: 2018-11-20T00:28:00+09:00
 toc: true

@@ -4,7 +4,7 @@ excerpt: "web에서 excel grid 기능 구현시 다양한 도구들이 존재합
 물론 Handsontable도 상업적 이용시 라이센스 제약이 따릅니다만. 6.2.2(2018.12.19) 버젼까지는 MIT 라이센스가 적용되어 애용하는 편입니다.  
 물론 릴리즈 날짜가 2018년 12월인 만큼 기능적으로 최신버전에 비해 미흡한 부분들이 있는건 어쩔 수 없네요.  "
 categories:
-    - Handsontable
+    - javascript
 tags:
     - Handsontable
 last_modified_at: 2021-10-6T00:00:00+09:00

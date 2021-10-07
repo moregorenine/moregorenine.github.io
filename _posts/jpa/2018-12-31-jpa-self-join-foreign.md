@@ -2,10 +2,9 @@
 title: "JPA Self Join Foreign-Key 셀프 조인시 외래키 참조"
 excerpt: "JPA Self Join 시 Foreign-Key를 어떻게 참조할까?"
 categories: 
-  - dev
+  - jpa
 tags: 
-  - dev
-  - JPA
+  - jpa
 last_modified_at: 2018-12-31T00:00:00+09:00
 toc: true
 toc_sticky: true

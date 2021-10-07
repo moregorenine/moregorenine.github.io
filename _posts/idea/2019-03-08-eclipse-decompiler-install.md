@@ -2,7 +2,7 @@
 title: "Eclipse Decompiler 설치 오류 해결"
 excerpt: "Eclipse Decompiler 설치시 Unable to read repository at https://ecd-plugin.github.io/update/content.xml. 오류 발생 해결 방법"
 categories: 
-  - dev
+  - idea
 tags: 
   - dev
   - eclipse

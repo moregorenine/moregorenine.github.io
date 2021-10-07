@@ -2,7 +2,7 @@
 title: "vscode 단축키 및 설정"
 excerpt: "vscode 단축키 및 설정"
 categories: 
-  - vscode
+  - idea
 tags: 
   - vscode
 last_modified_at: 2019-12-10T00:00:00+09:00

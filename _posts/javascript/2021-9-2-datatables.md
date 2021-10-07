@@ -2,7 +2,7 @@
 title: "DataTables"
 excerpt: "DataTables"
 categories:
-    - DataTables
+    - javascript
 tags:
     - DataTables
 last_modified_at: 2021-9-2T00:00:00+09:00
