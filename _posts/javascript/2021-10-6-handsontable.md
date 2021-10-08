@@ -154,3 +154,18 @@ var hot = new Handsontable(document.getElementById('example'), {
 handsontable에 존재하는 event에 대한 callback함수들을 보여줍니다.  
   
 Link : <https://handsontable.com/docs/6.2.2/tutorial-using-callbacks.html>
+
+# Developer guide
+
+## Cell types
+handsontable cell에서 데이타 표현에 지원되는 type은 아래와 같습니다.   
+`autocomplete, checkbox, date, dropdown, handsontable, numeric, password, text, time`  
+이중 selectbox 형태의 데이타는 `autocomplete, dropdown`을 사용하는데 문제는 6.2.2 버전에서는 보통 selectbox에서 제공하는 key, value 형태를 지원하지 않습니다.  
+npm에서 제공되는 plugin이 존재하지만 6.2.2 version에는 호환이 되지않아 degrade하여 npm에 등록했습니다. npm 주소는 아래 링크입니다.  
+  
+Link : [handsontable 6.2.2 cell type autocomplete key, value](https://www.npmjs.com/package/handsontable-6.2.2-celltype-key-value)
+
+## Cell editor
+handsontable은 셀 값을 표시하는 과정과 값을 변경하는 과정을 구분합니다.  
+`Renderers`는 데이터를 HTML 코드로 반환하여 grid에 표현하고  
+`Editors`는 사용자 입력(마우스 및 키보드 이벤트)을 처리하고 데이터를 검증하고 검증 결과에 따라 데이터를 변경합니다.
