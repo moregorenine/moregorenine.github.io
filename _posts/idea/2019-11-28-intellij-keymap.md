@@ -65,6 +65,16 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
 - String Manipulation
   - camel, snake, kebab... 변환용으로 최고
 
+## Disabling "Restore defaults" ctrl+alt+F8
+디버깅시 ctrl + alt + f8 단축키를 사용할 때가 있는데  
+Intel(R) HD Graphics Control Panel에서도 해당 단축키를 사용하고 있고 Disable도 불가능하게 해놓아서 킹받음 아래 방법으로 서비스를 중지하면 된다.  
+
+1) Go to Start menu, search for services.msc.  
+2 )Find the "Service for Intel(R) HD Graphics Control Panel" service.  
+3) Disable it (open it's properties, stop it AND make sure to set its' startup type to "Disabled")  
+4) Open the task manager and kill all processes with names that start with "igfx".  
+Voila. It's gone. Use system dialogs if you need to change the graphics settings.  
+
 ## Editor Actions
 - **Ctrl + D** : (Duplicate Line or Selection)
   - ★★★★★
