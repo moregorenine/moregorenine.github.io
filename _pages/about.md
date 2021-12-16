@@ -3,7 +3,6 @@ permalink: /about/
 title: "험한로의 항해"
 excerpt: "아침 여명에 눈을 떴을때 기분 좋은 남풍이 일었다. 돛은 올리자."
 last_modified_at: 2018-11-21T13:05:00+09:00
-toc: true
 ---
 
 ## 항해의 시작
