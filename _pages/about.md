@@ -1,28 +1,90 @@
 ---
 permalink: /about/
-title: "험한로의 항해"
-excerpt: "아침 여명에 눈을 떴을때 기분 좋은 남풍이 일었다. 돛은 올리자."
+title: "about"
+excerpt: "오랜 시간과 노력을 들여 지식이나 기술을 완성시키는 과정 혹은 결과"
 last_modified_at: 2018-11-21T13:05:00+09:00
 ---
 
-## 항해의 시작
-[![foo](https://images.unsplash.com/photo-1500917832468-298fa6292e2b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7dc310134cdefd68cbb1fc7c6ab2049d&auto=format&fit=crop&w=1350&q=80)](https://images.unsplash.com/photo-1500917832468-298fa6292e2b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7dc310134cdefd68cbb1fc7c6ab2049d&auto=format&fit=crop&w=1350&q=80)  
-아쉽게도 배 이야기가 아니다. 하지만 인생사를 무언가에 빗대어 이야기할 때 **항해**란 두글자 만큼 매력적인 단어가 있을까? 그건 내겐 가슴을 설레게 하는 무엇가와 함께 미지의 영역에 대한 두려움 또한 내포하고 있는 단어이다.  
-처음 바다에 내몰렸을 때 심정 또한 그랬다. '물에 뜨기는 할까?' 의구심이 드는 배 한척에 지도도 나침반도 아무런 준비없이 내던져진, 광할한 바다 위에서 도대체 무얼 할 수 있을까? 그건 항로를 향해 나아가는 여정이 아니라. 가라 앉지 않기 위한, 살아남기 위한 발버둥이였다. 물이 새면 밤새 물을 퍼날라야 했고. 폭풍이 휘몰아치면 악착같이 나약한 배 한척에 온몸을 의지해야 했다.
+## 공부하는 개발자
+<img src="/assets/images/posts/about/about-study.jpg">
 
-> 강한자가 살아남는 것이 아니라 살아남는 자가 강한자다.
+> 공부 : 오랜 시간과 노력을 들여 지식이나 기술을 완성시키는 과정 혹은 결과
 
-무미건조한 말이다. 그렇게 내몰렸던 바다에서 살아남은 지금 난 강했기 때문에 살아남았을까? **전혀...** 그럼 살아남았으니 강한걸까? **글쎄...** 죽음을 예측할 수 없듯이 살아남는다란 것 또한 그 끝을 예측할 수 없으니깐.  
-지금 암울한 이야기를 시작하려고 하는건 아니다. 물론 희망찬 이야기도 아니다. 그저 그렇고 그런 **soso**한 이야기를 해볼까 한다.
+`학생`과 `공부`라는 단어를 좋아합니다.  
+코딩은 `공부`를 해야하고  
+또 늘 새로운 것이 나오니 그 끝이 없어 항상 `학생`의 마음가짐을 가지게 됩니다. 
 
-## 구도자
-[![foo](https://images.unsplash.com/photo-1524146128017-b9dd0bfd2778?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6d0fe8c6112aaaa5bc08fb2571041920&auto=format&fit=crop&w=1350&q=80)](https://images.unsplash.com/photo-1524146128017-b9dd0bfd2778?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6d0fe8c6112aaaa5bc08fb2571041920&auto=format&fit=crop&w=1350&q=80)  
-> seeker of truth 진실을 찾는자. 진실을 찾기위해 정진하는 자세는 구도자의 전유물처럼 생각됐다. 항해를 나서기 전까진...
+> 옛날 사람들은 흥정은 흥정이요 생계는 생계지만, 물건을 만드는 그 순간만은 오직 아름다운 물건을 만든다는 그것에만 열중했다. 그리고 스스로 보람을 느꼈다. 그렇게 순수하게 심혈을 기울여 공예 미술품을 만들어 냈다.
 
-무지는 어둠속을 거니는 듯 하다. 바다에서 살아남기 위해서는 구도자의 자세가 필요했다. 항해술이란 끊이없는 관찰의 연속이였고 관찰할 것들은 차고 넘쳤다. 현재 나의 위치에서 해와 달과 별들의 위치, 계절과 바람과 조류와 너울의 흐름등을 고려해 끊임없이 항로를 수정해야 했다.  
-그렇게 경험과 연륜이 쌓이면 스스로가 노련한 항해사가 된듯한 착각에 언행에 자신감과 자부심이 스물스물 묻어 나오는 것이다. 혹시, 운이 좋아 세계적으로 위명을 떨친 항해사를 만날 기회를 얻게 된다면 그 자부심이란 감정이 얼마나 무의미한 것이였는지 깨닫게 되는 것이다.  
-> 교만하지 말지어다.
+`윤오영`님의 `방망이 깎던 노인` 수필을 참 좋아합니다.  
+무언가에 몰두하여 매진하는 모습은 잔잔한 울림과 감동을 줍니다.
 
-내게 겸손은 남을 높이는 도구가 아니다.  
-내게 겸손은 나를 낮추는 도구가 아니다.  
-다만 자신의 부족함을 알고 끊임없이 배우고 공부하는 자세와 태도에 관한 미덕이다.
+## 경력
+### 삼성전자 (2016.12 ~ 현재)
+Foundry B2B 시스템을 제외하고는 Framwork, BackEnd, FrontEnd 개발 및 PM & PL 역할 수행 
+- Foundry B2B : <https://samsungfoundry.com>
+  - 반도체 생산 의뢰에서 부터 검증, 제조까지 전체 프로세스를 아우르는 시스템.
+  - BackEnd, FrontEnd 개발
+  - 공통 및 생산 의뢰, 검증 부분 담당
+
+
+- FIT 과제 가격 검토 사내 시스템
+  - 분기별 예산 책정과 검토 및 성과 분석 시스템
+  - Framwork, BackEnd, FrontEnd 개발
+  - 고도화 작업 및 레거시 시스템 Refactoring
+
+
+- AQUA 사내 시스템
+  - 설계팀에서 사용하는 기존 프로젝트 관리 C/S의 Master Data 관리 시스템
+  - Framwork, BackEnd, FrontEnd 개발
+  - Linux의 과거버전 firefox 환경에 맞추어 개발
+
+
+- ALEX 사내 시스템
+  - 설계팀에서 사용하는 기존 Version 관리 C/S 데이타 Display & 관리 시스템
+  - Framwork, BackEnd, FrontEnd 개발
+  - Linux or Window 둘 다 배포 가능한 환경
+  - 3만건이 넘는 엑셀 테이타를 비교 분석(BackEnd 1초내)하여 화면에 출력(FrontEnd 6초내외)
+
+
+- RPA 사무자동화 사내 시스템
+  - User와 사무자동화(RPA)를 연계해 주는 Web Service
+  - Framwork, BackEnd, FrontEnd 개발
+  - Swagger UI를 통한 Rest API 지원
+
+
+- PAI wafer-map 조회 사내 시스템
+  - 데이터 레이크의 wafer-map 및 수율 시각화 시스템  
+  - Framwork, BackEnd, FrontEnd 개발
+
+
+- mxGraph 사내 시스템 : [mxGraph](https://jgraph.github.io/mxgraph/javascript/examples/grapheditor/www/index.html)
+  - mxGraph customize
+  - Framwork, BackEnd, FrontEnd 개발
+
+
+- [Splunk visualization](https://www.splunk.com/en_us/products/splunk-enterprise/features/visualizations.html)
+  - BigData 분석 및 모니터링 시스템 D3.js 활용해 visualization 개발
+  - node.js & webpack
+
+
+- AIR 사내 시스템
+  - 설계팀 사내시스템들의 포털 사이트
+  - confluence & jira 연동
+  - Framwork, BackEnd, FrontEnd 개발
+
+
+### 삼성전기 (2016.04 ~ 2016.11)
+- GIMS 입찰관리 시스템
+
+### 삼성전자 (2015.08 ~ 2016.03)
+- GPPM 문서관리 시스템
+
+### 삼성SDS (2015.01 ~ 2015.07)
+- 차세대 마이싱글
+
+### 삼성엔지니어링 (2012.08 ~ 2014.12)
+- EWP 혁신과제 구축 시스템
+
+### etc (2009.02 ~ 2010.04)
+- 두산인프라, 한라공조, OCI, 아모레퍼시픽, 엔케이 프로젝트 참여 
