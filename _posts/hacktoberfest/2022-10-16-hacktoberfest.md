@@ -18,8 +18,13 @@ toc_sticky: true
 
 ## PULL/MERGE REQUESTS 성공시 get
 <img src="/assets/images/posts/hacktoberfest/20221016package1.png">  
+  
 <img src="/assets/images/posts/hacktoberfest/20221016package2.png">  
+  
 <img src="/assets/images/posts/hacktoberfest/20221016shirtfront.png">  
+  
 <img src="/assets/images/posts/hacktoberfest/20221016shirtback.png">  
+  
 <img src="/assets/images/posts/hacktoberfest/20221016shirtarm.png">  
+  
 <img src="/assets/images/posts/hacktoberfest/20221016sticker.png">
