@@ -12,6 +12,7 @@
   <head>
     {% include head.html %}
     {% include head/custom.html %}
+    <script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
   </head>
 
   <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
@@ -20,6 +21,13 @@
     {% include_cached masthead.html %}
 
     <div class="initial-content">
+      <script>
+        addBackToTop({
+          diameter: 40,
+          backgroundColor: 'rgb(255, 82, 82)',
+          textColor: '#fff'
+        })
+      </script>
       {{ content }}
     </div>
 
