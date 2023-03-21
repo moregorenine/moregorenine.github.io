@@ -9,17 +9,13 @@
 1. Install `Ruby`:
    [rubyinstaller](https://rubyinstaller.org/)
 
+2. Install `jem`:
 
-2. Install `jekyll`:
-   [jekyll](https://jekyllrb.com/)
-
-
-3. Install `jem`:
    ```ruby
    gem install bundler jekyll minimal-mistakes-jekyll
    ```
 
-4. run server in bash:
+3. run server in bash:
    ```shell
    bundle install
    bundle update jekyll
