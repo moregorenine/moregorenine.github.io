@@ -15,7 +15,6 @@ toc_sticky: true
 ## 1. Hello World
 
 아래는 화면에 Hello, world!를 출력하는 가장 간단한 예제입니다.
-{: .notice}
 
 ```jsx
 ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
@@ -24,7 +23,6 @@ ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("root"));
 ## 2. JSX 소개
 
 아래의 변수 선언은 뭘까요?
-{: .notice}
 
 ```jsx
 const element = <h1>Hello, world!</h1>;
@@ -243,23 +241,288 @@ ReactDOM.render(element, document.getElementById("root"));
 React는 매우 유연하지만 한 가지 엄격한 규칙이 있습니다.
 
 모든 React Component는 자신의 props를 다룰 때 반드시 순수 함수처럼 동작해야 합니다.
-{: .notice--success}
+{: .notice--info}
 
 React Component는 `state`를 통해 위 규칙을 위반하지 않고 사용자 액션, 네트워크 응답 및 다른 요소에 대한 응답으로 시간에 따라 자신의 출력값을 변경할 수 있습니다.
 
 ## 5. State and Lifecycle
 
-Clock 이 타이머를 설정하고 매 초 UI를 업데이트 하는 것은 Clock 의 구현 세부사항이어야 합니다.
+위의 3. 엘리먼트 렌더링에서 작성했던 째깍거리는 시계 예시를 다시 살펴보겠습니다.  
+렌더링 된 출력값을 변경하기 위해 root.render()를 매초 호출했습니다.
 
-많은 컴포넌트를 가진 어플리케이션에서, 컴포넌트가 제거될 때 리소스를 풀어주는 건 아주 중요한 일입니다.
+```jsx
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+function tick() {
+  const element = (
+    <div>
+      <h1>Hello, world!</h1>
+      <h2>It is {new Date().toLocaleTimeString()}.</h2>
+    </div>
+  );
+  root.render(element);
+}
+
+setInterval(tick, 1000);
+```
+
+우선 Clock의 캡슐화를 아래와 같이 진행합니다.
+
+```jsx
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+function Clock(props) {
+  return (
+    <div>
+      <h1>Hello, world!</h1>
+      <h2>It is {props.date.toLocaleTimeString()}.</h2>
+    </div>
+  );
+}
+
+function tick() {
+  root.render(<Clock date={new Date()} />);
+}
+
+setInterval(tick, 1000);
+```
+
+그런데 여기서 Clock 이 타이머를 설정하고 매 초 UI를 업데이트 하는 것은 Clock 의 구현 세부사항이어야 합니다.
+
+이상적으로 아래와 같은 한 번만 코드를 작성하고 Clock이 스스로 업데이트하도록 만들려고 합니다.
+
+```jsx
+root.render(<Clock />);
+```
+
+이것을 구현하기 위해서 Clock Component에 `state`를 추가해야 합니다.
+
+state는 props와 유사하지만, 비공개이며 Component에 의해 완전히 제어됩니다.
+
+### 함수에서 클래스로 변환하기
+
+현재는 함수형 Component가 대세이긴 하지만 실질적인 동작 메카니즘을 설명하는데는 Class형이 더 명확하기 때문에 `Clock`을 Component 형태로 변경하겠습니다.
+
+```jsx
+class Clock extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Hello, world!</h1>
+        <h2>It is {this.props.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
+}
+```
+
+render method는 업데이트가 발생할 때마다 호출되지만,  
+`<Clock />`을 동일한 DOM 노드에 렌더링하는 한 Clock 클래스의 `단일 인스턴스만` 사용됩니다.  
+이를 통해 로컬 상태 및 수명 주기 메서드와 같은 추가 기능을 사용할 수 있습니다.
+
+### 클래스에 로컬 State 추가하기
+
+세 단계에 걸쳐서 date를 props에서 state로 이동해 보겠습니다.
+
+1.`render()` 메서드 안에 있는 `this.props.date`를 `this.state.date`로 변경합니다.
+
+```jsx
+class Clock extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Hello, world!</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
+}
+```
+
+2.초기 this.state를 지정하는 class constructor를 추가합니다.  
+ 클래스 Component는 항상 props로 기본 constructor를 호출해야 합니다.
+
+```jsx
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: new Date() };
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello, world!</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
+}
+```
+
+3.`<Clock />` 요소에서 date prop을 삭제합니다.
+
+```jsx
+root.render(<Clock />);
+```
+
+결과는 다음 코드와 같습니다.
+
+```jsx
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: new Date() };
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello, world!</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Clock />);
+```
+
+### 생명주기 메서드를 클래스에 추가하기
+
+많은 Component가 있는 애플리케이션에서 Component가 삭제될 때 해당 Component가 사용 중이던 리소스를 확보하는 것이 중요합니다.  
+`Clock`이 처음 DOM에 렌더링 될 때마다 타이머를 설정하려고 합니다. 이것은 React에서 `mounting`이라고 합니다.  
+또한 `Clock`에 의해 생성된 DOM이 삭제될 때마다 타이머를 해제하려고 합니다. 이것은 React에서 `unmounting`이라고 합니다.
+
+```jsx
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: new Date() };
+  }
+
+  // componentDidMount() 메서드는 Component 출력물이 DOM에 렌더링 된 후에 실행됩니다.
+  // 이 장소가 타이머를 설정하기에 좋은 장소입니다.
+  componentDidMount() {
+    this.timerID = setInterval(() => this.tick(), 1000);
+  }
+
+  // componentWillUnmount() 생명주기 메서드에서 타이머를 해제해 사용 중이던 리소스를 확보합니다.
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  // state의 data 매초 업데이트합니다.
+  tick() {
+    this.setState({
+      date: new Date(),
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello, world!</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
+}
+```
+
+React의 동작 순서를 요약을 하면 아래와 같습니다. 정말 중요합니다.
+{: .notice--info}
+
+1. `<Clock />`이 `root.render()`로 전달되었을 때 React는 Clock Component의 constructor를 호출합니다. `Clock`이 현재 시각을 표시해야 하기 때문에 현재 시각이 포함된 객체로 `this.state`를 초기화합니다. 나중에 이 state를 매초 업데이트할 것입니다.
+2. React는 Clock Component의 `render()` 메서드를 호출합니다. 이를 통해 React는 화면에 표시되어야 할 내용을 알게 됩니다. 그 다음 React는 `Clock`의 렌더링 출력값을 일치시키기 위해 `DOM을 업데이트`합니다.
+3. `Clock` 출력값이 DOM에 삽입되면, React는 `componentDidMount()` 생명주기 메서드를 호출합니다. 그 안에서 Clock Component는 매초 Component의 `tick()` 메서드를 호출하기 위한 타이머를 설정하도록 브라우저에 요청합니다.
+4. 매초 브라우저가 `tick()` 메서드를 호출합니다. 그 안에서 `Clock` Component는 `setState()`에 현재 시각을 포함하는 객체를 호출하면서 UI 업데이트를 진행합니다. `setState()` 호출 덕분에 React는 state가 변경된 것을 인지하고 화면에 표시될 내용을 알아내기 위해 `render()` 메서드를 다시 호출합니다. 이 때 `render()` 메서드 안의 `this.state.date`가 달라지고 렌더링 출력값은 업데이트된 시각을 포함합니다. React는 이에 따라 DOM을 업데이트합니다.
+5. `Clock` Component가 DOM으로부터 한 번이라도 삭제된 적이 있다면 React는 타이머를 멈추기 위해 `componentWillUnmount()` 생명주기 메서드를 호출합니다.
+
+### State를 올바르게 사용하기
+
+1.직접 State를 수정하지 마세요
+
+```jsx
+// Wrong : 이 코드는 Component를 다시 렌더링하지 않습니다.
+this.state.comment = "Hello";
+
+// Correct : this.state를 지정할 수 있는 유일한 공간은 바로 constructor입니다.
+this.setState({ comment: "Hello" });
+```
+
+2.State 업데이트는 비동기적일 수도 있습니다.
+React는 성능을 위해 여러 setState() 호출을 단일 업데이트로 한꺼번에 처리할 수 있습니다.  
+this.props와 this.state가 비동기적으로 업데이트될 수 있기 때문에 다음 state를 계산할 때 해당 값에 의존해서는 안 됩니다.  
+예를 들어, 다음 코드는 카운터 업데이트에 실패할 수 있습니다.
+
+```jsx
+// Wrong
+this.setState({
+  counter: this.state.counter + this.props.increment,
+});
+```
+
+이를 수정하기 위해 객체보다는 함수를 인자로 사용하는 다른 형태의 setState()를 사용합니다.  
+그 함수는 이전 state를 첫 번째 인자로 받아들일 것이고, 업데이트가 적용된 시점의 props를 두 번째 인자로 받아들일 것입니다.
+
+```jsx
+// Correct
+this.setState((state, props) => ({
+  counter: state.counter + props.increment,
+}));
+
+// 위의 arrow function은 일반적인 함수에서도 정상적으로 작동합니다.
+
+// Correct
+this.setState(function (state, props) {
+  return {
+    counter: state.counter + props.increment,
+  };
+});
+```
+
+### State 업데이트는 병합됩니다
+
+setState()를 호출할 때 React는 제공한 객체를 현재 state로 병합합니다.  
+예를 들어, state는 다양한 독립적인 변수를 포함할 수 있습니다.
+
+```jsx
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: [],
+      comments: []
+    };
+  }
+```
+
+별도의 setState() 호출로 이러한 변수를 독립적으로 업데이트할 수 있습니다.
+
+```jsx
+  componentDidMount() {
+    fetchPosts().then(response => {
+      this.setState({
+        posts: response.posts
+      });
+    });
+
+    fetchComments().then(response => {
+      this.setState({
+        comments: response.comments
+      });
+    });
+  }
+```
+
+병합은 얕게 이루어지기 때문에 this.setState({comments})는 this.state.posts에 영향을 주진 않지만 this.state.comments는 완전히 대체됩니다.
 
 ### 데이터가 아래로 흐릅니다.
 
-부모 컴포넌트나 자식 컴포넌트는 특정 컴포넌트의 state 유무를 알 수 없으며 해당 컴포넌트가 함수나 클래스로 선언되었는 지 알 수 없습니다.
-
-이는 state가 로컬이라고 부르거나 캡슐화된 이유입니다. 컴포넌트 자신 외에는 접근할 수 없습니다.
-
-컴포넌트는 자신의 state를 자식 컴포넌트에 props 로 내려줄 수 있습니다.
+부모 Component나 자식 Component 모두 특정 Component가 `stateful`인지 `stateless`인지 알 수 없으며, 함수로 정의되었는지 클래스로 정의되었는지도 신경 쓰지 않아야 합니다.  
+이것이 `state`를 로컬 또는 캡슐화라고 부르는 이유입니다. `state`를 소유하고 설정하는 Component 이외의 다른 Component에서 액세스할 수 없습니다.  
+Component는 자신의 `state`를 자식 Component에 `props`로 내려줄 수 있습니다.
 
 ## 6. 이벤트 제어하기
 
@@ -275,11 +538,11 @@ React를 사용할 때 일반적으로 DOM 요소가 생성된 후에 리스너�
 
 인라인으로 요소를 조건부 렌더링하는 다른 방법은 자바스크립트의 조건부 연산자인 condition ? true : false 를 사용하는 것입니다.
 
-### 컴포넌트가 렌더링 되지 못하도록 방지
+### Component가 렌더링 되지 못하도록 방지
 
-흔하지 않지만 컴포넌트가 다른 컴포넌트에 의해 렌더링 되었더라도 이를 숨길 수 있습니다. 이렇게 하려면 렌더 출력 대신 null 을 반환합니다.
+흔하지 않지만 Component가 다른 Component에 의해 렌더링 되었더라도 이를 숨길 수 있습니다. 이렇게 하려면 렌더 출력 대신 null 을 반환합니다.
 
-컴포넌트의 render 메서드에서 null 을 반환하면 컴포넌트의 라이프사이클 메서드가 구동하지 않습니다. 대신, componentWillUpdate 와 componentDidUpdate 는 여전히 호출됩니다.
+Component의 render 메서드에서 null 을 반환하면 Component의 라이프사이클 메서드가 구동하지 않습니다. 대신, componentWillUpdate 와 componentDidUpdate 는 여전히 호출됩니다.
 
 ## 8. 리스트와 키
 
@@ -287,8 +550,8 @@ React를 사용할 때 일반적으로 DOM 요소가 생성된 후에 리스너�
 
 키는 React가 어떤 아이템이 바뀌었는 지, 혹은 추가되었는 지, 혹은 삭제되었는 지를 인식하는 데 도움을 줍니다.요소에 안정적인 ID를 제공하려면 배열 내부 요소에 키를 주어야합니다.
 
-아이템의 순서가 바뀔 수 있는 경우 키에 인덱스를 사용하지 않는 게 좋습니다. 이로 인해 성능이 저하되거나 컴포넌트의 state에 따른 문제가 발생할 수 있습니다. Robin Pokorny가 작성한 아티클인 in-depth explanation on the negative impacts of using an index as a key 를 참고하시길 바랍니다. 만약 리스트 아이템에 명시적으로 키를 지정하지 않으면 React는 기본적으로 인덱스를 키로써 사용합니다.
+아이템의 순서가 바뀔 수 있는 경우 키에 인덱스를 사용하지 않는 게 좋습니다. 이로 인해 성능이 저하되거나 Component의 state에 따른 문제가 발생할 수 있습니다. Robin Pokorny가 작성한 아티클인 in-depth explanation on the negative impacts of using an index as a key 를 참고하시길 바랍니다. 만약 리스트 아이템에 명시적으로 키를 지정하지 않으면 React는 기본적으로 인덱스를 키로써 사용합니다.
 
-키는 React에게 힌트를 제공하지만 컴포넌트로 전달되지는 않습니다. 만약 컴포넌트에 동일한 값이 필요하다면 명시적으로 다른 이름의 prop으로 전달하길 바랍니다.
+키는 React에게 힌트를 제공하지만 Component로 전달되지는 않습니다. 만약 Component에 동일한 값이 필요하다면 명시적으로 다른 이름의 prop으로 전달하길 바랍니다.
 
 ## 9. Form
