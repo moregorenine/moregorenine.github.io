@@ -172,7 +172,7 @@ React DOM은 해당 엘리먼트와 그 자식 엘리먼트를 이전의 엘리�
 
 ## 4. Components and Props
 
-개념적으로 Component는 JavaScript 함수와 유사합니다. “props”라고 하는 임의의 입력을 받은 후, 화면에 어떻게 표시되는지를 기술하는 React 엘리먼트를 반환합니다.
+개념적으로 Component는 JavaScript 함수와 유사합니다. `props`라고 하는 임의의 입력을 받은 후, 화면에 어떻게 표시되는지를 기술하는 React 엘리먼트를 반환합니다.
 
 ### 함수 Component와 클래스 Component
 
@@ -184,7 +184,7 @@ function Welcome(props) {
 }
 ```
 
-이 함수는 데이터를 가진 하나의 “props” (props는 속성을 나타내는 데이터입니다) 객체 인자를 받은 후 React 엘리먼트를 반환하므로 유효한 React Component입니다. 이러한 Component는 JavaScript 함수이기 때문에 말 그대로 “함수 Component”라고 호칭합니다.
+이 함수는 데이터를 가진 하나의 `props` (props는 속성을 나타내는 데이터입니다) 객체 인자를 받은 후 React 엘리먼트를 반환하므로 유효한 React Component입니다. 이러한 Component는 JavaScript 함수이기 때문에 말 그대로 “함수 Component”라고 호칭합니다.
 
 또한 ES6 class를 사용하여 Component를 정의할 수 있습니다.
 
@@ -212,7 +212,7 @@ React 엘리먼트는 사용자 정의 Component로도 나타낼 수 있습니�
 const element = <Welcome name="Sara" />;
 ```
 
-React가 사용자 정의 Component로 작성한 엘리먼트를 발견하면 JSX 어트리뷰트와 자식을 해당 Component에 단일 객체로 전달합니다. 이 객체를 “props”라고 합니다.
+React가 사용자 정의 Component로 작성한 엘리먼트를 발견하면 JSX 어트리뷰트와 자식을 해당 Component에 단일 객체로 전달합니다. 이 객체를 `props`라고 합니다.
 
 다음은 페이지에 “Hello, Sara”를 렌더링하는 예시입니다.
 
