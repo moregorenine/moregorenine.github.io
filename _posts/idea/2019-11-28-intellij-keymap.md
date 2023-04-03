@@ -64,6 +64,8 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
   - 2019년 jetbrain에서 개최한 콘테스트 테마부분 1위였음.
 - String Manipulation
   - camel, snake, kebab... 변환용으로 최고
+- CodeMetrics
+  - 함수복잡도를 나타내준다.
 
 ## Disabling "Restore defaults" ctrl+alt+F8
 디버깅시 ctrl + alt + f8 단축키를 사용할 때가 있는데  
