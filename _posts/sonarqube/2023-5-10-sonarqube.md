@@ -40,7 +40,9 @@ Jenkins에 자동연동 하는 방법도 있으나 local에서 Intellij 와 연�
 ![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/dc45571b-a9a0-4827-ab7b-9b5efe8f089a)
 ### Run analysis on your project
 순수하게 Maven 이나 Gradle로 <http://localhost:9000> 연계해서 분석도 가능합니다.
-![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/78a118cb-3c82-4cfd-a17e-79f7ade824dc)
+![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/78a118cb-3c82-4cfd-a17e-79f7ade824dc)  
+![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/44c391f3-67f1-45d6-ad95-a5461d417fac)
+
 
 
 ## IntelliJ SonarQube 연동
