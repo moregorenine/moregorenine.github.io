@@ -52,7 +52,9 @@ Jenkins에 자동연동 하는 방법도 있으나 local에서 Intellij 와 연�
 ![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/e9677ad6-1fb2-4da5-9699-cc7247deeda6)  
 ![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/5a05e9b5-0f11-453e-8492-c8bd28624761)  
 ![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/17f4adc3-7100-4bc1-a8ea-dfa58dd07bcc)  
-![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/96b91e0d-6673-4e16-916a-1baaefe7b3c6)
+![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/96b91e0d-6673-4e16-916a-1baaefe7b3c6)  
+![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/af4ab27c-fbcf-4e19-b500-ad79f911f581)
+
 
 
 
