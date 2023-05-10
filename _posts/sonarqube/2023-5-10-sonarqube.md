@@ -39,5 +39,16 @@ Jenkins에 자동연동 하는 방법도 있으나 local에서 intellij 와 연�
 `Generate`버튼으로 생성 후, `Token` 값을 복사해 둡니다.
 ![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/dc45571b-a9a0-4827-ab7b-9b5efe8f089a)
 
-## IntelliJ SonarQube 플러그인 설치
+## IntelliJ SonarQube 연동
+### 플러그인 설치
 ![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/cf01a07c-784c-488b-bcc7-1d2ac7df0274)
+### SonarQube 연동
+![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/e9677ad6-1fb2-4da5-9699-cc7247deeda6)  
+![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/5a05e9b5-0f11-453e-8492-c8bd28624761)  
+![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/17f4adc3-7100-4bc1-a8ea-dfa58dd07bcc)  
+![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/96b91e0d-6673-4e16-916a-1baaefe7b3c6)
+
+
+
+
+
