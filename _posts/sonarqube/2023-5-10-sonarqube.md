@@ -29,7 +29,7 @@ default username, password인 admin / admin 으로 접속합니다.
 ![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/ae1821d3-411e-4ccd-898d-0a0945af691f)
 
 ## SonarQube Project 생성
-Jenkins에 자동연동 하는 방법도 있으나 local에서 intellij 와 연동해 테스트 진행하기 위해 `Manually`로 생성합니다.
+Jenkins에 자동연동 하는 방법도 있으나 local에서 Intellij 와 연동해 테스트 진행하기 위해 `Manually`로 생성합니다.
 ![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/ca533f5a-8a1c-4a79-a96e-ff5a4793b026)  
 ![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/b56efc4f-cd5e-43a7-b54f-4fa30d9448aa)
 
@@ -38,6 +38,10 @@ Jenkins에 자동연동 하는 방법도 있으나 local에서 intellij 와 연�
 ![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/041d39b6-09e3-4712-a6f7-cad7e731ac3c)  
 `Generate`버튼으로 생성 후, `Token` 값을 복사해 둡니다.
 ![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/dc45571b-a9a0-4827-ab7b-9b5efe8f089a)
+### Run analysis on your project
+순수하게 Maven 이나 Gradle로 <http://localhost:9000> 연계해서 분석도 가능합니다.
+![image](https://github.com/moregorenine/moregorenine.github.io/assets/6086965/f14b3321-1153-48cf-8c90-afd50aa67e1f)
+
 
 ## IntelliJ SonarQube 연동
 ### 플러그인 설치
