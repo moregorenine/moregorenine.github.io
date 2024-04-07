@@ -11,6 +11,7 @@ last_modified_at: 2021-12-16T00:00:00+09:00
 
 1인 개발한 웹앱입니다.
 [중장비 작업일지 : Google Play](https://play.google.com/store/apps/details?id=com.moregorenine.moremong&hl=ko&gl=US)
+
 [중장비 작업일지 : web](https://moremong.com/)
 
 ## svelte
