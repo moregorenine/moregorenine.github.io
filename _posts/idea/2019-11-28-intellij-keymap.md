@@ -177,3 +177,26 @@ Voila. It's gone. Use system dialogs if you need to change the graphics settings
 - **Ctrl + Tab** : (Switcher)
   - ★★★★★
   - 이전 편집탭 돌아가기
+ 
+
+## Live Templates
+i18n 다국어 관련 자주 사용하는 문구를 등록해봅시다.  
+`{t('')}`를 입력하고 커서를 `''` 사이 중앙에 위치시키려면 다음과 같이 하면 됩니다:
+
+1. **라이브 템플릿 설정하기:**
+   - IntelliJ IDEA에서 `File` > `Settings` (Windows) 또는 `IntelliJ IDEA` > `Preferences` (macOS)로 이동합니다.
+   - `Editor` > `Live Templates`를 선택합니다.
+   - 오른쪽 상단의 `+` 버튼을 클릭하여 새 템플릿 그룹을 만들거나 기존 그룹을 선택합니다. 그룹에 새 템플릿을 추가하려면 그룹을 선택하고 오른쪽 상단의 또 다른 `+` 버튼을 클릭한 다음 `Live Template`을 선택합니다.
+   - 축약어(Abbreviation)에 단축어를 입력합니다. 예를 들어, `ttrans`.
+   - 설명(Description)에 템플릿 설명을 입력합니다. 예: "`Insert t('') with cursor in the middle`".
+   - 템플릿 텍스트(Template Text)에 `{t('$END$')}`를 입력합니다. `$END$`는 커서가 최종적으로 위치할 곳을 나타냅니다.
+   - `Define` 버튼을 클릭하여 이 템플릿이 활성화될 언어 또는 파일 유형을 선택합니다.
+   - `OK`를 클릭하여 설정을 저장합니다.
+
+2. **키맵(Keymap) 설정으로 단축키 지정하기:**
+   - `Settings` 또는 `Preferences`에서 `Keymap`을 선택합니다.
+   - `Main menu` > `Code` > `Insert Live Template`를 찾습니다.
+   - 이 기능에 단축키를 할당하려면 우측 클릭 후 `Add Keyboard Shortcut`을 선택합니다.
+   - 원하는 단축키 조합을 입력하고 `OK`를 클릭합니다. (이 단계에서는 기존 단축키와 충돌하지 않는 조합을 선택해야 합니다.)
+
+이렇게 설정하면 지정한 단축키를 눌렀을 때 `{t('')}`가 삽입되고 커서가 `''` 사이 중앙에 위치하게 됩니다. 이 과정은 IntelliJ IDEA의 버전이나 업데이트에 따라 약간 다를 수 있으니 참고하시기 바랍니다. 
