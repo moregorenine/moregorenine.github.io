@@ -935,9 +935,7 @@ sudo systemctl restart sshd
 sudo apt install -y unattended-upgrades
 sudo dpkg-reconfigure -plow unattended-upgrades
 ```
-
-# 자동 업데이트 활성화
-
+자동 업데이트 활성화
 ```
 sudo tee /etc/apt/apt.conf.d/50unattended-upgrades > /dev/null <<'EOF'
 Unattended-Upgrade::Allowed-Origins {
@@ -961,7 +959,7 @@ sudo systemctl disable bluetooth.service
 sudo systemctl disable cups.service
 ```
 
-# 불필요한 패키지 제거
+불필요한 패키지 제거
 
 ```
 sudo apt autoremove -y
@@ -1059,7 +1057,8 @@ ExecStart=/usr/local/bin/node_exporter \
 [Install]
 WantedBy=multi-user.target
 EOF
-
+```
+```
 sudo systemctl daemon-reload
 sudo systemctl enable node_exporter
 sudo systemctl start node_exporter
@@ -1129,7 +1128,6 @@ echo "타임스탬프: $(date)"
 echo ""
 
 # 서비스 확인
-
 echo "백엔드 API 1:" $(systemctl is-active moremong-api-1)
 echo "백엔드 API 2:" $(systemctl is-active moremong-api-2)
 echo "프론트엔드 1:" $(systemctl is-active moremong-front-1)
@@ -1140,19 +1138,16 @@ echo "Redis:" $(docker ps --filter name=moremong-redis --format "{{.Status}}")
 echo ""
 
 # 포트 상태 확인
-
 echo "=== 포트 상태 ==="
 netstat -tuln | grep -E ':(80|443|5173|5174|8090|8095) '
 echo ""
 
 # 디스크 사용량 확인
-
 echo "=== 디스크 사용량 ==="
 df -h /
 echo ""
 
 # 메모리 사용량 확인
-
 echo "=== 메모리 사용량 ==="
 free -h
 echo ""
