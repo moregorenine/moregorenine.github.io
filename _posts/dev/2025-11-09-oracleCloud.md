@@ -856,7 +856,7 @@ sudo journalctl -u moremong-front-1 -f
 
 ## 11단계: 보안 강화
 
-1. Fail2ban 설정
+### 1. Fail2ban 설정
 
 fail2ban 설치 및 설정
 
@@ -893,7 +893,7 @@ sudo systemctl start fail2ban
 sudo fail2ban-client status
 ```
 
-2. SSH 강화
+### 2. SSH 강화
 
 SSH 설정 백업
 
@@ -929,13 +929,15 @@ SSH 재시작
 sudo systemctl restart sshd
 ```
 
-3. 자동 보안 업데이트
+### 3. 자동 보안 업데이트
 
 ```
 sudo apt install -y unattended-upgrades
 sudo dpkg-reconfigure -plow unattended-upgrades
 ```
+
 자동 업데이트 활성화
+
 ```
 sudo tee /etc/apt/apt.conf.d/50unattended-upgrades > /dev/null <<'EOF'
 Unattended-Upgrade::Allowed-Origins {
@@ -950,7 +952,7 @@ Unattended-Upgrade::Automatic-Reboot "false";
 EOF
 ```
 
-4. 사용하지 않는 서비스 비활성화
+### 4. 사용하지 않는 서비스 비활성화
 
 사용하지 않는 서비스 목록 확인 및 비활성화
 
@@ -965,7 +967,7 @@ sudo systemctl disable cups.service
 sudo apt autoremove -y
 ```
 
-5. 파일 권한 설정
+### 5. 파일 권한 설정
 
 애플리케이션 파일 보안
 
@@ -984,7 +986,7 @@ sudo chown -R root:root /etc/nginx
 sudo chmod 644 /etc/nginx/nginx.conf
 ```
 
-6. 감사 로깅 활성화
+### 6. 감사 로깅 활성화
 
 ```
 sudo apt install -y auditd
@@ -1008,7 +1010,7 @@ EOF
 sudo systemctl restart auditd
 ```
 
-7. 로그 로테이션 설정
+### 7. 로그 로테이션 설정
 
 ```
 sudo tee /etc/logrotate.d/moremong > /dev/null <<'EOF'
@@ -1030,7 +1032,7 @@ EOF
 
 ## 12단계: 모니터링 설정
 
-1. Node Exporter 설치 (Prometheus용)
+### 1. Node Exporter 설치 (Prometheus용)
 
 ```
 cd /tmp
@@ -1064,7 +1066,7 @@ sudo systemctl enable node_exporter
 sudo systemctl start node_exporter
 ```
 
-2. 로그 모니터링 설정
+### 2. 로그 모니터링 설정
 
 로그 뷰어 lnav 설치
 
@@ -1162,7 +1164,7 @@ sudo chmod +x /opt/moremong/health-check.sh
 
 운영 전 이 체크리스트 실행
 
-1. 모든 서비스 실행 확인
+### 1. 모든 서비스 실행 확인
 
 ```
 sudo systemctl status moremong-api-1 moremong-api-2
@@ -1171,7 +1173,7 @@ sudo systemctl status nginx
 sudo docker compose -f /opt/moremong/docker/docker-compose.yml ps
 ```
 
-2. 엔드포인트 테스트
+### 2. 엔드포인트 테스트
 
 ```
 curl -I http://localhost:8090/management/health
@@ -1180,7 +1182,7 @@ curl -I https://moremong.com/worklog
 curl -I https://moremong.com/api/management/health
 ```
 
-3. 에러 로그 확인
+### 3. 에러 로그 확인
 
 ```
 sudo journalctl -u moremong-api-1 --since "1 hour ago" | grep -i error
@@ -1188,19 +1190,19 @@ sudo journalctl -u moremong-front-1 --since "1 hour ago" | grep -i error
 sudo tail -n 100 /var/log/nginx/error.log
 ```
 
-4.  SSL 확인
+### 4.  SSL 확인
 
 ```
 curl -I https://moremong.com
 openssl s_client -connect moremong.com:443 -servername moremong.com < /dev/null
 ```
 
-5.  OAuth 로그인 테스트
+### 5.  OAuth 로그인 테스트
 
 브라우저에서: https://moremong.com/worklog  
 로그인 클릭, /worklog/oauth/callback으로 리다이렉트 확인
 
-6.  방화벽 확인
+### 6.  방화벽 확인
 
 ```
 sudo ufw status verbose
@@ -1208,13 +1210,13 @@ sudo ufw status verbose
 
 OCI 보안 목록에 80, 443 포트가 열려있는지 확인
 
-7.  헬스 체크 실행
+### 7.  헬스 체크 실행
 
 ```
 /opt/moremong/health-check.sh
 ```
 
-8. 백업 테스트
+### 8. 백업 테스트
 
 ```
 /opt/moremong/backup-db.sh
