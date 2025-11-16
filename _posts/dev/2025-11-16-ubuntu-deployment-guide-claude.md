@@ -741,7 +741,7 @@ npm ci --omit=dev  # package-lock.json 기반으로 설치
 **프론트엔드 인스턴스 1 (포트 5173)**
 
 ```bash
-sudo tee /etc/systemd/system/moremong-front-worklog.service > /dev/null <<'EOF'
+sudo tee /etc/systemd/system/moremong-front-worklog-1.service > /dev/null <<'EOF'
 [Unit]
 Description=Moremong Frontend /worklog Instance 1
 After=network.target
@@ -778,7 +778,7 @@ EOF
 **프론트엔드 인스턴스 2 (포트 5174)**
 
 ```bash
-sudo tee /etc/systemd/system/moremong-front-2.service > /dev/null <<'EOF'
+sudo tee /etc/systemd/system/moremong-front-worklog-2.service > /dev/null <<'EOF'
 [Unit]
 Description=Moremong Frontend /worklog Instance 2
 After=network.target
