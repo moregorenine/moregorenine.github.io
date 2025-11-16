@@ -741,7 +741,7 @@ npm ci --omit=dev  # package-lock.json 기반으로 설치
 **프론트엔드 인스턴스 1 (포트 5173)**
 
 ```bash
-sudo tee /etc/systemd/system/moremong-front-1.service > /dev/null <<'EOF'
+sudo tee /etc/systemd/system/moremong-front-worklog.service > /dev/null <<'EOF'
 [Unit]
 Description=Moremong Frontend /worklog Instance 1
 After=network.target
@@ -749,7 +749,7 @@ After=network.target
 [Service]
 Type=simple
 User=ubuntu
-WorkingDirectory=/opt/moremong/frontend
+WorkingDirectory=/opt/moremong/frontend/worklog
 EnvironmentFile=/opt/moremong/frontends/worklog/.env
 Environment="PORT=5173"
 Environment="HOST=127.0.0.1"
@@ -786,7 +786,7 @@ After=network.target
 [Service]
 Type=simple
 User=ubuntu
-WorkingDirectory=/opt/moremong/frontend
+WorkingDirectory=/opt/moremong/frontend/worklog
 EnvironmentFile=/opt/moremong/frontends/worklog/.env
 Environment="PORT=5174"
 Environment="HOST=127.0.0.1"
