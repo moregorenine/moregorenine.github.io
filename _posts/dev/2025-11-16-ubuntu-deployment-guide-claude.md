@@ -552,11 +552,37 @@ const config = {
 export default config;
 ```
 
+⚠️ **중요**: `@sveltejs/adapter-node`는 빌드 시 다음 구조를 생성합니다:
+```
+build/
+├── index.js          # 메인 서버 진입점 (이 파일을 실행해야 함!)
+├── server/
+│   └── index.js      # 서버 로직
+└── client/           # 클라이언트 자산
+```
+
+**반드시 `build/index.js`를 실행해야 합니다!**
+
 ### 빌드 (worklog)
 
 ```bash
+cd /opt/moremong/repo/moremong-front
+
 # BASE_PATH를 환경변수로 설정하고 빌드
 BASE_PATH=/worklog npm run build
+
+# ✅ 빌드 결과 확인 (매우 중요!)
+ls -la build/
+ls -la build/index.js  # 이 파일이 반드시 존재해야 함!
+
+# 빌드 파일이 없으면 에러
+if [ ! -f "build/index.js" ]; then
+    echo "❌ 에러: build/index.js 파일이 없습니다!"
+    echo "svelte.config.js에서 adapter 설정을 확인하세요."
+    exit 1
+fi
+
+echo "✅ 빌드 성공: build/index.js 확인됨"
 
 # 빌드 파일 복사
 cp -r build /opt/moremong/frontend/
@@ -566,6 +592,54 @@ cp package.json package-lock.json /opt/moremong/frontend/
 # 프로덕션 의존성 설치
 cd /opt/moremong/frontend
 npm ci --omit=dev
+
+# ✅ 실행 테스트 (선택적이지만 강력 권장)
+echo "서버 실행 테스트 중..."
+PORT=5173 HOST=127.0.0.1 timeout 5 node build/index.js || true
+echo "테스트 완료"
+```
+
+### 🚨 일반적인 빌드 오류 해결
+
+**문제 1: `build/index.js` 파일이 생성되지 않음**
+
+원인: `svelte.config.js`에 adapter가 잘못 설정됨
+
+해결방법:
+```javascript
+// svelte.config.js
+import adapter from '@sveltejs/adapter-node';  // ✅ 올바름
+
+// ❌ 잘못된 예시들:
+// import adapter from '@sveltejs/adapter-static';
+// import adapter from '@sveltejs/adapter-auto';
+
+const config = {
+  kit: {
+    adapter: adapter()  // ✅ adapter() 호출해야 함
+  }
+};
+```
+
+**문제 2: 빌드는 성공하지만 서버가 시작되지 않음**
+
+원인: systemd 서비스에 잘못된 경로 설정
+
+해결방법:
+```bash
+# ❌ 잘못됨
+ExecStart=/usr/bin/node build
+
+# ✅ 올바름
+ExecStart=/usr/bin/node build/index.js
+```
+
+**문제 3: 의존성 누락**
+
+해결방법:
+```bash
+cd /opt/moremong/frontend
+npm ci --omit=dev  # package-lock.json 기반으로 설치
 ```
 
 ### Systemd 서비스 생성
@@ -587,7 +661,8 @@ Environment="PORT=5173"
 Environment="HOST=127.0.0.1"
 Environment="ORIGIN=https://moremong.com"
 
-ExecStart=/usr/bin/node build
+# ✅ 정확한 실행 경로: build/index.js
+ExecStart=/usr/bin/node build/index.js
 
 Restart=always
 RestartSec=10
@@ -621,7 +696,8 @@ Environment="PORT=5174"
 Environment="HOST=127.0.0.1"
 Environment="ORIGIN=https://moremong.com"
 
-ExecStart=/usr/bin/node build
+# ✅ 정확한 실행 경로: build/index.js
+ExecStart=/usr/bin/node build/index.js
 
 Restart=always
 RestartSec=10
@@ -645,6 +721,10 @@ EOF
 ```bash
 cd /opt/moremong/repo/moremong-front1
 BASE_PATH=/worklog1 npm run build
+
+# 빌드 결과 확인
+ls -la build/index.js  # 이 파일이 존재해야 함!
+
 cp -r build /opt/moremong/frontend1/
 cp .env.production /opt/moremong/frontend1/.env
 cp package.json package-lock.json /opt/moremong/frontend1/
@@ -652,13 +732,75 @@ cd /opt/moremong/frontend1
 npm ci --omit=dev
 ```
 
-유사하게 systemd 서비스 생성 (포트 5175, 5176 사용)
+유사하게 systemd 서비스 생성 (포트 5175, 5176 사용):
+
+```bash
+# moremong-front1-1.service
+sudo tee /etc/systemd/system/moremong-front1-1.service > /dev/null <<'EOF'
+[Unit]
+Description=Moremong Frontend /worklog1 Instance 1
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/moremong/frontend1
+EnvironmentFile=/opt/moremong/frontend1/.env
+Environment="PORT=5175"
+Environment="HOST=127.0.0.1"
+Environment="ORIGIN=https://moremong.com"
+ExecStart=/usr/bin/node build/index.js
+
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=moremong-front1-1
+LogRateLimitIntervalSec=30s
+LogRateLimitBurst=1000
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# moremong-front1-2.service
+sudo tee /etc/systemd/system/moremong-front1-2.service > /dev/null <<'EOF'
+[Unit]
+Description=Moremong Frontend /worklog1 Instance 2
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/moremong/frontend1
+EnvironmentFile=/opt/moremong/frontend1/.env
+Environment="PORT=5176"
+Environment="HOST=127.0.0.1"
+Environment="ORIGIN=https://moremong.com"
+ExecStart=/usr/bin/node build/index.js
+
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=moremong-front1-2
+LogRateLimitIntervalSec=30s
+LogRateLimitBurst=1000
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
 
 **frontend2 (worklog2) - 포트 5177, 5178**
 
 ```bash
 cd /opt/moremong/repo/moremong-front2
 BASE_PATH=/worklog2 npm run build
+
+# 빌드 결과 확인
+ls -la build/index.js  # 이 파일이 존재해야 함!
+
 cp -r build /opt/moremong/frontend2/
 cp .env.production /opt/moremong/frontend2/.env
 cp package.json package-lock.json /opt/moremong/frontend2/
@@ -666,7 +808,65 @@ cd /opt/moremong/frontend2
 npm ci --omit=dev
 ```
 
-유사하게 systemd 서비스 생성 (포트 5177, 5178 사용)
+유사하게 systemd 서비스 생성 (포트 5177, 5178 사용):
+
+```bash
+# moremong-front2-1.service
+sudo tee /etc/systemd/system/moremong-front2-1.service > /dev/null <<'EOF'
+[Unit]
+Description=Moremong Frontend /worklog2 Instance 1
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/moremong/frontend2
+EnvironmentFile=/opt/moremong/frontend2/.env
+Environment="PORT=5177"
+Environment="HOST=127.0.0.1"
+Environment="ORIGIN=https://moremong.com"
+ExecStart=/usr/bin/node build/index.js
+
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=moremong-front2-1
+LogRateLimitIntervalSec=30s
+LogRateLimitBurst=1000
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# moremong-front2-2.service
+sudo tee /etc/systemd/system/moremong-front2-2.service > /dev/null <<'EOF'
+[Unit]
+Description=Moremong Frontend /worklog2 Instance 2
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/moremong/frontend2
+EnvironmentFile=/opt/moremong/frontend2/.env
+Environment="PORT=5178"
+Environment="HOST=127.0.0.1"
+Environment="ORIGIN=https://moremong.com"
+ExecStart=/usr/bin/node build/index.js
+
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=moremong-front2-2
+LogRateLimitIntervalSec=30s
+LogRateLimitBurst=1000
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
 
 ## 9단계: SSL 인증서 발급 (Let's Encrypt)
 
@@ -1771,12 +1971,21 @@ if [ ! -d "$BUILD_PATH" ]; then
     exit 1
 fi
 
+# ✅ 중요: build/index.js 파일 존재 확인
+if [ ! -f "$BUILD_PATH/index.js" ]; then
+    echo "✗ 빌드 진입점을 찾을 수 없습니다: $BUILD_PATH/index.js"
+    echo "  SvelteKit adapter-node는 build/index.js 파일을 생성해야 합니다."
+    echo "  svelte.config.js를 확인하고 다시 빌드하세요."
+    exit 1
+fi
+
 DEPLOY_DIR="/opt/moremong/$FRONTEND_NAME"
 
 echo "================================================"
 echo "  프론트엔드 Zero-Downtime 배포 시작"
 echo "  버전: $VERSION"
 echo "  프론트엔드: $FRONTEND_NAME"
+echo "  빌드 경로: $BUILD_PATH"
 echo "================================================"
 echo ""
 
@@ -1905,7 +2114,13 @@ echo ""
 echo "=== 2. 프론트엔드 빌드 ==="
 cd /opt/moremong/repo/moremong-front
 BASE_PATH=/worklog npm run build
-echo "✓ 프론트엔드 빌드 완료"
+
+# 빌드 결과 검증
+if [ ! -f "build/index.js" ]; then
+    echo "✗ 프론트엔드 빌드 실패: build/index.js 파일이 생성되지 않았습니다."
+    exit 1
+fi
+echo "✓ 프론트엔드 빌드 완료 (build/index.js 확인됨)"
 echo ""
 
 # 3. 데이터베이스 백업
@@ -2254,6 +2469,93 @@ sudo journalctl --vacuum-time=7d
 
 # 오래된 백업 삭제
 find /opt/moremong/backups -mtime +30 -delete
+```
+
+#### 6. 🔥 프론트엔드 서비스가 시작되지 않을 때 (SvelteKit)
+
+**증상**: `systemctl status moremong-front-1`에서 실패 또는 에러 로그
+
+**가장 흔한 원인**: 잘못된 실행 경로
+
+```bash
+# 로그 확인
+sudo journalctl -u moremong-front-1 -n 50 --no-pager
+
+# 일반적인 에러 메시지:
+# "Error: Cannot find module '/opt/moremong/frontend/build'"
+# "ENOENT: no such file or directory"
+```
+
+**해결 방법**:
+
+```bash
+# 1. build/index.js 파일 존재 확인
+ls -la /opt/moremong/frontend/build/index.js
+
+# 파일이 없다면:
+echo "❌ build/index.js 파일이 없습니다!"
+
+# 2. 빌드 디렉토리 구조 확인
+tree -L 2 /opt/moremong/frontend/build/
+# 또는
+ls -la /opt/moremong/frontend/build/
+
+# 3. systemd 서비스 파일 확인
+sudo cat /etc/systemd/system/moremong-front-1.service | grep ExecStart
+
+# ✅ 올바른 경로:
+# ExecStart=/usr/bin/node build/index.js
+
+# ❌ 잘못된 경로:
+# ExecStart=/usr/bin/node build
+# ExecStart=/usr/bin/node build/server/index.js
+# ExecStart=/usr/bin/node index.js
+
+# 4. 수동 실행 테스트
+cd /opt/moremong/frontend
+PORT=5173 HOST=127.0.0.1 node build/index.js
+
+# 5. package.json 의존성 확인
+npm list --depth=0
+
+# 6. 의존성 재설치
+npm ci --omit=dev
+```
+
+**build/index.js가 없는 경우**:
+
+```bash
+# svelte.config.js 확인
+cat /opt/moremong/repo/moremong-front/svelte.config.js
+
+# adapter-node가 올바르게 설정되어야 함:
+# import adapter from '@sveltejs/adapter-node';
+
+# 다시 빌드
+cd /opt/moremong/repo/moremong-front
+BASE_PATH=/worklog npm run build
+
+# 빌드 후 확인
+ls -la build/index.js  # 이 파일이 존재해야 함!
+
+# 배포 디렉토리로 복사
+cp -r build /opt/moremong/frontend/
+```
+
+#### 7. SvelteKit ORIGIN 오류
+
+**증상**: "Cross-site POST form submissions are forbidden" 에러
+
+```bash
+# systemd 서비스 파일에 ORIGIN 환경변수 추가
+sudo systemctl edit moremong-front-1
+
+# 다음 내용 추가:
+[Service]
+Environment="ORIGIN=https://moremong.com"
+
+sudo systemctl daemon-reload
+sudo systemctl restart moremong-front-1
 ```
 
 ### 빠른 롤백 절차
