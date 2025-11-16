@@ -683,6 +683,8 @@ cp package.json package-lock.json /opt/moremong/frontends/worklog/
 
 # 프로덕션 의존성 설치
 cd /opt/moremong/frontend/worklog
+# 권한 추가
+sudo chown -R ubuntu:ubuntu /opt/moremong/frontends/worklog
 npm ci --omit=dev
 
 # ✅ 실행 테스트 (선택적이지만 강력 권장)
