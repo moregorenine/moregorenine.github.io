@@ -1374,7 +1374,8 @@ sudo systemctl start nginx
 sudo systemctl status nginx
 
 # 설정 리로드 (설정 변경 시)
-sudo nginx -s reload
+sudo nginx -t
+sudo systemctl reload nginx
 ```
 
 ### 전체 서비스 확인
