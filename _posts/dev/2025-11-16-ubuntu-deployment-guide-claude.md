@@ -756,7 +756,7 @@ Environment="HOST=127.0.0.1"
 Environment="ORIGIN=https://moremong.com"
 
 # ✅ 정확한 실행 경로: build/index.js
-ExecStart=/usr/bin/node build/index.js
+ExecStart=/home/ubuntu/.nvm/versions/node/v22.20.0/bin/node build/index.js
 
 Restart=always
 RestartSec=5
@@ -793,7 +793,7 @@ Environment="HOST=127.0.0.1"
 Environment="ORIGIN=https://moremong.com"
 
 # ✅ 정확한 실행 경로: build/index.js
-ExecStart=/usr/bin/node build/index.js
+ExecStart=/home/ubuntu/.nvm/versions/node/v22.20.0/bin/node build/index.js build/index.js
 
 Restart=always
 RestartSec=5
