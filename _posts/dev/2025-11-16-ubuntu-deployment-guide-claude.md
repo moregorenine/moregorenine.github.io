@@ -113,10 +113,15 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
 # Swappiness 조정 (메모리 사용 우선)
 echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
+
+# VFS 캐시 압력 조정 (자원 효율 향상)
+echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
+
 sudo sysctl -p
 
 # 확인
 free -h
+sysctl vm.swappiness vm.vfs_cache_pressure
 ```
 
 ### 필수 패키지 설치
@@ -230,9 +235,50 @@ sudo systemctl disable nginx  # 나중에 수동으로 활성화
 ### 디렉토리 구조 생성
 
 ```bash
-sudo mkdir -p /opt/moremong/{docker,backend,frontend,frontend1,frontend2,backups,versions}
+sudo mkdir -p /opt/moremong/{docker,backend,frontends/{worklog,worklog1,worklog2},backups,versions}
 sudo chown -R ubuntu:ubuntu /opt/moremong
+
+# 구조 확인
+tree -L 2 /opt/moremong 2>/dev/null || find /opt/moremong -maxdepth 2 -type d
 ```
+
+**개선된 디렉토리 구조**:
+```
+/opt/moremong/
+├── docker/               # Docker Compose 설정
+│   ├── docker-compose.yml
+│   └── .env
+├── backend/              # Spring Boot 백엔드
+│   ├── moremong-restapi.jar
+│   └── .env
+├── frontends/            # ✅ 모든 프론트엔드 앱 (통합 관리)
+│   ├── worklog/          # 첫 번째 앱 (BASE_PATH=/worklog)
+│   │   ├── build/        # SvelteKit 빌드 결과
+│   │   ├── .env
+│   │   ├── package.json
+│   │   └── node_modules/
+│   ├── worklog1/         # 두 번째 앱 (BASE_PATH=/worklog1)
+│   │   └── (구조 동일)
+│   └── worklog2/         # 세 번째 앱 (BASE_PATH=/worklog2)
+│       └── (구조 동일)
+├── backups/              # 데이터베이스 백업
+│   ├── postgres_*.sql.gz
+│   └── redis_*.rdb
+└── versions/             # 애플리케이션 버전 백업
+    └── moremong-*.tar.gz
+```
+
+**설계 원칙**:
+- ✅ **일관성**: 모든 프론트엔드는 `frontends/` 하위에 위치
+- ✅ **명확성**: `frontends/worklog/`로 용도 즉시 파악 가능
+- ✅ **확장성**: 새 앱 추가 시 `frontends/<app-name>/` 생성
+- ✅ **자동화 친화적**: 스크립트에서 `frontends/*` 패턴 매칭 가능
+- ✅ **효율성**: 동일 앱의 여러 인스턴스는 같은 빌드 디렉토리 공유
+
+**명명 규칙**:
+- `frontends/<app-name>/` : 앱 이름은 BASE_PATH와 동일 (슬래시 제외)
+- 예: BASE_PATH=/worklog → `frontends/worklog/`
+- 예: BASE_PATH=/admin → `frontends/admin/`
 
 ### Docker Compose 파일 생성
 
@@ -240,7 +286,7 @@ sudo chown -R ubuntu:ubuntu /opt/moremong
 cat > /opt/moremong/docker/docker-compose.yml <<'EOF'
 services:
   postgresql:
-    image: postgres:17.4
+    image: postgres:16  # ✅ 안정 버전 (17은 아직 프로덕션 검증 부족)
     container_name: moremong-postgres
     restart: always
     environment:
@@ -279,7 +325,11 @@ services:
     image: redis:7.2.3
     container_name: moremong-redis
     restart: always
-    command: redis-server --requirepass ${REDIS_PASSWORD}
+    command: >
+      redis-server
+      --requirepass ${REDIS_PASSWORD}
+      --appendonly yes
+      --appendfsync everysec
     volumes:
       - redis_data:/data
     ports:
@@ -312,9 +362,20 @@ POSTGRES_PASSWORD=CHANGE_THIS_STRONG_PASSWORD_1
 REDIS_PASSWORD=CHANGE_THIS_STRONG_PASSWORD_2
 EOF
 
-# 보안 권한 설정
+# ✅ 보안 권한 설정 (중요!)
 chmod 600 /opt/moremong/docker/.env
+chmod 600 /opt/moremong/docker/docker-compose.yml  # 실수로 소스 저장소 업로드 방지
 ```
+
+⚠️ **보안 주의사항**:
+- `.env` 파일과 `docker-compose.yml` 모두 권한 600 설정
+- 이 파일들은 절대 Git 저장소에 커밋하지 마세요
+- `.gitignore`에 추가 권장:
+  ```
+  .env
+  .env.*
+  docker-compose.yml
+  ```
 
 ⚠️ **중요**: 실제 강력한 비밀번호로 변경하세요!
 
@@ -380,6 +441,11 @@ JASYPT_ENCRYPTOR_PASSWORD=YOUR_MASTER_ENCRYPTION_KEY
 # Spring Profile
 SPRING_PROFILES_ACTIVE=prod
 
+# ⚠️ 포트 설정 주의사항:
+# - server.port는 systemd 서비스 파일에서 -Dserver.port=8090/8095로 설정됨
+# - 여기에 SERVER_PORT를 정의하지 마세요 (인스턴스별로 다른 포트 사용)
+# - Spring Boot는 JVM 시스템 프로퍼티(-D)를 최우선으로 사용합니다
+
 # 데이터베이스
 SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/moremong
 SPRING_DATASOURCE_USERNAME=moremong
@@ -401,6 +467,21 @@ EOF
 
 chmod 600 /opt/moremong/repo/restapi/.env.production
 ```
+
+**Spring Boot 포트 설정 메커니즘**:
+
+Spring Boot의 `server.port` 설정 우선순위 (높은 순서):
+1. **JVM 시스템 프로퍼티** (`-Dserver.port=8090`) ← ✅ 현재 사용 방식
+2. 명령줄 인자 (`--server.port=8090`)
+3. 환경변수 (`SERVER_PORT=8090`) ← Spring Boot 2.0+에서 지원
+4. `application.properties` / `application.yml`
+5. 기본값 (8080)
+
+**현재 배포 전략**:
+- ✅ **인스턴스 1**: systemd에서 `-Dserver.port=8090` 명시
+- ✅ **인스턴스 2**: systemd에서 `-Dserver.port=8095` 명시
+- ✅ **`.env` 파일**: 포트 설정 없음 (공통 설정만 포함)
+- ✅ **장점**: 명시적이고 디버깅 쉬움, 포트 충돌 방지
 
 ### JAR 빌드
 
@@ -446,8 +527,8 @@ Type=simple
 User=ubuntu
 WorkingDirectory=/opt/moremong/backend
 EnvironmentFile=/opt/moremong/backend/.env
-Environment="SERVER_PORT=8090"
 
+# ✅ JVM 시스템 프로퍼티로 포트 명시 (-Dserver.port)
 ExecStart=/usr/bin/java \
   -server \
   -Xms1g \
@@ -458,10 +539,13 @@ ExecStart=/usr/bin/java \
   -XX:+OptimizeStringConcat \
   -Djava.security.egd=file:/dev/./urandom \
   -Dspring.profiles.active=prod \
+  -Dserver.port=8090 \
   -jar /opt/moremong/backend/moremong-restapi.jar
 
 Restart=always
-RestartSec=10
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=5
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=moremong-api-1
@@ -474,6 +558,11 @@ LogRateLimitBurst=1000
 WantedBy=multi-user.target
 EOF
 ```
+
+**중요**: 
+- ✅ `-Dserver.port=8090`: JVM 시스템 프로퍼티로 포트 명시 (최우선 순위)
+- ❌ `Environment="SERVER_PORT=8090"`: 제거됨 (Spring Boot에서 인식 안 됨)
+- `.env` 파일에 있는 `SERVER_PORT`는 무시되거나 다른 용도로 사용 가능
 
 **백엔드 인스턴스 2 (포트 8095)**
 
@@ -489,8 +578,8 @@ Type=simple
 User=ubuntu
 WorkingDirectory=/opt/moremong/backend
 EnvironmentFile=/opt/moremong/backend/.env
-Environment="SERVER_PORT=8095"
 
+# ✅ JVM 시스템 프로퍼티로 포트 명시 (-Dserver.port)
 ExecStart=/usr/bin/java \
   -server \
   -Xms1g \
@@ -501,10 +590,13 @@ ExecStart=/usr/bin/java \
   -XX:+OptimizeStringConcat \
   -Djava.security.egd=file:/dev/./urandom \
   -Dspring.profiles.active=prod \
+  -Dserver.port=8095 \
   -jar /opt/moremong/backend/moremong-restapi.jar
 
 Restart=always
-RestartSec=10
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=5
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=moremong-api-2
@@ -585,9 +677,9 @@ fi
 echo "✅ 빌드 성공: build/index.js 확인됨"
 
 # 빌드 파일 복사
-cp -r build /opt/moremong/frontend/
-cp .env.production /opt/moremong/frontend/.env
-cp package.json package-lock.json /opt/moremong/frontend/
+cp -r build /opt/moremong/frontends/worklog/
+cp .env.production /opt/moremong/frontends/worklog/.env
+cp package.json package-lock.json /opt/moremong/frontends/worklog/
 
 # 프로덕션 의존성 설치
 cd /opt/moremong/frontend
@@ -656,7 +748,7 @@ After=network.target
 Type=simple
 User=ubuntu
 WorkingDirectory=/opt/moremong/frontend
-EnvironmentFile=/opt/moremong/frontend/.env
+EnvironmentFile=/opt/moremong/frontends/worklog/.env
 Environment="PORT=5173"
 Environment="HOST=127.0.0.1"
 Environment="ORIGIN=https://moremong.com"
@@ -665,7 +757,9 @@ Environment="ORIGIN=https://moremong.com"
 ExecStart=/usr/bin/node build/index.js
 
 Restart=always
-RestartSec=10
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=5
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=moremong-front-1
@@ -691,7 +785,7 @@ After=network.target
 Type=simple
 User=ubuntu
 WorkingDirectory=/opt/moremong/frontend
-EnvironmentFile=/opt/moremong/frontend/.env
+EnvironmentFile=/opt/moremong/frontends/worklog/.env
 Environment="PORT=5174"
 Environment="HOST=127.0.0.1"
 Environment="ORIGIN=https://moremong.com"
@@ -700,7 +794,9 @@ Environment="ORIGIN=https://moremong.com"
 ExecStart=/usr/bin/node build/index.js
 
 Restart=always
-RestartSec=10
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=5
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=moremong-front-2
@@ -725,9 +821,9 @@ BASE_PATH=/worklog1 npm run build
 # 빌드 결과 확인
 ls -la build/index.js  # 이 파일이 존재해야 함!
 
-cp -r build /opt/moremong/frontend1/
-cp .env.production /opt/moremong/frontend1/.env
-cp package.json package-lock.json /opt/moremong/frontend1/
+cp -r build /opt/moremong/frontends/worklog1/
+cp .env.production /opt/moremong/frontends/worklog1/.env
+cp package.json package-lock.json /opt/moremong/frontends/worklog1/
 cd /opt/moremong/frontend1
 npm ci --omit=dev
 ```
@@ -745,14 +841,16 @@ After=network.target
 Type=simple
 User=ubuntu
 WorkingDirectory=/opt/moremong/frontend1
-EnvironmentFile=/opt/moremong/frontend1/.env
+EnvironmentFile=/opt/moremong/frontends/worklog1/.env
 Environment="PORT=5175"
 Environment="HOST=127.0.0.1"
 Environment="ORIGIN=https://moremong.com"
 ExecStart=/usr/bin/node build/index.js
 
 Restart=always
-RestartSec=10
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=5
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=moremong-front1-1
@@ -773,14 +871,16 @@ After=network.target
 Type=simple
 User=ubuntu
 WorkingDirectory=/opt/moremong/frontend1
-EnvironmentFile=/opt/moremong/frontend1/.env
+EnvironmentFile=/opt/moremong/frontends/worklog1/.env
 Environment="PORT=5176"
 Environment="HOST=127.0.0.1"
 Environment="ORIGIN=https://moremong.com"
 ExecStart=/usr/bin/node build/index.js
 
 Restart=always
-RestartSec=10
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=5
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=moremong-front1-2
@@ -801,9 +901,9 @@ BASE_PATH=/worklog2 npm run build
 # 빌드 결과 확인
 ls -la build/index.js  # 이 파일이 존재해야 함!
 
-cp -r build /opt/moremong/frontend2/
-cp .env.production /opt/moremong/frontend2/.env
-cp package.json package-lock.json /opt/moremong/frontend2/
+cp -r build /opt/moremong/frontends/worklog2/
+cp .env.production /opt/moremong/frontends/worklog2/.env
+cp package.json package-lock.json /opt/moremong/frontends/worklog2/
 cd /opt/moremong/frontend2
 npm ci --omit=dev
 ```
@@ -821,14 +921,16 @@ After=network.target
 Type=simple
 User=ubuntu
 WorkingDirectory=/opt/moremong/frontend2
-EnvironmentFile=/opt/moremong/frontend2/.env
+EnvironmentFile=/opt/moremong/frontends/worklog2/.env
 Environment="PORT=5177"
 Environment="HOST=127.0.0.1"
 Environment="ORIGIN=https://moremong.com"
 ExecStart=/usr/bin/node build/index.js
 
 Restart=always
-RestartSec=10
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=5
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=moremong-front2-1
@@ -849,14 +951,16 @@ After=network.target
 Type=simple
 User=ubuntu
 WorkingDirectory=/opt/moremong/frontend2
-EnvironmentFile=/opt/moremong/frontend2/.env
+EnvironmentFile=/opt/moremong/frontends/worklog2/.env
 Environment="PORT=5178"
 Environment="HOST=127.0.0.1"
 Environment="ORIGIN=https://moremong.com"
 ExecStart=/usr/bin/node build/index.js
 
 Restart=always
-RestartSec=10
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=5
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=moremong-front2-2
@@ -875,6 +979,11 @@ EOF
 ```bash
 sudo apt install -y certbot python3-certbot-nginx
 ```
+
+**⚠️ 주의사항**:
+- `python3-certbot-nginx` 패키지를 설치하지만, 실제로는 **standalone 모드**를 사용합니다
+- Nginx plugin은 사용하지 않음 (Nginx가 이미 직접 설정되어 있으므로)
+- standalone 모드로 인증서 발급 시 포트 80을 일시적으로 사용
 
 ### SSL 인증서 발급
 
@@ -956,11 +1065,19 @@ http {
     client_max_body_size 20M;
     server_tokens off;  # 버전 정보 숨김
 
+    # WebSocket 지원을 위한 map 설정
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        ''      close;
+    }
+
     # Gzip 압축
     gzip on;
     gzip_vary on;
     gzip_proxied any;
     gzip_comp_level 6;
+    gzip_min_length 256;        # 256바이트 이상만 압축 (작은 파일 압축 오버헤드 방지)
+    gzip_buffers 16 8k;         # 압축 버퍼 최적화
     gzip_types text/plain text/css text/xml text/javascript
                application/json application/javascript application/xml+rss
                application/rss+xml font/truetype font/opentype
@@ -1105,13 +1222,21 @@ http {
 
             proxy_pass http://frontend_worklog;
             proxy_http_version 1.1;
+            
+            # WebSocket 지원 (SvelteKit HMR, 이벤트 스트림용)
             proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection 'upgrade';
+            proxy_set_header Connection $connection_upgrade;
+            
             proxy_set_header Host $host;
             proxy_cache_bypass $http_upgrade;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
+            
+            # 타임아웃 설정
+            proxy_connect_timeout 60s;
+            proxy_send_timeout 60s;
+            proxy_read_timeout 60s;
         }
 
         # 프론트엔드 /worklog1
@@ -1120,13 +1245,21 @@ http {
 
             proxy_pass http://frontend_worklog1;
             proxy_http_version 1.1;
+            
+            # WebSocket 지원 (SvelteKit HMR, 이벤트 스트림용)
             proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection 'upgrade';
+            proxy_set_header Connection $connection_upgrade;
+            
             proxy_set_header Host $host;
             proxy_cache_bypass $http_upgrade;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
+            
+            # 타임아웃 설정
+            proxy_connect_timeout 60s;
+            proxy_send_timeout 60s;
+            proxy_read_timeout 60s;
         }
 
         # 프론트엔드 /worklog2
@@ -1135,13 +1268,21 @@ http {
 
             proxy_pass http://frontend_worklog2;
             proxy_http_version 1.1;
+            
+            # WebSocket 지원 (SvelteKit HMR, 이벤트 스트림용)
             proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection 'upgrade';
+            proxy_set_header Connection $connection_upgrade;
+            
             proxy_set_header Host $host;
             proxy_cache_bypass $http_upgrade;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
+            
+            # 타임아웃 설정
+            proxy_connect_timeout 60s;
+            proxy_send_timeout 60s;
+            proxy_read_timeout 60s;
         }
 
         # 루트 경로 리다이렉트
@@ -1417,7 +1558,7 @@ sudo chmod -R 755 /opt/moremong
 
 # 민감한 환경 파일
 sudo chmod 600 /opt/moremong/backend/.env
-sudo chmod 600 /opt/moremong/frontend/.env
+sudo chmod 600 /opt/moremong/frontends/worklog/.env
 sudo chmod 600 /opt/moremong/docker/.env
 
 # Nginx 설정
@@ -1496,6 +1637,19 @@ sudo tee /etc/logrotate.d/moremong-app > /dev/null <<'EOF'
 }
 EOF
 
+# systemd journald 로그 크기 제한 (디스크 공간 절약)
+sudo tee /etc/systemd/journald.conf > /dev/null <<'EOF'
+[Journal]
+SystemMaxUse=200M
+SystemMaxFileSize=50M
+RuntimeMaxUse=100M
+MaxRetentionSec=2week
+ForwardToSyslog=no
+EOF
+
+# journald 재시작
+sudo systemctl restart systemd-journald
+
 # 로그 로테이션 테스트
 sudo logrotate -d /etc/logrotate.d/moremong-nginx
 ```
@@ -1513,6 +1667,47 @@ sudo systemctl disable cups.service 2>/dev/null || true
 # 불필요한 패키지 제거
 sudo apt autoremove -y
 ```
+
+### 8. Ubuntu 시스템 튜닝 (운영 안정성 향상)
+
+#### 파일 핸들 제한 확장
+
+```bash
+# 파일 디스크립터 제한 증가
+sudo tee -a /etc/security/limits.conf > /dev/null <<'EOF'
+
+# === Moremong 애플리케이션 최적화 ===
+* soft nofile 65535
+* hard nofile 65535
+EOF
+```
+
+#### Sysctl 네트워크 및 파일 시스템 최적화
+
+```bash
+# 기존 sysctl 설정에 추가
+sudo tee -a /etc/sysctl.conf > /dev/null <<'EOF'
+
+# === Moremong 추가 최적화 ===
+# 파일 시스템
+fs.file-max=100000
+
+# 네트워크 성능 (고부하 환경 대비)
+net.core.somaxconn=65535
+EOF
+
+# 설정 적용
+sudo sysctl -p
+
+# 확인
+sysctl fs.file-max net.core.somaxconn vm.swappiness vm.vfs_cache_pressure
+```
+
+**최적화 설명**:
+- `fs.file-max`: 시스템 전체 파일 핸들 제한 (100,000)
+- `net.core.somaxconn`: 대기 중인 연결 큐 크기 증가
+- `nofile`: 프로세스당 파일 디스크립터 제한 (65,535)
+- Nginx, Node.js, Java 모두 혜택을 받음
 
 ## 14단계: 모니터링 설정
 
@@ -1782,38 +1977,168 @@ EOF
 chmod +x /opt/moremong/restore-db.sh
 ```
 
-### 4. 애플리케이션 버전 백업
+### 4. 애플리케이션 버전 백업 및 자동화
 
 ```bash
 # 버전 관리 디렉토리
 mkdir -p /opt/moremong/versions
 
-# 배포 시 백업 스크립트
+# 개선된 버전 백업 스크립트 (압축 아카이브 생성)
 cat > /opt/moremong/backup-version.sh <<'EOF'
 #!/bin/bash
 
-VERSION=$1
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+set -e
 
-if [ -z "$VERSION" ]; then
-    echo "사용법: $0 <버전명>"
-    echo "예시: $0 v1.0.0"
+VERSION=${1:-"unknown"}
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+BACKUP_DIR="/opt/moremong/versions"
+TEMP_DIR="/tmp/moremong-backup-${TIMESTAMP}"
+
+echo "================================================"
+echo "  버전 백업 시작"
+echo "  버전: $VERSION"
+echo "  타임스탬프: $TIMESTAMP"
+echo "================================================"
+echo ""
+
+# 임시 디렉토리 생성
+mkdir -p $TEMP_DIR/{backend,frontends/{worklog,worklog1,worklog2}}
+
+# 백엔드 JAR 파일 백업
+if [ -f "/opt/moremong/backend/moremong-restapi.jar" ]; then
+    echo "백엔드 JAR 백업 중..."
+    cp /opt/moremong/backend/moremong-restapi.jar $TEMP_DIR/backend/
+    echo "✓ 백엔드 백업 완료"
+fi
+
+# 프론트엔드 빌드 백업 (frontends 구조)
+for app in worklog worklog1 worklog2; do
+    if [ -d "/opt/moremong/frontends/$app/build" ]; then
+        echo "frontends/$app 빌드 백업 중..."
+        mkdir -p $TEMP_DIR/frontends/$app
+        cp -r /opt/moremong/frontends/$app/build $TEMP_DIR/frontends/$app/
+        cp /opt/moremong/frontends/$app/package.json $TEMP_DIR/frontends/$app/ 2>/dev/null || true
+        echo "✓ frontends/$app 백업 완료"
+    fi
+done
+
+# 압축 아카이브 생성
+ARCHIVE_NAME="moremong-${VERSION}-${TIMESTAMP}.tar.gz"
+echo ""
+echo "압축 아카이브 생성 중..."
+tar -czf $BACKUP_DIR/$ARCHIVE_NAME -C $TEMP_DIR .
+
+if [ $? -eq 0 ]; then
+    echo "✓ 아카이브 생성 완료: $ARCHIVE_NAME"
+    echo "  크기: $(du -h $BACKUP_DIR/$ARCHIVE_NAME | cut -f1)"
+else
+    echo "✗ 아카이브 생성 실패!"
+    rm -rf $TEMP_DIR
     exit 1
 fi
 
-BACKUP_DIR="/opt/moremong/versions/${VERSION}_${TIMESTAMP}"
-mkdir -p $BACKUP_DIR
+# 임시 디렉토리 정리
+rm -rf $TEMP_DIR
 
-# JAR 파일 백업
-cp /opt/moremong/backend/moremong-restapi.jar $BACKUP_DIR/
+# 30일 이전 백업 삭제
+echo ""
+echo "오래된 백업 정리 중..."
+find $BACKUP_DIR -name "moremong-*.tar.gz" -mtime +30 -delete
 
-# 프론트엔드 빌드 백업
-cp -r /opt/moremong/frontend/build $BACKUP_DIR/frontend-build
-
-echo "✓ 버전 백업 완료: $BACKUP_DIR"
+echo ""
+echo "================================================"
+echo "  ✓ 버전 백업 완료"
+echo "  파일: $BACKUP_DIR/$ARCHIVE_NAME"
+echo "================================================"
 EOF
 
 chmod +x /opt/moremong/backup-version.sh
+
+# 사용 예시
+# /opt/moremong/backup-version.sh v1.0.0
+```
+
+**버전 복원 스크립트**:
+
+```bash
+cat > /opt/moremong/restore-version.sh <<'EOF'
+#!/bin/bash
+
+set -e
+
+if [ $# -ne 1 ]; then
+    echo "사용법: $0 <아카이브파일명>"
+    echo ""
+    echo "사용 가능한 백업:"
+    ls -lht /opt/moremong/versions/*.tar.gz | head -10
+    exit 1
+fi
+
+ARCHIVE_FILE="/opt/moremong/versions/$1"
+
+if [ ! -f "$ARCHIVE_FILE" ]; then
+    echo "✗ 아카이브 파일을 찾을 수 없습니다: $ARCHIVE_FILE"
+    exit 1
+fi
+
+echo "================================================"
+echo "  버전 복원 시작"
+echo "  파일: $1"
+echo "================================================"
+echo ""
+
+read -p "⚠️  현재 버전을 복원하시겠습니까? (yes/no): " CONFIRM
+if [ "$CONFIRM" != "yes" ]; then
+    echo "복원 취소됨."
+    exit 0
+fi
+
+# 서비스 중지
+echo "서비스 중지 중..."
+sudo systemctl stop moremong-api-1 moremong-api-2
+sudo systemctl stop moremong-front-1 moremong-front-2
+
+# 임시 디렉토리에 압축 해제
+TEMP_DIR="/tmp/moremong-restore-$(date +%s)"
+mkdir -p $TEMP_DIR
+tar -xzf $ARCHIVE_FILE -C $TEMP_DIR
+
+# 백엔드 복원
+if [ -f "$TEMP_DIR/backend/moremong-restapi.jar" ]; then
+    echo "백엔드 복원 중..."
+    cp $TEMP_DIR/backend/moremong-restapi.jar /opt/moremong/backend/
+    echo "✓ 백엔드 복원 완료"
+fi
+
+# 프론트엔드 복원 (frontends 구조)
+for app in worklog worklog1 worklog2; do
+    if [ -d "$TEMP_DIR/frontends/$app/build" ]; then
+        echo "frontends/$app 복원 중..."
+        rm -rf /opt/moremong/frontends/$app/build
+        cp -r $TEMP_DIR/frontends/$app/build /opt/moremong/frontends/$app/
+        echo "✓ frontends/$app 복원 완료"
+    fi
+done
+
+# 임시 디렉토리 정리
+rm -rf $TEMP_DIR
+
+# 서비스 시작
+echo ""
+echo "서비스 시작 중..."
+sudo systemctl start moremong-api-1
+sleep 10
+sudo systemctl start moremong-api-2
+sleep 5
+sudo systemctl start moremong-front-1 moremong-front-2
+
+echo ""
+echo "================================================"
+echo "  ✓ 버전 복원 완료"
+echo "================================================"
+EOF
+
+chmod +x /opt/moremong/restore-version.sh
 ```
 
 ## 16단계: Zero-Downtime 배포 전략
@@ -1858,12 +2183,19 @@ echo "  JAR: $JAR_PATH"
 echo "================================================"
 echo ""
 
-# 현재 버전 백업
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR="/opt/moremong/versions/${VERSION}_${TIMESTAMP}"
-mkdir -p $BACKUP_DIR
-cp /opt/moremong/backend/moremong-restapi.jar $BACKUP_DIR/moremong-restapi.jar.backup
-echo "✓ 현재 버전 백업 완료: $BACKUP_DIR"
+# 자동 버전 백업 (압축 아카이브)
+echo "=== 자동 버전 백업 ==="
+if [ -x "/opt/moremong/backup-version.sh" ]; then
+    /opt/moremong/backup-version.sh $VERSION
+else
+    echo "⚠️  backup-version.sh 스크립트를 찾을 수 없습니다. 수동 백업 진행..."
+    # 수동 백업 (기존 방식)
+    TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+    BACKUP_DIR="/opt/moremong/versions/${VERSION}_${TIMESTAMP}"
+    mkdir -p $BACKUP_DIR
+    cp /opt/moremong/backend/moremong-restapi.jar $BACKUP_DIR/moremong-restapi.jar.backup
+    echo "✓ 현재 버전 백업 완료: $BACKUP_DIR"
+fi
 echo ""
 
 # 새 JAR 복사
@@ -1963,7 +2295,7 @@ set -e
 
 VERSION=${1:-"unknown"}
 BUILD_PATH=${2:-"/opt/moremong/repo/moremong-front/build"}
-FRONTEND_NAME=${3:-"frontend"}  # frontend, frontend1, frontend2
+APP_NAME=${3:-"worklog"}  # worklog, worklog1, worklog2
 SERVICE_PREFIX=${4:-"moremong-front"}  # moremong-front, moremong-front1, moremong-front2
 
 if [ ! -d "$BUILD_PATH" ]; then
@@ -1979,19 +2311,20 @@ if [ ! -f "$BUILD_PATH/index.js" ]; then
     exit 1
 fi
 
-DEPLOY_DIR="/opt/moremong/$FRONTEND_NAME"
+DEPLOY_DIR="/opt/moremong/frontends/$APP_NAME"  # ✅ frontends 구조 사용
 
 echo "================================================"
 echo "  프론트엔드 Zero-Downtime 배포 시작"
 echo "  버전: $VERSION"
-echo "  프론트엔드: $FRONTEND_NAME"
+echo "  앱: $APP_NAME"
+echo "  배포 경로: $DEPLOY_DIR"
 echo "  빌드 경로: $BUILD_PATH"
 echo "================================================"
 echo ""
 
 # 현재 버전 백업
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR="/opt/moremong/versions/${FRONTEND_NAME}_${VERSION}_${TIMESTAMP}"
+BACKUP_DIR="/opt/moremong/versions/${APP_NAME}_${VERSION}_${TIMESTAMP}"
 mkdir -p $BACKUP_DIR
 cp -r $DEPLOY_DIR/build $BACKUP_DIR/build.backup
 echo "✓ 현재 버전 백업 완료: $BACKUP_DIR"
@@ -2135,7 +2468,7 @@ echo ""
 
 # 5. 프론트엔드 배포
 echo "=== 5. 프론트엔드 배포 ==="
-/opt/moremong/deploy-frontend.sh $VERSION /opt/moremong/repo/moremong-front/build frontend moremong-front
+/opt/moremong/deploy-frontend.sh $VERSION /opt/moremong/repo/moremong-front/build worklog moremong-front
 echo ""
 
 # 6. 배포 확인
@@ -2162,12 +2495,24 @@ chmod +x /opt/moremong/deploy-all.sh
 # 백엔드만 배포
 /opt/moremong/deploy-backend.sh v1.0.1 /path/to/new.jar
 
-# 프론트엔드만 배포
-/opt/moremong/deploy-frontend.sh v1.0.1 /path/to/build frontend moremong-front
+# 프론트엔드만 배포 (worklog 앱)
+/opt/moremong/deploy-frontend.sh v1.0.1 /path/to/build worklog moremong-front
+
+# 프론트엔드만 배포 (worklog1 앱)
+/opt/moremong/deploy-frontend.sh v1.0.1 /path/to/build1 worklog1 moremong-front1
+
+# 프론트엔드만 배포 (worklog2 앱)
+/opt/moremong/deploy-frontend.sh v1.0.1 /path/to/build2 worklog2 moremong-front2
 
 # 전체 배포
 /opt/moremong/deploy-all.sh v1.0.1
 ```
+
+**파라미터 설명**:
+- `$1`: 버전명 (예: v1.0.1)
+- `$2`: 빌드 경로 (예: /opt/moremong/repo/moremong-front/build)
+- `$3`: 앱 이름 (worklog, worklog1, worklog2) → `frontends/<app-name>/`에 배포
+- `$4`: systemd 서비스 접두사 (moremong-front, moremong-front1, moremong-front2)
 
 ### 롤백 프로세스
 
@@ -2218,8 +2563,8 @@ fi
 if [ -d "$VERSION_DIR/frontend-build.backup" ]; then
     echo "프론트엔드 롤백 중..."
     sudo systemctl stop moremong-front-1 moremong-front-2
-    rm -rf /opt/moremong/frontend/build
-    cp -r $VERSION_DIR/frontend-build.backup /opt/moremong/frontend/build
+    rm -rf /opt/moremong/frontends/worklog/build
+    cp -r $VERSION_DIR/frontend-build.backup /opt/moremong/frontends/worklog/build
     sudo systemctl start moremong-front-1
     sleep 5
     sudo systemctl start moremong-front-2
@@ -2412,6 +2757,84 @@ cd /opt/moremong/backend
 java -jar moremong-restapi.jar
 ```
 
+#### 1-1. 🔥 포트 충돌 문제 (Spring Boot)
+
+**증상**: 두 인스턴스가 모두 실패하거나 하나만 시작됨
+
+```bash
+# 로그에서 다음과 같은 에러 확인
+sudo journalctl -u moremong-api-1 -n 50 | grep -i port
+
+# 일반적인 에러 메시지:
+# "Web server failed to start. Port 8080 was already in use"
+# "Address already in use"
+```
+
+**원인 분석**:
+
+1. **systemd 서비스에서 포트 미설정**
+   ```bash
+   # ❌ 잘못된 설정
+   ExecStart=/usr/bin/java -jar moremong-restapi.jar
+   # → 두 인스턴스 모두 기본 포트 8080 사용 시도 → 충돌!
+   ```
+
+2. **환경변수로 포트 설정 시도 (작동 안 함)**
+   ```bash
+   # ❌ Spring Boot에서 인식 안 됨
+   Environment="SERVER_PORT=8090"
+   Environment="SPRING_PORT=8090"
+   Environment="PORT=8090"
+   ```
+
+**해결 방법**:
+
+```bash
+# ✅ 올바른 방법 1: JVM 시스템 프로퍼티 (권장)
+ExecStart=/usr/bin/java -Dserver.port=8090 -jar moremong-restapi.jar
+
+# ✅ 올바른 방법 2: Spring Boot 환경변수 (대문자_언더스코어)
+Environment="SERVER_PORT=8090"
+# 주의: Spring Boot 2.0+ 필요, JVM 프로퍼티보다 우선순위 낮음
+
+# ✅ 올바른 방법 3: 명령줄 인자
+ExecStart=/usr/bin/java -jar moremong-restapi.jar --server.port=8090
+```
+
+**현재 설정 확인**:
+
+```bash
+# systemd 서비스 파일 확인
+sudo cat /etc/systemd/system/moremong-api-1.service | grep -A 15 ExecStart
+
+# 다음이 포함되어야 함:
+# -Dserver.port=8090 (인스턴스 1)
+# -Dserver.port=8095 (인스턴스 2)
+
+# 포트 리스닝 확인
+sudo netstat -tuln | grep -E ':(8090|8095) '
+
+# 두 개의 Java 프로세스 확인
+ps aux | grep java | grep moremong
+```
+
+**포트 설정이 누락된 경우 수정**:
+
+```bash
+# systemd 서비스 파일 수정
+sudo systemctl edit --full moremong-api-1
+
+# ExecStart 줄에 -Dserver.port=8090 추가
+ExecStart=/usr/bin/java \
+  -Dserver.port=8090 \
+  -jar /opt/moremong/backend/moremong-restapi.jar
+
+# 저장 후
+sudo systemctl daemon-reload
+sudo systemctl restart moremong-api-1
+sudo systemctl restart moremong-api-2
+```
+
 #### 2. Nginx 502 Bad Gateway
 
 ```bash
@@ -2482,7 +2905,7 @@ find /opt/moremong/backups -mtime +30 -delete
 sudo journalctl -u moremong-front-1 -n 50 --no-pager
 
 # 일반적인 에러 메시지:
-# "Error: Cannot find module '/opt/moremong/frontend/build'"
+# "Error: Cannot find module '/opt/moremong/frontends/worklog/build'"
 # "ENOENT: no such file or directory"
 ```
 
@@ -2490,15 +2913,15 @@ sudo journalctl -u moremong-front-1 -n 50 --no-pager
 
 ```bash
 # 1. build/index.js 파일 존재 확인
-ls -la /opt/moremong/frontend/build/index.js
+ls -la /opt/moremong/frontends/worklog/build/index.js
 
 # 파일이 없다면:
 echo "❌ build/index.js 파일이 없습니다!"
 
 # 2. 빌드 디렉토리 구조 확인
-tree -L 2 /opt/moremong/frontend/build/
+tree -L 2 /opt/moremong/frontends/worklog/build/
 # 또는
-ls -la /opt/moremong/frontend/build/
+ls -la /opt/moremong/frontends/worklog/build/
 
 # 3. systemd 서비스 파일 확인
 sudo cat /etc/systemd/system/moremong-front-1.service | grep ExecStart
@@ -2539,7 +2962,7 @@ BASE_PATH=/worklog npm run build
 ls -la build/index.js  # 이 파일이 존재해야 함!
 
 # 배포 디렉토리로 복사
-cp -r build /opt/moremong/frontend/
+cp -r build /opt/moremong/frontends/worklog/
 ```
 
 #### 7. SvelteKit ORIGIN 오류
