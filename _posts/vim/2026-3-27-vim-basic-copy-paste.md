@@ -2,7 +2,7 @@
 title: "Vim에서 한 줄 복사하고 붙여넣는 직관적인 방법 (yy, p, dd)"
 excerpt: "Vim 명령 모드에서 가장 자주 쓰이는 복사(Yank), 붙여넣기(Paste), 잘라내기 단축키 및 실전 팁 정리"
 categories:
-    - dev-tools
+    - vim
 tags:
     - vim
     - editor
