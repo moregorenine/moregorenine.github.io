@@ -1,10 +1,15 @@
 ---
 title: "안드로이드 시작하기"
-categories: 
+excerpt: "안드로이드 스튜디오 설치부터 첫 앱 빌드, Udacity 교육 과정까지 안드로이드 개발 입문을 위한 핵심 리소스를 정리합니다."
+categories:
+  - Android
+tags:
   - android
-tags: 
-  - android
-last_modified_at: 2018-12-20T00:00:00+09:00
+  - android-studio
+  - mobile-app
+  - app-development
+  - tutorial
+last_modified_at: 2026-03-29T17:12:24+09:00
 toc: true
 toc_sticky: true
 ---

@@ -1,28 +1,40 @@
 ---
-title: "docker 정리"
-excerpt: "생활코딩의 docker 정리"
+title: "Docker 핵심 개념 정리 및 주요 CLI 명령어 가이드"
+excerpt: "생활코딩 Docker 입구 수업을 바탕으로 컨테이너 가상화의 기초부터 CLI 명령어, 네트워크 설정, 볼륨 연결 및 이미지 빌드까지의 전 과정을 체계적으로 정리합니다."
 categories:
-    - docker
+  - DevOps
+  - Infrastructure
 tags:
-    - docker
-last_modified_at: 2023-5-4T00:00:00+09:00
+  - docker
+  - container
+  - virtualization
+  - docker-cli
+  - dockerfile
+  - port-forwarding
+  - volume-mount
+last_modified_at: 2026-03-29T17:14:55+09:00
 toc: true
 toc_sticky: true
 ---
 
 ## 생활코딩
+
 `생활코딩`의 docker 수업을 base로 정리하였습니다.  
 [생활코딩 Docker 입구 수업](https://opentutorials.org/course/4781)  
 [생활코딩 서말](https://seomal.com/map/1/129)
 
-
 ## 설치
+
 <https://docs.docker.com/desktop/install/windows-install/>
 
 ## Docker CLI
+
 `<example>` CLI의 `[]` 부분은 CLI에서 생략 가능한 Optional 임을 표현하기 위해 표기했습니다. 실제로는 CLI 입력시 `[]`은 없어야 합니다.
+
 ### image pull
+
 <https://hub.docker.com/> 에서 image를 다운로드 받습니다.
+
 ```sh
 docker pull [OPTIONS] NAME[:TAG|@DIGEST]
 
@@ -31,7 +43,9 @@ docker pull httpd
 ```
 
 ### container run
+
 pull로 다운로드 받은 image를 container로 실행합니다.
+
 ```sh
 docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 
@@ -40,7 +54,9 @@ docker run [--name ws1] httpd
 ```
 
 ### container List
+
 `container` 목록 조회
+
 ```sh
 docker ps [OPTIONS]
 
@@ -49,7 +65,9 @@ docker ps [-a]
 ```
 
 ### container process 중지
+
 실행된 container를 중지합니다.
+
 ```sh
 docker stop [OPTIONS] CONTAINER [CONTAINER...]
 
@@ -58,8 +76,10 @@ docker stop ws1
 ```
 
 ### container process 실행
+
 중지된 container를 실행합니다.
 이때는 `run`과는 다르게 log가 출력되지 않습니다.
+
 ```sh
 docker start [OPTIONS] CONTAINER [CONTAINER...]
 
@@ -68,7 +88,9 @@ docker start ws1
 ```
 
 ### container logs
+
 `start`된 container의 `log`를 출력합니다.
+
 ```sh
 docker logs [OPTIONS] CONTAINER
 
@@ -77,7 +99,9 @@ docker logs [-f] ws1
 ```
 
 ### container 삭제
+
 `container`를 삭제합니다.
+
 ```sh
 docker rm [OPTIONS] CONTAINER [CONTAINER...]
 
@@ -86,7 +110,9 @@ docker rm ws1
 ```
 
 ### image 삭제
+
 `image`를 삭제합니다.
+
 ```sh
 docker rmi [OPTIONS] IMAGE [IMAGE...]
 
@@ -95,8 +121,11 @@ docker rmi httpd
 ```
 
 ## 네트워크
+
 ### port forwarding
+
 docker의 `Host`와 `Container`의 port를 연결합니다.
+
 ```sh
 <example>
 docker run [--name ws1 -p 8080:80] httpd
@@ -104,7 +133,9 @@ docker run [--name ws1 -p 8080:80] httpd
 ```
 
 ## Container 안에서 명령어 실행
+
 ### exec
+
 ```sh
 docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
 
@@ -116,7 +147,9 @@ docker exec [-it] ws1 /bin/bash
 ```
 
 ## Host와 Container의 File System 연결
+
 ### `-v` --volume list : Bind mount a volume
+
 ```sh
 <example>
 docker run [--name ws1 -p 8080:80 -v ~/Desktop/htdocs:/usr/local/apache2/htdocs] httpd
@@ -126,10 +159,13 @@ D:\dev\docker\desktop>docker run --name ws1 -p 8080:80 -v .\htdocs:/usr/local/ap
 ```
 
 ## image 만드는 법
+
 ### commit
+
 `container`를 기반으로 `image`를 생성합니다.  
 단점으로 이미지가 어떻게 만들어졌고 그 안에 뭐가 있는지 알 수 가 없습니다.  
 그렇기 때문에 좀 더 체계적으로 만들기 위해서는 `dockerfile`을 이용합니다.
+
 ```sh
 docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
 
@@ -139,8 +175,11 @@ docker commit my-ubuntu [moregorenine:ubuntu-git]
 // 2. my-ubuntu container에 git 설치
 // 3. my-ubuntu container를 moregorenine reposity에 ubuntu-git 이름으로 image 생
 ```
+
 ### dockerfile & build
+
 #### Dockerfile
+
 ```dockerfile
 FROM ubuntu:20.04
 RUN apt update && apt install -y python3
@@ -149,7 +188,9 @@ WORKDIR /var/www/html
 # COPY ["index.html", "."]
 CMD [ "python3", "-u", "-m", "http.server" ]
 ```
+
 #### shell
+
 ```sh
 docker buildx build [OPTIONS] PATH | URL | -
 
@@ -160,5 +201,6 @@ docker run -p 8888:8000 --name web-server web-server-build;
 ```
 
 ## 참조
+
 [moregorenine github](https://github.com/moregorenine/moregorenine.github.io/edit/main/_posts/docker/2023-5-4-docker.md)
 [도커 이미지 빌드와 Dockerfile 기초](https://bit.ly/3h88wLK)
