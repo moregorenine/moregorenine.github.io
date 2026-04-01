@@ -1,5 +1,5 @@
 ---
-title: "Git Worktree와 Bare 저장소: 멀티 브랜치 동시 작업을 위한 베스트 프랙티스"
+title: "Git Worktree와 Bare 저장소: 멀티 브랜치 동시 작업을 위한 구조"
 excerpt: "왜 일반 저장소보다 Bare 저장소가 Worktree와 궁합이 좋은지, 구조적 이점과 실무 설정법을 완벽 정리합니다."
 categories:
   - git
