@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Google AI 무료 체험 초대 링크 공유 (Gemini Advanced / 선착순 10명)"
 excerpt: "Google One AI 프리미엄 및 Gemini Advanced 서비스를 무료로 이용할 수 있는 선착순 10명 전용 초대 링크를 공유합니다."
 date: 2026-08-10
@@ -18,9 +17,12 @@ last_modified_at: 2026-08-10T12:06:47+09:00
 toc: true
 toc_sticky: true
 ---
+
 https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcQNTFwpIKMwydOQb-cdHxa7FRHou3a_uM-jVqnO1r0FPYu4a0sOM93rUb52bqO1b0wGaoDpT8BovikuEV4
+
 Google AI 서비스(**Gemini Advanced** 및 **Google One AI 프리미엄**)를 직접 무료로 체험해 보실 수 있는 **초대 링크**를 공유해 드립니다!
 이번 혜택은 **링크 1개당 최대 10명**까지만 초대가 승인되는 한정 프로모션입니다. 필요하신 분들은 서둘러 신청하세요.
+
 ---
 ## 🎁 Google AI 무료 초대 링크
 아래 링크를 클릭해 Google 계정으로 로그인 후 혜택을 등록하세요.
