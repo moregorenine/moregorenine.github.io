@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Google Gemini와 안티 그래비티(Anti-Gravity)를 활용한 완벽한 MCP 서버 세팅 가이드"
 excerpt: "커서(Cursor)나 윈드서프(Windsurf)를 뛰어넘는 제미나이 기반 AI IDE '안티 그래비티'에서 3가지 핵심 MCP 서버를 세팅하여 바이브 코딩의 퀄리티를 극대화하는 방법을 알아봅니다."
 categories:
