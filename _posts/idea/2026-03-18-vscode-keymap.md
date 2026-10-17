@@ -1,6 +1,6 @@
 ---
-title: "vscode 단축키 및 설정"
-excerpt: "vscode 단축키 및 설정"
+title: "IntelliJ 사용자를 위한 VS Code 단축키 및 설정 가이드"
+excerpt: "IntelliJ의 주요 기능을 VS Code에서 그대로 사용하기 위한 단축키 대응표 및 설정 정리"
 categories:
   - vscode
   - productivity
