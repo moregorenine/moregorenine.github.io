@@ -16,7 +16,7 @@ tags:
     - 전승
     - 불교미술
     - 역사적붓다
-last_modified_at: 2026-10-18T16:44:00+09:00
+last_modified_at: 2026-10-06T16:44:00+09:00
 toc: true
 toc_sticky: true
 ---

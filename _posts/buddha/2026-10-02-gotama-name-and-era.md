@@ -13,7 +13,7 @@ tags:
     - 초기불교
     - 고대인도
     - 역사
-last_modified_at: 2026-10-18T16:17:00+09:00
+last_modified_at: 2026-10-02T16:17:00+09:00
 toc: true
 toc_sticky: true
 ---

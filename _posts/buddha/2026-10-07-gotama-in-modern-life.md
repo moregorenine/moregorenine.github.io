@@ -16,7 +16,7 @@ tags:
     - 자애
     - 칼라마경
     - 현대인의삶
-last_modified_at: 2026-10-18T16:51:00+09:00
+last_modified_at: 2026-10-07T16:51:00+09:00
 toc: true
 toc_sticky: true
 ---

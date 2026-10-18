@@ -13,7 +13,7 @@ tags:
     - 수행
     - 중도
     - 역사
-last_modified_at: 2026-10-18T16:29:00+09:00
+last_modified_at: 2026-10-03T16:29:00+09:00
 toc: true
 toc_sticky: true
 ---

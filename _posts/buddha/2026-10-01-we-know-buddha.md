@@ -10,7 +10,7 @@ tags:
     - 초기불교
     - 숫타니파타
     - 철학
-last_modified_at: 2026-10-18T16:03:00+09:00
+last_modified_at: 2026-10-01T16:03:00+09:00
 toc: true
 toc_sticky: true
 ---

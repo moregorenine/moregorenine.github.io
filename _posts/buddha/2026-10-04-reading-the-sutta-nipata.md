@@ -14,7 +14,7 @@ tags:
     - 앗타카품
     - 파라야나품
     - 경전읽기
-last_modified_at: 2026-10-18T16:36:00+09:00
+last_modified_at: 2026-10-04T16:36:00+09:00
 toc: true
 toc_sticky: true
 ---

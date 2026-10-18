@@ -16,7 +16,7 @@ tags:
     - 연기
     - 중도
     - 팔정도
-last_modified_at: 2026-10-18T16:39:00+09:00
+last_modified_at: 2026-10-05T16:39:00+09:00
 toc: true
 toc_sticky: true
 ---
