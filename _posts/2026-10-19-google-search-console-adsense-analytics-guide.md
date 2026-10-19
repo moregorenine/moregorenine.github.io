@@ -148,36 +148,7 @@ naver_site_verification: "네이버에서_발급받은_코드"
 네이버 서치어드바이저의 **RSS 제출** 메뉴에 Jekyll 기본 피드인 `feed.xml`을 제출하면 형식 오류가 발생합니다.
 
 - **원인:** `jekyll-feed` 플러그인이 생성하는 `feed.xml`은 **`Atom 1.0`** 규격(`<feed>`)인 반면, 네이버 서치어드바이저는 오직 **`RSS 2.0`** 규격(`<rss version="2.0">`)만 허용하기 때문입니다.
-- **해결:** 루트 경로에 `RSS 2.0` 규격의 `/rss.xml` 템플릿 파일을 직접 만들어 제출하면 해결됩니다.
-
-```xml
----
-layout: null
----
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
-    <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ "/rss.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml"/>
-    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
-    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <generator>Jekyll v{{ jekyll.version }}</generator>
-    {% for post in site.posts limit:30 %}
-      <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.excerpt | default: post.content | strip_html | truncatewords: 50 | xml_escape }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-      </item>
-    {% endfor %}
-  </channel>
-</rss>
-```
-
-배포 후 네이버 서치어드바이저에 `https://<username>.github.io/rss.xml`을 제출하면 정상 등록됩니다.
+- **해결:** 루트 경로에 `RSS 2.0` 규격을 따르는 `/rss.xml` 파일을 생성하여 배포한 뒤, 네이버 서치어드바이저에 `https://<username>.github.io/rss.xml`을 제출하면 정상 등록됩니다.
 
 ---
 
