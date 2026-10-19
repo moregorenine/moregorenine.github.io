@@ -72,12 +72,11 @@ Uncaught (in promise) NotAllowedError: Failed to execute 'write' on 'Clipboard':
 
 ---
 
-## 3. 클릭 한 번으로 끝내기 — MD2Naver Studio 오픈소스 웹 도구
+## 3. 클릭 한 번으로 끝내기 — MD2Naver Studio 웹 도구
 
-매번 개발자 도구 콘솔을 열고 스크립트를 입력하는 번거로움을 없애기 위해, 위 모든 변환 로직을 웹 브라우저에서 바로 사용할 수 있도록 **[MD2Naver Studio (`md-to-naver`)](https://github.com/moregorenine/md-to-naver)**를 제작해 오픈소스로 배포했습니다.
+매번 개발자 도구 콘솔을 열고 스크립트를 입력하는 번거로움을 없애기 위해, 위 모든 변환 로직을 웹 브라우저에서 바로 사용할 수 있도록 **[MD2Naver Studio (md-to-naver)](https://moregorenine.github.io/md-to-naver/)**를 제작해 배포했습니다.
 
 - 🚀 **웹 도구 바로가기:** [https://moregorenine.github.io/md-to-naver/](https://moregorenine.github.io/md-to-naver/)
-- 💻 **GitHub 저장소:** [https://github.com/moregorenine/md-to-naver](https://github.com/moregorenine/md-to-naver)
 
 ### 주요 기능 및 특징
 
@@ -98,6 +97,6 @@ Uncaught (in promise) NotAllowedError: Failed to execute 'write' on 'Clipboard':
 
 ### 마무리
 
-GitHub Pages나 마크다운으로 작성한 글을 네이버 블로그로 옮길 때마다 줄간격과 코드 블록이 깨져 스트레스받으셨다면, 지금 바로 **[MD2Naver Studio](https://moregorenine.github.io/md-to-naver/)**를 사용해 보세요. 도구가 유용하셨다면 [GitHub 저장소](https://github.com/moregorenine/md-to-naver)에 **Star ⭐**도 환영합니다!
+GitHub Pages나 마크다운으로 작성한 글을 네이버 블로그로 옮길 때마다 줄간격과 코드 블록이 깨져 스트레스받으셨다면, 지금 바로 **[MD2Naver Studio](https://moregorenine.github.io/md-to-naver/)**를 사용해 보세요!
 
 
