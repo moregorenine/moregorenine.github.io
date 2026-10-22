@@ -33,13 +33,13 @@ toc_sticky: true
 
 영화를 관통하는 주제의식이자, 내 마음을 가장 깊숙이 건드린 마지막 내레이션이다.
 
-| 영문 대사 (Original)                                                                                | 국문 번역 (Translation)                                                                                                       |
-| :-------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| When people think of home, they think of the place when they live, or maybe the place they grew up. | 사람들이 '집'을 생각할 때, 보통 지금 살고 있는 곳이나 자신이 자라온 곳을 떠올리곤 하죠.                                       |
-| Those places never felt like home to me. I spent most of my life looking for somewhere I belonged.  | 하지만 제게 그곳들은 한 번도 집처럼 느껴진 적이 없었어요. 저는 인생의 대부분을 내가 속할 수 있는 어딘가를 찾는 데 보냈습니다. |
-| **But it's a thin line between searching and running away.**                                        | 하지만 **무언가를 찾는 것과 도망치는 것 사이에는 종이 한 장 간극**일지도 모릅니다.                                            |
-| **Home is where you can be entirely yourself.** In fact, home doesn't have to be a place at all.    | **집이란, 온전한 자기 자신이 될 수 있는 곳**이라는 사실을요. 사실, 집은 꼭 물리적인 장소일 필요도 없습니다.                   |
-| When you're with the person who loves you for you... You're always home. Even on vacation.          | 나를 있는 그대로 사랑해 주는 사람과 함께라면... 당신은 언제나 집에 있는 것이나 다름없으니까요. 심지어 여행 중에도 말이죠.     |
+| 영문 대사 (Original)                                                                                 | 국문 번역 (Translation)                                                                                                       |
+| :--------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| When people think of home, they think of the place where they live, or maybe the place they grew up. | 사람들이 '집'을 생각할 때, 보통 지금 살고 있는 곳이나 자신이 자라온 곳을 떠올리곤 하죠.                                       |
+| Those places never felt like home to me. I spent most of my life looking for somewhere I belonged.   | 하지만 제게 그곳들은 한 번도 집처럼 느껴진 적이 없었어요. 저는 인생의 대부분을 내가 속할 수 있는 어딘가를 찾는 데 보냈습니다. |
+| **But it's a thin line between searching and running away.**                                         | 하지만 **무언가를 찾는 것과 도망치는 것 사이에는 종이 한 장 간극**일지도 모릅니다.                                            |
+| **Home is where you can be entirely yourself.** In fact, home doesn't have to be a place at all.     | **집이란, 온전한 자기 자신이 될 수 있는 곳**이라는 사실을요. 사실, 집은 꼭 물리적인 장소일 필요도 없습니다.                   |
+| When you're with the person who loves you for you... You're always home. Even on vacation.           | 나를 있는 그대로 사랑해 주는 사람과 함께라면... 당신은 언제나 집에 있는 것이나 다름없으니까요. 심지어 여행 중에도 말이죠.     |
 
 ---
 
