@@ -1,32 +1,38 @@
 ---
-title: "『숫타니파타』 「뱀의 경」: 팔리어 원문과 번역 교정본"
-excerpt: "『숫타니파타』 1.1 「뱀의 경」의 17개 게송을 팔리어 본문과 대조해 읽는다. 원문 어휘, 번역상 주의점, 해석이 갈리는 구절을 구분해 정리했다."
+title: "뱀의 경 — 번뇌의 허물을 벗고 자유로 나아가다"
+excerpt: "『숫타니파타』 1.1 「뱀의 경」의 17개 게송을 팔리어 본문과 대조해 읽는다. 주요 어휘, 반복 후렴, 번역상 주의점과 해석이 갈리는 구절을 구분해 정리한다."
 categories:
-    - 불교
-    - 초기불교
+  - 불교
+  - 초기불교
 tags:
-    - 숫타니파타
-    - 뱀의경
-    - 우라가숫타
-    - 팔리어
-    - 경전읽기
-    - 초기불교
-last_modified_at: 2026-10-19T23:42:00+09:00
+  - 숫타니파타
+  - 뱀의경
+  - 우라가숫타
+  - 팔리어
+  - 경전읽기
+  - 초기불교
+last_modified_at: 2026-10-27T23:30:00+09:00
 toc: true
 toc_sticky: true
 ---
 
-# 『숫타니파타』 「뱀의 경」
+# 뱀의 경 — 번뇌의 허물을 벗고 자유로 나아가다
 
-## 팔리어 원문과 번역 교정본
+_팔리어 원문과 번역 교정본_
 
-『숫타니파타』 첫 번째 품의 첫 경인 「우라가 숫타(Uragasutta)」는 분노·탐착·갈애·자만 등 마음을 묶는 여러 조건을 하나씩 제시하고, 매번 같은 후렴으로 마무리한다. 뱀이 낡은 허물을 벗듯 수행자도 붙잡고 있던 것을 벗어버린다는 비유다.
+## 경전 소개
 
-아래 글은 팔리어 본문을 기준으로 어휘와 번역을 다시 정리한 교정본이다. 팔리어는 합성어와 연음(sandhi)이 많아서 모든 단어를 한국어 단어 하나에 기계적으로 대응시킬 수 없다. 따라서 어휘 풀이는 문법적 형태와 문맥을 고려한 안내이며, 번역은 직역과 읽기 쉬운 한국어 사이에서 균형을 잡았다.
+『숫타니파타』 제1품 「뱀의 품」(Uragavagga)의 첫 번째 경은 「뱀의 경」(Uragasutta, Sn 1.1)이다. 이 경은 분노·탐착·갈애·자만을 비롯해 잠재된 성향과 번민, 존재에 대한 집착 등 수행을 가로막는 여러 조건을 차례로 제시하고, 매번 같은 후렴으로 마무리한다.
 
-> **본문 기준**: SuttaCentral에 게시된 팔리어 본문을 기본으로 삼고, *Ancient Buddhist Texts*의 본문·판본 주석 및 타닛사로 비구의 번역을 교차 확인했다. 판본에 따라 일부 철자와 형태가 다를 수 있다.
+그 후렴은 수행자가 ‘이 언덕과 저 언덕을 버린다’고 노래한 뒤, 뱀이 낡은 허물을 벗듯 한다는 비유로 끝난다. 이는 단순히 외부의 무언가를 포기한다는 뜻을 넘어, 마음을 속박하는 번뇌에서 벗어나는 수행의 모습을 상징적으로 보여 준다.
 
-## 먼저 바로잡을 점
+아래 글에서는 팔리어 원문을 바탕으로 주요 어휘와 문맥을 살펴본다. 직역과 해석을 구분하고, 반복되는 뱀의 비유가 각 게송의 가르침과 어떻게 연결되는지 하나씩 검토한다.
+
+## 본문과 번역에 관하여
+
+> **본문 기준**: SuttaCentral에 게시된 팔리어 본문을 기본으로 삼고, **Ancient Buddhist Texts**의 본문·판본 주석 및 타닛사로 비구의 번역을 교차 확인했다. 판본에 따라 일부 철자와 형태가 다를 수 있다.
+
+## 먼저 확인할 점
 
 - 이 경은 통상 **17개 게송**으로 수록된다.
 - 8~13번은 첫 행인 `Yo nāccasārī na paccasārī`를 반복하지만, 둘째 행이 각각 다르다. 그중 9번의 `sabbaṃ vitathamidanti ñatvā loke`를 빠뜨리면 이후 게송의 번호와 의미가 모두 어긋난다.
@@ -35,11 +41,12 @@ toc_sticky: true
 - `nāccasārī na paccasārī`를 '조급함과 무기력'으로 번역하는 것은 해설적 적용일 수 있지만, 그 두 한국어 단어가 팔리어의 직접적인 사전적 의미인 것은 아니다.
 - `orapāraṃ`은 글자 그대로 '이쪽 언덕과 저쪽 언덕'이다. 이를 윤회와 열반, 이 세상과 저 세상 등 어떤 개념에 대응시킬지는 해석의 문제이므로 한 가지 뜻으로 단정하지 않는다.
 
-## 반복되는 후렴
+## 반복되는 표현
 
 17개 게송에는 다음 후렴이 반복된다.
 
-> **So bhikkhu jahāti orapāraṃ,**  
+> **So bhikkhu jahāti orapāraṃ,**  
+
 > **Urago jiṇṇamivattacaṃ purāṇaṃ.**
 
 - `so` — 그 사람은, 그런 이는
@@ -61,14 +68,14 @@ toc_sticky: true
 
 ## 1. 분노 — 이미 일어난 분노를 다스리다
 
-### 팔리어
+### 팔리어 원문
 
 > Yo uppatitaṃ vineti kodhaṃ,  
 > Visaṭaṃ sappavisaṃva osadhehi;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `yo` — 누구든 …하는 사람은
 - `uppatitaṃ` — 일어난, 솟아오른
@@ -88,14 +95,14 @@ toc_sticky: true
 
 ## 2. 탐착 — 연꽃을 뿌리째 뽑듯
 
-### 팔리어
+### 팔리어 원문
 
 > Yo rāgamudacchidā asesaṃ,  
 > Bhisapupphaṃva saroruhaṃ vigayha;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `rāgaṃ` — 탐착, 욕정, 마음을 끌어당기는 애착을
 - `udacchidā` — 끊어냈다, 잘라냈다
@@ -116,14 +123,14 @@ toc_sticky: true
 
 ## 3. 갈애 — 빠르게 흐르는 물줄기를 말리다
 
-### 팔리어
+### 팔리어 원문
 
 > Yo taṇhamudacchidā asesaṃ,  
 > Saritaṃ sīghasaraṃ visosayitvā;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `taṇhaṃ` — 갈애를, 목마른 듯 계속 원하는 마음을
 - `udacchidā` — 끊어냈다
@@ -142,14 +149,14 @@ toc_sticky: true
 
 ## 4. 자만 — 약한 갈대 다리를 무너뜨리는 홍수
 
-### 팔리어
+### 팔리어 원문
 
 > Yo mānamudabbadhī asesaṃ,  
 > Naḷasetuṃva sudubbalaṃ mahogho;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `mānaṃ` — 자만, 자신을 남과 비교하며 높이거나 낮추는 마음을
 - `udabbadhī` — 무너뜨렸다, 파괴했다
@@ -168,14 +175,14 @@ toc_sticky: true
 
 ## 5. 존재의 핵심 — 무화과나무에서 꽃을 찾듯
 
-### 팔리어
+### 팔리어 원문
 
 > Yo nājjhagamā bhavesu sāraṃ,  
 > Vicinaṃ pupphamivā udumbaresu;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `yo` — 누구든 …하는 사람은
 - `na ajjhagamā` — 발견하지 못했다, 도달하지 못했다
@@ -197,14 +204,14 @@ toc_sticky: true
 
 ## 6. 마음속 분노 — 존재의 이런저런 상태를 넘어섬
 
-### 팔리어
+### 팔리어 원문
 
 > Yassantarato na santi kopā,  
 > Itibhavābhavatañca vītivatto;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `yassa` — 그에게, 그런 사람에게
 - `antarato` — 안쪽에서, 마음속에
@@ -223,14 +230,14 @@ toc_sticky: true
 
 ## 7. 생각과 사유 — 마음속의 얽힌 생각을 걷어내다
 
-### 팔리어
+### 팔리어 원문
 
 > Yassa vitakkā vidhūpitā,  
 > Ajjhattaṃ suvikappitā asesā;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `vitakkā` — 생각들, 사유들. 문맥에 따라 숙고나 개념적 사유를 뜻할 수 있다.
 - `vidhūpitā` — 흩어진, 쫓겨난, 제거된
@@ -248,14 +255,14 @@ toc_sticky: true
 
 ## 8. 지나침과 뒤처짐 — 개념적 증식을 넘어섬
 
-### 팔리어
+### 팔리어 원문
 
 > Yo nāccasārī na paccasārī,  
 > Sabbaṃ accagamā imaṃ papañcaṃ;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `nāccasārī` — 지나치게 앞질러 가지 않은, 한계를 넘어 달리지 않은
 - `na paccasārī` — 뒤처지지 않은, 뒤로 물러나지 않은
@@ -275,14 +282,14 @@ toc_sticky: true
 
 ## 9. 세상의 실상 — '이 모든 것은 사실과 다르다'고 알다
 
-### 팔리어
+### 팔리어 원문
 
 > Yo nāccasārī na paccasārī,  
 > Sabbaṃ vitathamidanti ñatvā loke;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `yo nāccasārī na paccasārī` — 지나치게 앞서지도 뒤처지지도 않는 사람은
 - `sabbaṃ` — 모든 것이, 이 모든 것을
@@ -302,14 +309,14 @@ toc_sticky: true
 
 ## 10. 탐욕 — 붙잡으려는 욕심에서 벗어남
 
-### 팔리어
+### 팔리어 원문
 
 > Yo nāccasārī na paccasārī,  
 > Sabbaṃ vitathamidanti vītalobho;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `vītalobho` — 탐욕을 여읜, 탐욕에서 벗어난
 - `lobha` — 탐욕, 움켜쥐고 자기 것으로 만들려는 욕심
@@ -325,14 +332,14 @@ toc_sticky: true
 
 ## 11. 탐착 — 마음을 사로잡는 열정에서 벗어남
 
-### 팔리어
+### 팔리어 원문
 
 > Yo nāccasārī na paccasārī,  
 > Sabbaṃ vitathamidanti vītarāgo;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `vītarāgo` — 탐착·욕정에서 벗어난
 - `rāga` — 탐착, 욕정, 매혹이나 집착의 정서
@@ -347,14 +354,14 @@ toc_sticky: true
 
 ## 12. 성냄과 혐오 — 적대적인 반응에서 벗어남
 
-### 팔리어
+### 팔리어 원문
 
 > Yo nāccasārī na paccasārī,  
 > Sabbaṃ vitathamidanti vītadoso;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `vītadoso` — 성냄·혐오를 여읜
 - `dosa` — 성냄, 혐오, 밀어내려는 적대적 마음
@@ -369,14 +376,14 @@ toc_sticky: true
 
 ## 13. 미혹 — 어리석음을 여읨
 
-### 팔리어
+### 팔리어 원문
 
 > Yo nāccasārī na paccasārī,  
 > Sabbaṃ vitathamidanti vītamoho;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `vītamoho` — 미혹·어리석음을 여읜
 - `moha` — 미혹, 어리석음, 사물을 바르게 보지 못하는 상태
@@ -391,14 +398,14 @@ toc_sticky: true
 
 ## 14. 잠재된 성향 — 번뇌의 뿌리가 뽑힘
 
-### 팔리어
+### 팔리어 원문
 
 > Yassānusayā na santi keci,  
 > Mūlā ca akusalā samūhatāse;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `yassa` — 그에게, 그런 사람에게
 - `anusayā` — 잠재된 성향, 잠복해 있는 번뇌의 경향
@@ -417,14 +424,14 @@ toc_sticky: true
 
 ## 15. 번민에서 비롯된 조건 — 이쪽으로 되돌아올 원인이 없음
 
-### 팔리어
+### 팔리어 원문
 
 > Yassa darathajā na santi keci,  
 > Oraṃ āgamanāya paccayāse;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `darathajā` — 번민·괴로움·초조함에서 생겨난 것들
 - `na santi keci` — 아무것도 남아 있지 않다
@@ -441,14 +448,14 @@ toc_sticky: true
 
 ## 16. 욕망에서 비롯된 속박 — 존재에 묶는 원인이 사라짐
 
-### 팔리어
+### 팔리어 원문
 
 > Yassa vanathajā na santi keci,  
 > Vinibandhāya bhavāya hetukappā;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `vanathajā` — 욕망·탐착에서 생겨난 것들. `vanatha`에는 욕망이나 얽매임을 나타내는 뉘앙스가 있다.
 - `na santi keci` — 어떤 것도 남아 있지 않다
@@ -466,14 +473,14 @@ toc_sticky: true
 
 ## 17. 다섯 가지 장애 — 의심과 마음의 화살을 넘어섬
 
-### 팔리어
+### 팔리어 원문
 
 > Yo nīvaraṇe pahāya pañca,  
 > Anigho tiṇṇakathaṅkatho visallo;  
 > So bhikkhu jahāti orapāraṃ,  
 > Urago jiṇṇamivattacaṃ purāṇaṃ.
 
-### 주요 어휘
+### 주요 어휘와 해석
 
 - `nīvaraṇe` — 장애들을, 마음을 가로막는 것들을
 - `pahāya` — 버리고 나서, 내려놓고
@@ -508,15 +515,23 @@ toc_sticky: true
 
 「뱀의 경」은 공통 후렴을 반복하는 여러 시적 게송으로 이루어져 있다. 타닛사로 비구는 여러 초기 불교 학파의 전승을 비교한 연구를 인용하며, 이와 비슷한 게송들이 원래 서로 다른 때에 읊어진 시였을 가능성을 언급한다. 그러므로 이를 흥미로운 가능성으로 소개할 수는 있지만, 각각의 게송이 언제 어떤 상황에서 만들어졌는지 확정되었다고 해서는 안 된다. 이 문헌은 초기 불교의 사유를 살펴보는 중요한 자료이지만, 역사적 인물의 말을 녹음한 기록과 똑같이 취급할 수는 없다.
 
+## 번역상 주의할 점
+
+- 팔리어 어휘의 직역과 불교적 해석을 구분한다. 예를 들어 `sāra`는 '핵심·알맹이'를 뜻하지만, 그 자체로 '영원한 본질'을 뜻하지는 않는다.
+- `itibhavābhavataṃ`, `suvikappitā`, `papañca` 등은 문맥과 주석에 따라 해석이 갈릴 수 있으므로 단일한 뜻으로 단정하지 않는다.
+- `orapāraṃ`은 우선 '이쪽과 저쪽의 언덕'이라는 이미지를 살려 옮기고, 이를 특정 교리 개념과 동일시하는 것은 별도의 해석으로 표시한다.
+- 이 17개 게송을 모두 역사적 고타마의 축어록으로 단정하지 않는다. 경전은 초기 불교의 사유를 살펴보는 중요한 문헌 자료이지만, 문헌의 형성과 전승에는 연구상의 한계가 있다.
+
 ## 참고 자료
 
-1. [SuttaCentral — Snp 1.1 Uragasutta, 팔리어 본문](https://suttacentral.net/snp1.1/pli/ms)  
-   본문 17개 게송의 순서와 표기를 확인하는 기본 자료.
-2. [Ancient Buddhist Texts — Uraga Verses: The Establishment of the Pāḷi Text](https://ancient-buddhist-texts.net/Buddhist-Texts/C4-Uraga-Verses/01-Establishment.htm)  
-   팔리어 본문과 판본 차이, 운율 및 특정 어휘에 관한 상세 주석.
-3. [Access to Insight — Thanissaro Bhikkhu, “Uraga Sutta: The Snake”](https://www.accesstoinsight.org/tipitaka/kn/snp/snp.1.01.than.html)  
-   영문 번역과 게송들이 별도의 시였을 가능성에 관한 번역자 주석.
-4. [A Buddha Ujja — Uraga Sutta, Amaravati 번역](https://a-buddha-ujja.hu/snp-1.1/en/amaravati)  
-   다른 현대 번역과 표현을 비교할 때 참고할 수 있는 자료.
+1. [SuttaCentral — Snp 1.1 Uragasutta, 팔리어 본문](https://suttacentral.net/snp1.1/pli/ms)  
 
-> **편집 원칙:** 이 글의 한국어 번역은 위 자료들을 대조해 새로 정리한 해설 번역이다. 특정 한국어 번역본의 문장을 그대로 옮긴 것이 아니며, 해석이 갈리는 구절은 단정하지 않고 그 불확실성을 본문에 표시했다.
+   본문 17개 게송의 순서와 표기를 확인하는 기본 자료. 2. [Ancient Buddhist Texts — Uraga Verses: The Establishment of the Pāḷi Text](https://ancient-buddhist-texts.net/Buddhist-Texts/C4-Uraga-Verses/01-Establishment.htm)  
+
+   팔리어 본문과 판본 차이, 운율 및 특정 어휘에 관한 상세 주석. 3. [Access to Insight — Thanissaro Bhikkhu, “Uraga Sutta: The Snake”](https://www.accesstoinsight.org/tipitaka/kn/snp/snp.1.01.than.html)  
+
+   영문 번역과 게송들이 별도의 시였을 가능성에 관한 번역자 주석. 4. [A Buddha Ujja — Uraga Sutta, Amaravati 번역](https://a-buddha-ujja.hu/snp-1.1/en/amaravati)  
+
+   다른 현대 번역과 표현을 비교할 때 참고할 수 있는 자료.
+
+> **편집 원칙:** 이 글의 한국어 번역은 팔리어 본문과 참고 번역을 대조해 정리한 편집 번역이다. 해석이 갈리는 구절은 단정하지 않고, 직역·의역·주석을 구분했다.
