@@ -1,9 +1,9 @@
 ---
 title: "Intellij 단축키 및 설정"
 excerpt: "Intellij 단축키 및 설정"
-categories: 
+categories:
   - idea
-tags: 
+tags:
   - intellij
 last_modified_at: 2021-07-04T00:00:00+09:00
 toc: true
@@ -11,48 +11,64 @@ toc_sticky: true
 ---
 
 ## Intro
+
 eclipse, vscode, intellij 혼합해서 사용하다 보니 단축키가 자주 헷갈린다.
 내가 종종 사용하는 기능이 인터넷 올라와 있는 여러 단축키 글들 중에서 없는 것도 많아.
 개인적인 참고용으로 작성한다.
 
 ## Welcome to IntelliJ IDEA
+
 intellij 실행시 기본적으로 마지막 작업 프로젝트가 자동으로 Open 된다. 아래 두 가지 방법이 있다.
+
 - **File → Close Project** : 현재 프로젝트를 닫고 프로젝트 선택 화면을 띄운다.
 - **Settings → Appearance & Behavior → System Settings → Reopen last project on startup** 체크 해제 : intellij 시작시 프로젝트 선택 화면을 띄운다.
 
 ## Code Assist 기능 사용시 대/소 문자 구분 해제
+
 Code Assist 기능 사용시 대/소 문자 구분하도록 세팅되어있다. 핵불편...<br>
+
 - **Settings → Editor → General → Code Completion → Match case** 체크 해제
 
 ## auto build
+
 소스 코드 변경시 자동 빌드 후 재실행 시켜준다.
+
 - **Settings → Build, Execution, Deployment → Compiler** : build project automatically 체크
 - **Ctrl + Alt + Shift + /** 검색창에서 Registry 선택 : compiler.automake.allow.when.app.running 체크
 
 ## auto import 문제
+
 **Ctrl + Alt + O** (Optimize Imports) 사용되지 않은 import 제거되나 새로운 패키지를 가져 오지 않음.
-- **Settings → Editor → General → Auto Import** 세팅의 아래 두 항목 
+
+- **Settings → Editor → General → Auto Import** 세팅의 아래 두 항목
   - Add unambiguous imports on the fly
   - Optimize imports on the fly (for current project)
-  
+
 ## Indexing
+
 intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 필요 없는 폴더는 exclude 시키자. 난 node_modules 를 exclude 시키기 위해서 찾아본 기능인데 target이랑 node_modules은 기본적으로 exclude가 되어 있었다.
+
 - **File → Project Structure → Modules → Sources tab.**
 
 ## Typo: In word 없애기
+
 **F2** : (highlighted error) 검사시 스펠링 체크 해제
+
 - **Editor → Inspections → Spelling** 체크 해제
 
 ## 자동저장 해제
+
 - **Settings → Appearance & Behavior → System Settings** : Save files... 2개 항목 체크 해제
 - **Settings → Editor → General → Editor Tabs** : 파일 수정시 \*표시해주기 위해 Mark modified 체크
 
-## import * 해제
+## import \* 해제
+
 - **Settings → Editor → Code Style → Java → Imports**
-  - "Class count to use import with '*" : 10
-  - "Names count to use static import with '*'" : 10
+  - "Class count to use import with '\*" : 10
+  - "Names count to use static import with '\*'" : 10
 
 ## plugins
+
 - Key Promoter X
   - 마우스로 실행시 해당 액션에 바인딩된 단축키를 알려준다.
   - 단축키를 익힐 때 사용하면 좋음.
@@ -68,16 +84,18 @@ intellij 가 종종 하단부에 Indexing 작업을 하는게 보일 것이다. 
   - 함수복잡도를 나타내준다.
 
 ## Disabling "Restore defaults" ctrl+alt+F8
-디버깅시 ctrl + alt + f8 단축키를 사용할 때가 있는데  
-Intel(R) HD Graphics Control Panel에서도 해당 단축키를 사용하고 있고 Disable도 불가능하게 해놓아서 킹받음 아래 방법으로 서비스를 중지하면 된다.  
 
-1) Go to Start menu, search for services.msc.  
-2 )Find the "Service for Intel(R) HD Graphics Control Panel" service.  
-3) Disable it (open it's properties, stop it AND make sure to set its' startup type to "Disabled")  
-4) Open the task manager and kill all processes with names that start with "igfx".  
-Voila. It's gone. Use system dialogs if you need to change the graphics settings.  
+디버깅시 ctrl + alt + f8 단축키를 사용할 때가 있는데  
+Intel(R) HD Graphics Control Panel에서도 해당 단축키를 사용하고 있고 Disable도 불가능하게 해놓아서 킹받음 아래 방법으로 서비스를 중지하면 된다.
+
+1. Go to Start menu, search for services.msc.  
+   2 )Find the "Service for Intel(R) HD Graphics Control Panel" service.
+2. Disable it (open it's properties, stop it AND make sure to set its' startup type to "Disabled")
+3. Open the task manager and kill all processes with names that start with "igfx".  
+   Voila. It's gone. Use system dialogs if you need to change the graphics settings.
 
 ## Editor Actions
+
 - **Ctrl + D** : (Duplicate Line or Selection)
   - ★★★★★
   - 커서 위치한 라인이나 선택영역을 복사생성한다.
@@ -86,6 +104,7 @@ Voila. It's gone. Use system dialogs if you need to change the graphics settings
   - 선택영역 대소문자 변경 토글
 
 ## Main menu
+
 - **Alt + Insert** : (Code → Generate...)
   - ★★★★★
   - 생성도구
@@ -105,7 +124,7 @@ Voila. It's gone. Use system dialogs if you need to change the graphics settings
   - 코드 자동 생성(ex. try catch)
 - **Ctrl + Shift + Enter** : (Edit → Complete Current Statement)
   - ★★★
-  - 커서 기준으로 마지막에 ;를 입력해준다. 
+  - 커서 기준으로 마지막에 ;를 입력해준다.
 - **Alt + W** : (Edit → Extend Selection)
   - ★★★★★
   - 커서 기준으로 선택영역을 확장한다.
@@ -164,22 +183,25 @@ Voila. It's gone. Use system dialogs if you need to change the graphics settings
   - ★★★★★
 
 ## Tool Windows
+
 - **Alt + 0~9** : (Tool Windows)
   - ★
   - 번호에 따라 tool창에 포커싱 된다.
 
 ## Refactor
+
 - **CTRL + Alt + V** : (Introduce Variable)
   - ★★★★★
-  - 해당라인에 변수를 생성해준다. 
-  
+  - 해당라인에 변수를 생성해준다.
+
 ## Other
+
 - **Ctrl + Tab** : (Switcher)
   - ★★★★★
   - 이전 편집탭 돌아가기
- 
 
 ## Live Templates
+
 i18n 다국어 관련 자주 사용하는 문구를 등록해봅시다.  
 `{t('')}`를 입력하고 커서를 `''` 사이 중앙에 위치시키려면 다음과 같이 하면 됩니다:
 
@@ -199,4 +221,4 @@ i18n 다국어 관련 자주 사용하는 문구를 등록해봅시다.
    - 이 기능에 단축키를 할당하려면 우측 클릭 후 `Add Keyboard Shortcut`을 선택합니다.
    - 원하는 단축키 조합을 입력하고 `OK`를 클릭합니다. (이 단계에서는 기존 단축키와 충돌하지 않는 조합을 선택해야 합니다.)
 
-이렇게 설정하면 지정한 단축키를 눌렀을 때 `{t('')}`가 삽입되고 커서가 `''` 사이 중앙에 위치하게 됩니다. 이 과정은 IntelliJ IDEA의 버전이나 업데이트에 따라 약간 다를 수 있으니 참고하시기 바랍니다. 
+이렇게 설정하면 지정한 단축키를 눌렀을 때 `{t('')}`가 삽입되고 커서가 `''` 사이 중앙에 위치하게 됩니다. 이 과정은 IntelliJ IDEA의 버전이나 업데이트에 따라 약간 다를 수 있으니 참고하시기 바랍니다.
