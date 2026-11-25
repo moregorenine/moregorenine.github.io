@@ -14,7 +14,7 @@ tags:
     - permissions
     - statusline
     - guide
-last_modified_at: 2026-11-25T19:54:00+09:00
+last_modified_at: 2026-11-25T20:15:00+09:00
 toc: true
 toc_sticky: true
 ---
@@ -192,9 +192,9 @@ agy --dangerously-skip-permissions
 > **Windows 경로 주의사항**  
 > `agy`는 `statusLine.command` 문자열의 **맨 앞에 있는 `~`만** 홈 디렉터리로 치환합니다. `node ~/.gemini/...`처럼 중간에 `~`를 넣으면 Windows `cmd /c`에서 확장되지 않으므로, `"~/.gemini/antigravity-cli/statusline.cmd"`처럼 래퍼 스크립트를 두거나 절대 경로를 지정하는 것이 안전합니다.
 
-#### 2) 토큰 사용량 + 5시간/주간 사용률·남은 시간 출력 스크립트
+#### 2) 토큰 사용량 + 5시간/주간 잔여 비율·남은 시간 출력 스크립트
 
-외부 패키지(`jq` 등) 없이 Node.js만으로 `stdin` JSON을 파싱해 `토큰 14.2% · 149.3k │ 5h 1% · 4h45m │ 주간 11% · 6d2h` 형태로 출력하는 예시입니다.
+외부 패키지(`jq` 등) 없이 Node.js만으로 `stdin` JSON을 파싱해 `16.6% · 234.6k │ 99% · 3h48m │ 89% · 6d1h` 형태로 출력하는 예시입니다. (앞에서부터 `컨텍스트 사용률 · 누적 토큰 │ 5시간 한도 남은비율 · 남은시간 │ 주간 한도 남은비율 · 남은시간`을 뜻합니다.)
 
 **`~/.gemini/antigravity-cli/statusline.mjs`**
 ```javascript
@@ -234,9 +234,9 @@ function formatRemaining(bucket) {
   return `${mins}m`;
 }
 
-function colorForPct(pct) {
-  if (pct >= 90) return RED;
-  if (pct >= 60) return YELLOW;
+function colorForRemainingPct(remPct) {
+  if (remPct <= 10) return RED;
+  if (remPct <= 40) return YELLOW;
   return GREEN;
 }
 
@@ -255,16 +255,14 @@ function pickBuckets(quota, model) {
   return { short: findBucket('5h'), weekly: findBucket('weekly') };
 }
 
-function formatQuotaPart(label, bucket, compact) {
+function formatQuotaPart(bucket) {
   if (!bucket || bucket.disabled || !Number.isFinite(bucket.remaining_fraction)) {
-    return `${GRAY}${label} -${R}`;
+    return `${GRAY}-${R}`;
   }
-  const usedPct = Math.max(0, Math.min(100, Math.round((1 - bucket.remaining_fraction) * 100)));
+  const remPct = Math.max(0, Math.min(100, Math.round(bucket.remaining_fraction * 100)));
   const remain = formatRemaining(bucket);
-  const c = colorForPct(usedPct);
-  return compact
-    ? `${GRAY}${label} ${c}${BOLD}${usedPct}%${R}${GRAY}(${remain})${R}`
-    : `${GRAY}${label} ${c}${BOLD}${usedPct}%${R} ${GRAY}· ${WHITE}${remain}${R}`;
+  const c = colorForRemainingPct(remPct);
+  return `${c}${BOLD}${remPct}%${R} ${GRAY}· ${WHITE}${remain}${R}`;
 }
 
 try {
@@ -273,22 +271,18 @@ try {
   const cw = data.context_window ?? {};
   const usedPct = Number.isFinite(cw.used_percentage) ? cw.used_percentage : 0;
   const totalTokens = (cw.total_input_tokens ?? 0) + (cw.total_output_tokens ?? 0);
-  const width = Number.isFinite(data.terminal_width) ? data.terminal_width : 100;
-  const compact = width < 85;
 
   const pctColor = usedPct >= 90 ? RED : usedPct >= 60 ? YELLOW : CYAN;
-  const tokenPart = compact
-    ? `${GRAY}토큰 ${pctColor}${BOLD}${usedPct.toFixed(1)}%${R}${GRAY}(${formatTokens(totalTokens)})${R}`
-    : `${GRAY}토큰 ${pctColor}${BOLD}${usedPct.toFixed(1)}%${R} ${GRAY}· ${WHITE}${formatTokens(totalTokens)}${R}`;
+  const tokenPart = `${pctColor}${BOLD}${usedPct.toFixed(1)}%${R} ${GRAY}· ${WHITE}${formatTokens(totalTokens)}${R}`;
 
   const { short, weekly } = pickBuckets(data.quota, data.model);
-  const shortPart = formatQuotaPart('5h', short, compact);
-  const weeklyPart = formatQuotaPart(compact ? '주' : '주간', weekly, compact);
+  const shortPart = formatQuotaPart(short);
+  const weeklyPart = formatQuotaPart(weekly);
   const sep = `${GRAY} │ ${R}`;
 
   process.stdout.write(`${tokenPart}${sep}${shortPart}${sep}${weeklyPart}\n`);
 } catch {
-  process.stdout.write(`${GRAY}토큰 - │ 5h - │ 주간 -${R}\n`);
+  process.stdout.write(`${GRAY}- │ - │ -${R}\n`);
 }
 ```
 
