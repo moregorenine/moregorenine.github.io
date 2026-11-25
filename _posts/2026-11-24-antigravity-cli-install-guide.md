@@ -14,7 +14,7 @@ tags:
     - permissions
     - statusline
     - guide
-last_modified_at: 2026-11-25T19:18:00+09:00
+last_modified_at: 2026-11-25T19:54:00+09:00
 toc: true
 toc_sticky: true
 ---
@@ -119,6 +119,44 @@ agy --dangerously-skip-permissions
 
 > **보안 팁: 무조건 전체 우회 대신 세부 권한 규칙 활용하기**  
 > 모든 권한 확인을 생략하는 `--dangerously-skip-permissions`(또는 `settings.json`의 `"toolPermission": "always-proceed"`)는 의도치 않은 삭제나 외부 요청까지 확인 없이 실행할 수 있어 주의가 필요합니다. 특정 CLI 명령어만 안전하게 자동 허용하고 싶다면 `agy` 내부에서 `/permissions`를 입력하거나 `settings.json`의 `permissions`(`allow` / `ask` / `deny`) 규칙으로 `command(git)`, `command(regex:npm run (build|lint|test))`처럼 허용 대상을 좁혀 두는 편이 훨씬 안전합니다.
+
+#### 3) 셸 별칭(Alias) · 함수로 짧은 명령어 등록하기
+
+매번 `agy --dangerously-skip-permissions`처럼 긴 옵션을 입력하는 것이 번거롭다면, 사용 중인 셸 설정에 짧은 별칭(Alias)이나 래퍼 함수를 등록해 간단히 실행할 수 있습니다.
+
+- **macOS / Linux (`zsh` / `bash`)**  
+  사용 중인 셸 설정 파일(`~/.zshrc` 또는 `~/.bashrc`) 끝에 아래 줄을 추가합니다.
+  ```bash
+  # 권장: 기본 agy는 안전하게 두고 별도 단축어(agyd)로 분리
+  alias agyd='agy --dangerously-skip-permissions'
+
+  # 또는 agy 실행 시 항상 옵션을 붙이려면 아래처럼 설정
+  # alias agy='agy --dangerously-skip-permissions'
+  ```
+  저장 후 `source ~/.zshrc`(또는 `source ~/.bashrc`)를 실행해 즉시 반영합니다.
+
+- **Windows (`PowerShell`)**  
+  PowerShell에서는 프로필(`$PROFILE`)에 `@args`를 전달하는 함수를 등록합니다. (`@args`가 있어야 `-c`, `-p`, `--model` 등 추가 인자도 그대로 넘겨집니다.)
+  1. 프로필 파일이 없다면 생성한 뒤 편집기로 엽니다.
+     ```powershell
+     if (!(Test-Path $PROFILE)) { New-Item -ItemType File -Path $PROFILE -Force }
+     notepad $PROFILE
+     ```
+  2. 아래 함수를 추가하고 저장합니다. *(설치 방식에 따라 실행 파일이 `.cmd`/`.bat`라면 `agy.exe` 대신 해당 파일명을 지정합니다.)*
+     ```powershell
+     # 권장: 기본 agy는 유지하고 agyd 단축어로 분리
+     function agyd {
+         & agy.exe --dangerously-skip-permissions @args
+     }
+
+     # 또는 agy 자체에 기본 옵션을 붙이려면
+     # function agy {
+     #     & agy.exe --dangerously-skip-permissions @args
+     # }
+     ```
+  3. PowerShell을 다시 열거나 `. $PROFILE`을 실행해 바로 적용합니다.
+
+> **실전 팁:** `--dangerously-skip-permissions`는 모든 확인 절차를 생략하므로, 기본 `agy` 명령어는 그대로 두고 `agyd` (`agy dangerous`) 같은 별도 이름으로 분리해 두면 일반 작업과 완전 자동화 작업을 상황에 따라 골라 쓰기 좋습니다.
 
 ---
 
