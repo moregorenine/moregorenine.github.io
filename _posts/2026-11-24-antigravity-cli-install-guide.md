@@ -14,7 +14,7 @@ tags:
     - permissions
     - statusline
     - guide
-last_modified_at: 2026-11-25T20:15:00+09:00
+last_modified_at: 2026-11-26T22:41:00+09:00
 toc: true
 toc_sticky: true
 ---
@@ -162,7 +162,7 @@ agy --dangerously-skip-permissions
 
 ### 5. 하단 상태 표시줄(`statusLine`) 커스터마이징 — 토큰·한도 표시
 
-`agy` 하단의 상태 표시줄은 에이전트 상태가 바뀔 때마다 외부 스크립트를 호출해 원하는 정보를 출력하도록 커스터마이징할 수 있습니다. 스크립트 `stdin`으로 전달되는 JSON에는 `context_window`(토큰 사용량·비율)와 `quota`(모델 그룹별 한도 및 갱신 남은 시간)가 포함됩니다.
+`agy` 하단의 상태 표시줄은 에이전트 상태가 바뀔 때마다 외부 스크립트를 호출해 원하는 정보를 출력하도록 커스터마이징할 수 있습니다. 스크립트 `stdin`으로 전달되는 JSON에는 `context_window`(컨텍스트 사용률·최대 용량)와 `quota`(모델 그룹별 한도 및 갱신 시각)가 포함됩니다.
 
 > **참고: Antigravity 쿼터 구조 (`/usage`)**  
 > Antigravity의 모델 쿼터는 일간(24시간) 단위가 아니라 **5시간 한도(`5h`)**와 **주간 한도(`weekly`)** 두 가지로 관리됩니다(`/usage` 또는 `/quota`로 확인 가능). Gemini 계열은 `gemini-5h` / `gemini-weekly`, Claude·GPT 계열은 `3p-5h` / `3p-weekly` 버킷으로 전달됩니다.
@@ -192,9 +192,9 @@ agy --dangerously-skip-permissions
 > **Windows 경로 주의사항**  
 > `agy`는 `statusLine.command` 문자열의 **맨 앞에 있는 `~`만** 홈 디렉터리로 치환합니다. `node ~/.gemini/...`처럼 중간에 `~`를 넣으면 Windows `cmd /c`에서 확장되지 않으므로, `"~/.gemini/antigravity-cli/statusline.cmd"`처럼 래퍼 스크립트를 두거나 절대 경로를 지정하는 것이 안전합니다.
 
-#### 2) 토큰 사용량 + 5시간/주간 잔여 비율·남은 시간 출력 스크립트
+#### 2) 컨텍스트 사용량/한도 + 5시간/주간 잔여 비율·갱신 시각 출력 스크립트
 
-외부 패키지(`jq` 등) 없이 Node.js만으로 `stdin` JSON을 파싱해 `16.6% · 234.6k │ 99% · 3h48m │ 89% · 6d1h` 형태로 출력하는 예시입니다. (앞에서부터 `컨텍스트 사용률 · 누적 토큰 │ 5시간 한도 남은비율 · 남은시간 │ 주간 한도 남은비율 · 남은시간`을 뜻합니다.)
+외부 패키지(`jq` 등) 없이 Node.js만으로 `stdin` JSON을 파싱해 `ctx: 5% (52k/1049k) │ 96% (~02:25) │ 98% (~12/03 16:25)` 형태로 출력하는 예시입니다. (앞에서부터 `컨텍스트 사용률 (사용량/최대 용량) │ 5시간 한도 남은비율 (~갱신 시각) │ 주간 한도 남은비율 (~갱신 시각)`을 뜻합니다.)
 
 **`~/.gemini/antigravity-cli/statusline.mjs`**
 ```javascript
@@ -211,27 +211,32 @@ const WHITE = '\x1b[97m';
 
 function formatTokens(n) {
   if (!Number.isFinite(n) || n <= 0) return '0';
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}k`;
+  if (n >= 1_000) return `${Math.round(n / 1_000)}k`;
   return String(Math.round(n));
 }
 
-function formatRemaining(bucket) {
-  let secs = bucket?.reset_in_seconds;
-  if (!Number.isFinite(secs) && bucket?.reset_time) {
+function pad2(n) {
+  return String(n).padStart(2, '0');
+}
+
+function getResetTimestampMs(bucket) {
+  if (bucket?.reset_time) {
     const target = Date.parse(bucket.reset_time);
-    if (Number.isFinite(target)) {
-      secs = Math.max(0, Math.floor((target - Date.now()) / 1000));
-    }
+    if (Number.isFinite(target)) return target;
   }
-  if (!Number.isFinite(secs) || secs < 0) return '-';
-  if (secs < 60) return '<1m';
-  const days = Math.floor(secs / 86400);
-  const hours = Math.floor((secs % 86400) / 3600);
-  const mins = Math.floor((secs % 3600) / 60);
-  if (days > 0) return hours > 0 ? `${days}d${hours}h` : `${days}d`;
-  if (hours > 0) return mins > 0 ? `${hours}h${mins}m` : `${hours}h`;
-  return `${mins}m`;
+  if (Number.isFinite(bucket?.reset_in_seconds) && bucket.reset_in_seconds >= 0) {
+    return Date.now() + bucket.reset_in_seconds * 1000;
+  }
+  return NaN;
+}
+
+function formatResetAt(bucket, includeDate) {
+  const targetMs = getResetTimestampMs(bucket);
+  if (!Number.isFinite(targetMs)) return '-';
+  const d = new Date(targetMs);
+  const hhmm = `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+  if (!includeDate) return `~${hhmm}`;
+  return `~${pad2(d.getMonth() + 1)}/${pad2(d.getDate())} ${hhmm}`;
 }
 
 function colorForRemainingPct(remPct) {
@@ -255,14 +260,14 @@ function pickBuckets(quota, model) {
   return { short: findBucket('5h'), weekly: findBucket('weekly') };
 }
 
-function formatQuotaPart(bucket) {
+function formatQuotaPart(bucket, includeDate) {
   if (!bucket || bucket.disabled || !Number.isFinite(bucket.remaining_fraction)) {
     return `${GRAY}-${R}`;
   }
   const remPct = Math.max(0, Math.min(100, Math.round(bucket.remaining_fraction * 100)));
-  const remain = formatRemaining(bucket);
+  const resetAt = formatResetAt(bucket, includeDate);
   const c = colorForRemainingPct(remPct);
-  return `${c}${BOLD}${remPct}%${R} ${GRAY}· ${WHITE}${remain}${R}`;
+  return `${c}${BOLD}${remPct}%${R} ${GRAY}(${WHITE}${resetAt}${GRAY})${R}`;
 }
 
 try {
@@ -270,19 +275,28 @@ try {
   const data = raw ? JSON.parse(raw) : {};
   const cw = data.context_window ?? {};
   const usedPct = Number.isFinite(cw.used_percentage) ? cw.used_percentage : 0;
-  const totalTokens = (cw.total_input_tokens ?? 0) + (cw.total_output_tokens ?? 0);
+  const maxTokens = Number.isFinite(cw.context_window_size) && cw.context_window_size > 0
+    ? cw.context_window_size
+    : 0;
+  const usedTokens = maxTokens > 0
+    ? (usedPct / 100) * maxTokens
+    : (cw.total_input_tokens ?? 0) + (cw.total_output_tokens ?? 0);
 
   const pctColor = usedPct >= 90 ? RED : usedPct >= 60 ? YELLOW : CYAN;
-  const tokenPart = `${pctColor}${BOLD}${usedPct.toFixed(1)}%${R} ${GRAY}· ${WHITE}${formatTokens(totalTokens)}${R}`;
+  const pctStr = `${Math.round(usedPct)}%`;
+  const usageStr = maxTokens > 0
+    ? `${formatTokens(usedTokens)}/${formatTokens(maxTokens)}`
+    : formatTokens(usedTokens);
+  const ctxPart = `${GRAY}ctx: ${pctColor}${BOLD}${pctStr}${R} ${GRAY}(${WHITE}${usageStr}${GRAY})${R}`;
 
   const { short, weekly } = pickBuckets(data.quota, data.model);
-  const shortPart = formatQuotaPart(short);
-  const weeklyPart = formatQuotaPart(weekly);
+  const shortPart = formatQuotaPart(short, false);
+  const weeklyPart = formatQuotaPart(weekly, true);
   const sep = `${GRAY} │ ${R}`;
 
-  process.stdout.write(`${tokenPart}${sep}${shortPart}${sep}${weeklyPart}\n`);
+  process.stdout.write(`${ctxPart}${sep}${shortPart}${sep}${weeklyPart}\n`);
 } catch {
-  process.stdout.write(`${GRAY}- │ - │ -${R}\n`);
+  process.stdout.write(`${GRAY}ctx: - │ - │ -${R}\n`);
 }
 ```
 
